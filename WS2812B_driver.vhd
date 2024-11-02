@@ -7,26 +7,26 @@ entity WS2812B_driver is
 		clk : in std_logic;
 		enable : in std_logic;
 		
-		green_pos : in integer range 1 to 4;
-		red_pos : in integer range 1 to 4;
-		blue_pos : in integer range 1 to 4;
-		yellow_pos : in integer range 1 to 4;
+		green_pos : in integer range 0 to 3;
+		red_pos : in integer range 0 to 3;
+		blue_pos : in integer range 0 to 3;
+		yellow_pos : in integer range 0 to 3;
 		
 		leds_line : out std_logic := '0'
 	);
 end entity;
 
 architecture behaviour of WS2812B_driver is
-	signal step : integer range 1 to 63;
-	signal bit_proceed : integer range 1 to 24;
-	signal led_proceed : integer range 1 to 4;
+	signal step : integer range 0 to 62;
+	signal bit_proceed : integer range 0 to 23;
+	signal led_proceed : integer range 0 to 3;
 	
 	type t_stage is (WaitStart, SendLEDsData, ValidateSeq);
 	signal stage : t_stage := WaitStart;
 	
 	
-	constant HIGH_DURATION_FOR_CODE_1 : integer := 40;
-	constant HIGH_DURATION_FOR_CODE_0 : integer := 20;
+	constant HIGH_DURATION_FOR_CODE_1 : integer := 39;
+	constant HIGH_DURATION_FOR_CODE_0 : integer := 19;
 	
 	function ite(b: boolean; x, y: integer) return integer is
 	begin
@@ -38,14 +38,14 @@ architecture behaviour of WS2812B_driver is
 	end function ite;
 	
 	function serial_state_led_line_for_color (
-		step : integer range 1 to 63;
-		bit_proceed : integer range 1 to 24;
+		step : integer range 0 to 62;
+		bit_proceed : integer range 0 to 23;
 		
 		green: integer range 0 to 255;
 		red: integer range 0 to 255;
 		blue: integer range 0 to 255
 	) return std_logic is
-		variable data :  std_logic_vector(1 to 24);
+		variable data :  std_logic_vector(0 to 23);
 	begin
 		data := std_logic_vector( to_unsigned( green, 8)) & std_logic_vector( to_unsigned( red, 8)) & std_logic_vector( to_unsigned( blue, 8));
 	
@@ -60,15 +60,15 @@ architecture behaviour of WS2812B_driver is
 	
 	
 	function serial_state_led_line (
-		step : integer range 1 to 63;
-		bit_proceed : integer range 1 to 24;
+		step : integer range 0 to 62;
+		bit_proceed : integer range 0 to 23;
 		
-		led_pos : integer range 1 to 4;
+		led_pos : integer range 0 to 3;
 		
-		green_pos: integer range 1 to 4;
-		red_pos: integer range 1 to 4;
-		blue_pos: integer range 1 to 4;
-		yellow_pos: integer range 1 to 4
+		green_pos: integer range 0 to 3;
+		red_pos: integer range 0 to 3;
+		blue_pos: integer range 0 to 3;
+		yellow_pos: integer range 0 to 3
 	) return std_logic is
 		variable players_in_case : integer range 0 to 4;
 	begin
@@ -117,10 +117,10 @@ architecture behaviour of WS2812B_driver is
 	
 begin
 	process(clk)
-		variable red_cur_pos : integer range 1 to 4;
-		variable blue_cur_pos : integer range 1 to 4;
-		variable green_cur_pos : integer range 1 to 4;
-		variable yellow_cur_pos : integer range 1 to 4;
+		variable red_cur_pos : integer range 0 to 3;
+		variable blue_cur_pos : integer range 0 to 3;
+		variable green_cur_pos : integer range 0 to 3;
+		variable yellow_cur_pos : integer range 0 to 3;
 	begin
 	
 		if rising_edge(clk) then
@@ -134,14 +134,14 @@ begin
 					leds_line <= '0';
 		
 				when SendLEDsData =>
-					if step = 63 then
-						step <= 1;
+					if step = 62 then
+						step <= 0;
 						
-						if bit_proceed = 24 then
-							bit_proceed <= 1;
+						if bit_proceed = 23 then
+							bit_proceed <= 0;
 							
-							if led_proceed = 4 then
-								led_proceed <= 1;
+							if led_proceed = 3 then
+								led_proceed <= 0;
 								stage <= ValidateSeq;
 							else
 								led_proceed <= led_proceed + 1;

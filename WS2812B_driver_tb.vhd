@@ -8,10 +8,10 @@ end WS2812B_driver_tb;
 architecture behaviour of WS2812B_driver_tb is
 	signal clk : std_logic;
 	signal enable : std_logic;
-	signal green_pos : integer range 1 to 4;
-	signal red_pos : integer range 1 to 4;
-	signal blue_pos : integer range 1 to 4;
-	signal yellow_pos : integer range 1 to 4;
+	signal green_pos : integer range 0 to 3;
+	signal red_pos : integer range 0 to 3;
+	signal blue_pos : integer range 0 to 3;
+	signal yellow_pos : integer range 0 to 3;
 	
 	signal leds_line : std_logic;
 	
@@ -297,10 +297,13 @@ begin
 	
 	PLAYS_STIM: process
 	begin
-		green_pos <= 1;
+		green_pos <= 0;
+		red_pos <= 0;
+		blue_pos <= 0;
+		yellow_pos <= 0;
+		
+		wait for 1 ms;
 		red_pos <= 1;
-		blue_pos <= 1;
-		yellow_pos <= 1;
 		
 		wait for 1 ms;
 		red_pos <= 2;
@@ -309,26 +312,23 @@ begin
 		red_pos <= 3;
 		
 		wait for 1 ms;
-		red_pos <= 4;
+		blue_pos <= 1;
 		
 		wait for 1 ms;
 		blue_pos <= 2;
-		
-		wait for 1 ms;
-		blue_pos <= 3;
 
 		wait for 1 ms;
-		blue_pos <= 4;
+		blue_pos <= 3;
+		
+		wait for 1 ms;
+		green_pos <= 1;
 		
 		wait for 1 ms;
 		green_pos <= 2;
 		
 		wait for 1 ms;
 		green_pos <= 3;
-		
-		wait for 1 ms;
-		green_pos <= 4;
-		red_pos <= 1;
+		red_pos <= 0;
 		
 		wait;
 	end process;
@@ -369,7 +369,7 @@ begin
 		-- adding a little padding = 2500 + (1000 => 2us)
 		assert_should_maintain_LOW_state_during(2600);
 	
-		wait until red_pos = 2;
+		wait until red_pos = 1;
 		wait until clk = '0';
 		wait until clk = '1';
 		
@@ -385,7 +385,7 @@ begin
 		-- adding a little padding = 2500 + (1000 => 2us)
 		assert_should_maintain_LOW_state_during(2600);
 		
-		wait until red_pos = 3;
+		wait until red_pos = 2;
 		wait until clk = '0';
 		wait until clk = '1';
 		
@@ -401,7 +401,7 @@ begin
 		-- adding a little padding = 2500 + (1000 => 2us)
 		assert_should_maintain_LOW_state_during(2600);
 		
-		wait until red_pos = 4;
+		wait until red_pos = 3;
 		wait until clk = '0';
 		wait until clk = '1';
 		
@@ -417,7 +417,7 @@ begin
 		-- adding a little padding = 2500 + (1000 => 2us)
 		assert_should_maintain_LOW_state_during(2600);
 
-		wait until blue_pos = 2;
+		wait until blue_pos = 1;
 		wait until clk = '0';
 		wait until clk = '1';
 		
@@ -433,7 +433,7 @@ begin
 		-- adding a little padding = 2500 + (1000 => 2us)
 		assert_should_maintain_LOW_state_during(2600);
 		
-		wait until blue_pos = 3;
+		wait until blue_pos = 2;
 		wait until clk = '0';
 		wait until clk = '1';
 		
@@ -450,7 +450,7 @@ begin
 		assert_should_maintain_LOW_state_during(2600);
 		
 		
-		wait until blue_pos = 4;
+		wait until blue_pos = 3;
 		wait until clk = '0';
 		wait until clk = '1';
 		
@@ -466,7 +466,7 @@ begin
 		-- adding a little padding = 2500 + (1000 => 2us)
 		assert_should_maintain_LOW_state_during(2600);
 		
-		wait until green_pos = 2;
+		wait until green_pos = 1;
 		wait until clk = '0';
 		wait until clk = '1';
 		
@@ -482,7 +482,7 @@ begin
 		-- adding a little padding = 2500 + (1000 => 2us)
 		assert_should_maintain_LOW_state_during(2600);
 		
-		wait until green_pos = 3;
+		wait until green_pos = 2;
 		wait until clk = '0';
 		wait until clk = '1';
 		
@@ -498,7 +498,7 @@ begin
 		-- adding a little padding = 2500 + (1000 => 2us)
 		assert_should_maintain_LOW_state_during(2600);
 		
-		wait until green_pos = 4;
+		wait until green_pos = 3;
 		wait until clk = '0';
 		wait until clk = '1';
 		
