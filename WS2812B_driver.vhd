@@ -1,0 +1,195 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity WS2812B_driver is
+	port(
+		clk : in std_logic;
+		enable : in std_logic;
+		
+		green_pos : in integer range 1 to 4;
+		red_pos : in integer range 1 to 4;
+		blue_pos : in integer range 1 to 4;
+		yellow_pos : in integer range 1 to 4;
+		
+		leds_line : out std_logic := '0'
+	);
+end entity;
+
+architecture behaviour of WS2812B_driver is
+	signal step : integer range 1 to 63;
+	signal bit_proceed : integer range 1 to 24;
+	signal led_proceed : integer range 1 to 4;
+	
+	type t_stage is (WaitStart, SendLEDsData, ValidateSeq);
+	signal stage : t_stage := WaitStart;
+	
+	
+	constant HIGH_DURATION_FOR_CODE_1 : integer := 40;
+	constant HIGH_DURATION_FOR_CODE_0 : integer := 20;
+	
+	function ite(b: boolean; x, y: integer) return integer is
+	begin
+		 if (b) then
+			  return x;
+		 else
+			  return y;
+		 end if;
+	end function ite;
+	
+	function serial_state_led_line_for_color (
+		step : integer range 1 to 63;
+		bit_proceed : integer range 1 to 24;
+		
+		green: integer range 0 to 255;
+		red: integer range 0 to 255;
+		blue: integer range 0 to 255
+	) return std_logic is
+		variable data :  std_logic_vector(1 to 24);
+	begin
+		data := std_logic_vector( to_unsigned( green, 8)) & std_logic_vector( to_unsigned( red, 8)) & std_logic_vector( to_unsigned( blue, 8));
+	
+		if data(bit_proceed) = '0' and step <= HIGH_DURATION_FOR_CODE_0 then
+			return '1';
+		elsif data(bit_proceed) = '1' and step <= HIGH_DURATION_FOR_CODE_1 then
+			return '1';
+		else
+			return '0';
+		end if;
+	end function;
+	
+	
+	function serial_state_led_line (
+		step : integer range 1 to 63;
+		bit_proceed : integer range 1 to 24;
+		
+		led_pos : integer range 1 to 4;
+		
+		green_pos: integer range 1 to 4;
+		red_pos: integer range 1 to 4;
+		blue_pos: integer range 1 to 4;
+		yellow_pos: integer range 1 to 4
+	) return std_logic is
+		variable players_in_case : integer range 0 to 4;
+	begin
+		players_in_case := ite(red_pos = led_pos, 1, 0) + ite(blue_pos = led_pos, 1, 0) + ite(green_pos = led_pos, 1, 0) + ite(yellow_pos = led_pos, 1, 0);
+		
+		----  <1 -> black
+		----  1  -> color
+		----  >1 -> white
+		
+		
+		if players_in_case = 0 then
+			return serial_state_led_line_for_color(
+				bit_proceed => bit_proceed,
+				step => step,
+				green => 0,
+				red => 0,
+				blue => 0
+			);
+		elsif players_in_case = 1 and yellow_pos = led_pos then
+			return serial_state_led_line_for_color(
+				bit_proceed => bit_proceed,
+				step => step,
+				green => 5,
+				red => 5,
+				blue => 0
+			);
+		elsif players_in_case = 1 then
+			return serial_state_led_line_for_color(
+				bit_proceed => bit_proceed,
+				step => step,
+				green => ite(green_pos = led_pos, 10, 0),
+				red => ite(red_pos = led_pos, 10, 0),
+				blue => ite(blue_pos = led_pos, 10, 0)
+			);
+		else
+			return serial_state_led_line_for_color(
+				bit_proceed => bit_proceed,
+				step => step,
+				green => 5,
+				red => 5,
+				blue => 5
+			);
+		end if;
+	end function;
+	
+	
+begin
+	process(clk)
+		variable red_cur_pos : integer range 1 to 4;
+		variable blue_cur_pos : integer range 1 to 4;
+		variable green_cur_pos : integer range 1 to 4;
+		variable yellow_cur_pos : integer range 1 to 4;
+	begin
+	
+		if rising_edge(clk) then
+
+			case stage is
+				when WaitStart =>
+					if enable = '1' then
+						stage <= SendLEDsData;
+					end if;
+				
+					leds_line <= '0';
+		
+				when SendLEDsData =>
+					if step = 63 then
+						step <= 1;
+						
+						if bit_proceed = 24 then
+							bit_proceed <= 1;
+							
+							if led_proceed = 4 then
+								led_proceed <= 1;
+								stage <= ValidateSeq;
+							else
+								led_proceed <= led_proceed + 1;
+							end if;
+						else
+							bit_proceed <= bit_proceed + 1;
+						end if;
+					else
+						step <= step + 1;
+					end if;
+					
+					leds_line <= serial_state_led_line(
+						bit_proceed => bit_proceed,
+						step => step,
+						
+						led_pos => led_proceed,
+						
+						green_pos => green_pos,
+						red_pos => red_pos,
+						blue_pos => blue_pos,
+						yellow_pos => yellow_pos
+					);
+				
+				when ValidateSeq =>
+					leds_line <= '0';
+					
+					
+					if blue_pos /= blue_cur_pos then
+						blue_cur_pos := blue_pos;
+						stage <= SendLEDsData;
+					end if;
+					
+					if red_pos /= red_cur_pos then
+						red_cur_pos := red_pos;
+						stage <= SendLEDsData;
+					end if;
+					
+					if green_pos /= green_cur_pos then
+						green_cur_pos := green_pos;
+						stage <= SendLEDsData;
+					end if;
+					
+					if yellow_pos /= yellow_cur_pos then
+						yellow_cur_pos := yellow_pos;
+						stage <= SendLEDsData;
+					end if;
+			end case;
+		end if;
+
+	end process;
+end architecture;
