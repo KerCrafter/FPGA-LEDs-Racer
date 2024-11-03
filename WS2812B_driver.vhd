@@ -21,8 +21,11 @@ architecture behaviour of WS2812B_driver is
 	signal bit_proceed : integer range 0 to 23;
 	signal led_proceed : integer range 0 to 3;
 	
-	type t_stage is (WaitStart, SendLEDsData, ValidateSeq);
-	signal stage : t_stage := WaitStart;
+	constant WaitStart : std_logic_vector(0 to 1) := "00";
+	constant SendLEDsData : std_logic_vector(0 to 1) := "01";
+	constant ValidateSeq : std_logic_vector(0 to 1) := "10";
+	
+	signal stage : std_logic_vector(0 to 1) := WaitStart;
 	
 	
 	constant HIGH_DURATION_FOR_CODE_1 : integer := 39;
@@ -188,6 +191,8 @@ begin
 						yellow_cur_pos := yellow_pos;
 						stage <= SendLEDsData;
 					end if;
+				when others =>
+					--nothing todo
 			end case;
 		end if;
 
