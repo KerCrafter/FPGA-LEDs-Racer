@@ -40,6 +40,15 @@ architecture behaviour of WS2812B_driver is
 		 end if;
 	end function ite;
 	
+	function bool_to_logic(b: boolean) return std_logic is
+	begin
+		 if (b) then
+			  return '1';
+		 else
+			  return '0';
+		 end if;
+	end function bool_to_logic;
+	
 	function serial_state_led_line_for_color (
 		step : integer range 0 to 62;
 		bit_proceed : integer range 0 to 23;
@@ -66,23 +75,11 @@ architecture behaviour of WS2812B_driver is
 		step : integer range 0 to 62;
 		bit_proceed : integer range 0 to 23;
 		
-		led_pos : integer range 0 to 3;
-		
-		green_pos: integer range 0 to 3;
-		red_pos: integer range 0 to 3;
-		blue_pos: integer range 0 to 3;
-		yellow_pos: integer range 0 to 3
+		players_in_case : std_logic_vector(3 downto 0)
 	) return std_logic is
-		variable players_in_case : integer range 0 to 4;
-	begin
-		players_in_case := ite(red_pos = led_pos, 1, 0) + ite(blue_pos = led_pos, 1, 0) + ite(green_pos = led_pos, 1, 0) + ite(yellow_pos = led_pos, 1, 0);
 		
-		----  <1 -> black
-		----  1  -> color
-		----  >1 -> white
-		
-		
-		if players_in_case = 0 then
+	begin		
+		if players_in_case = "0000" then
 			return serial_state_led_line_for_color(
 				bit_proceed => bit_proceed,
 				step => step,
@@ -90,7 +87,7 @@ architecture behaviour of WS2812B_driver is
 				red => 0,
 				blue => 0
 			);
-		elsif players_in_case = 1 and yellow_pos = led_pos then
+		elsif players_in_case = "0001" then
 			return serial_state_led_line_for_color(
 				bit_proceed => bit_proceed,
 				step => step,
@@ -98,13 +95,13 @@ architecture behaviour of WS2812B_driver is
 				red => 5,
 				blue => 0
 			);
-		elsif players_in_case = 1 then
+		elsif players_in_case = "0010" or players_in_case = "0100" or players_in_case = "1000" then
 			return serial_state_led_line_for_color(
 				bit_proceed => bit_proceed,
 				step => step,
-				green => ite(green_pos = led_pos, 10, 0),
-				red => ite(red_pos = led_pos, 10, 0),
-				blue => ite(blue_pos = led_pos, 10, 0)
+				green => ite(players_in_case = "0010", 10, 0),
+				red => ite(players_in_case = "1000", 10, 0),
+				blue => ite(players_in_case = "0100", 10, 0)
 			);
 		else
 			return serial_state_led_line_for_color(
@@ -119,7 +116,7 @@ architecture behaviour of WS2812B_driver is
 	
 	
 begin
-	process(clk)
+	process(clk)	
 		variable red_cur_pos : integer range 0 to 3;
 		variable blue_cur_pos : integer range 0 to 3;
 		variable green_cur_pos : integer range 0 to 3;
@@ -159,36 +156,33 @@ begin
 					leds_line <= serial_state_led_line(
 						bit_proceed => bit_proceed,
 						step => step,
-						
-						led_pos => led_proceed,
-						
-						green_pos => green_pos,
-						red_pos => red_pos,
-						blue_pos => blue_pos,
-						yellow_pos => yellow_pos
+						players_in_case => bool_to_logic(red_pos = led_proceed) & bool_to_logic(blue_pos = led_proceed) & bool_to_logic(green_pos = led_proceed) & bool_to_logic(yellow_pos = led_proceed)
 					);
 				
 				when ValidateSeq =>
 					leds_line <= '0';
 					
 					
-					if blue_pos /= blue_cur_pos then
-						blue_cur_pos := blue_pos;
-						stage <= SendLEDsData;
-					end if;
+					if blue_pos = blue_cur_pos and red_pos = red_cur_pos and green_pos = green_cur_pos and yellow_pos = yellow_cur_pos then
+						--stay here
+					else
 					
-					if red_pos /= red_cur_pos then
-						red_cur_pos := red_pos;
-						stage <= SendLEDsData;
-					end if;
-					
-					if green_pos /= green_cur_pos then
-						green_cur_pos := green_pos;
-						stage <= SendLEDsData;
-					end if;
-					
-					if yellow_pos /= yellow_cur_pos then
-						yellow_cur_pos := yellow_pos;
+						if blue_pos /= blue_cur_pos then
+							blue_cur_pos := blue_pos;
+						end if;
+						
+						if red_pos /= red_cur_pos then
+							red_cur_pos := red_pos;
+						end if;
+						
+						if green_pos /= green_cur_pos then
+							green_cur_pos := green_pos;
+						end if;
+						
+						if yellow_pos /= yellow_cur_pos then
+							yellow_cur_pos := yellow_pos;
+						end if;
+						
 						stage <= SendLEDsData;
 					end if;
 				when others =>
