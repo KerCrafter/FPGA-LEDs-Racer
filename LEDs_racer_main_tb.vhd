@@ -8,11 +8,10 @@ end LEDs_racer_main_tb;
 architecture behaviour of LEDs_racer_main_tb is
 	signal clk : std_logic;
 	signal enable : std_logic;
-	signal green_pos : integer range 0 to 3;
 	signal red_input : std_logic;
 	signal blue_input : std_logic;
-	
-	signal yellow_pos : integer range 0 to 3;
+	signal green_input : std_logic;
+	signal yellow_input : std_logic;
 	
 	signal leds_line : std_logic;
 	
@@ -282,10 +281,12 @@ begin
 	UUT: entity work.LEDs_racer_main port map (
 		clk => clk,
 		enable => enable,
-		green_pos => green_pos,
+		
 		red_input => red_input,
 		blue_input => blue_input,
-		yellow_pos => yellow_pos,
+		green_input => green_input,
+		yellow_input => yellow_input,
+
 		leds_line => leds_line
 	);
 	
@@ -298,11 +299,10 @@ begin
 	
 	PLAYS_STIM: process
 	begin
-		green_pos <= 0;
-		yellow_pos <= 0;
-		
 		red_input <= '0';
 		blue_input <= '0';
+		green_input <= '0';
+		yellow_input <= '0';
 		
 		wait for 1 ms;
 		red_input <= '1'; wait for 0.5 ms; red_input <= '0'; --red position up to 1
@@ -323,14 +323,13 @@ begin
 		blue_input <= '1'; wait for 0.5 ms; blue_input <= '0'; --blue position up to 3
 		
 		wait for 0.5 ms;
-		green_pos <= 1;
+		green_input <= '1'; wait for 0.5 ms; green_input <= '0'; --green position up to 1
+
+		wait for 0.5 ms;
+		green_input <= '1'; wait for 0.5 ms; green_input <= '0'; --green position up to 2
 		
-		wait for 1 ms;
-		green_pos <= 2;
-		
---		wait for 1 ms;
---		green_pos <= 3;
---		red_pos <= 0;
+		wait for 0.5 ms;
+		yellow_input <= '1'; wait for 0.5 ms; yellow_input <= '0'; --yellow position up to 1
 		
 		wait;
 	end process;
@@ -472,7 +471,7 @@ begin
 		-- adding a little padding = 2500 + (1000 => 2us)
 		assert_should_maintain_LOW_state_during(2600);
 		
-		wait until green_pos = 1;
+		wait until green_input = '1';
 		wait until clk = '0';
 		wait until clk = '1';
 		
@@ -488,7 +487,8 @@ begin
 		-- adding a little padding = 2500 + (1000 => 2us)
 		assert_should_maintain_LOW_state_during(2600);
 		
-		wait until green_pos = 2;
+		wait until green_input = '0';
+		wait until green_input = '1';
 		wait until clk = '0';
 		wait until clk = '1';
 		
@@ -504,21 +504,22 @@ begin
 		-- adding a little padding = 2500 + (1000 => 2us)
 		assert_should_maintain_LOW_state_during(2600);
 		
-		wait until green_pos = 3;
+
+		wait until yellow_input = '1';
 		wait until clk = '0';
 		wait until clk = '1';
+
+		-- Yellow go to 2nd led
 		
---		-- Green go to 4th led And red go to 1st led
---		
---		assert_serial_white_led_signal_should_sent; -- first LED : Players (RED + YELLOW) => White
---		assert_serial_black_led_signal_should_sent; -- second LED : Players (No Players) => Black
---		assert_serial_black_led_signal_should_sent; -- third LED : Players (No Players) => Black
---		assert_serial_white_led_signal_should_sent; -- 4th LED : Players (BLUE + GREEN) => White
---
---		-- (Spec: RESET CODE should be LOW during >= 50us)
---		-- (50us => 50000 ns) / 20ns = 2500 clk edge
---		-- adding a little padding = 2500 + (1000 => 2us)
---		assert_should_maintain_LOW_state_during(2600);
+		assert_serial_black_led_signal_should_sent; -- first LED : Players (No Players) => Black
+		assert_serial_yellow_led_signal_should_sent; -- second LED : Players (YELLOW) => Yellow
+		assert_serial_green_led_signal_should_sent; -- third LED : Players (GREEN) => Green
+		assert_serial_white_led_signal_should_sent; -- 4th LED : Players (BLUE + RED) => White
+
+		-- (Spec: RESET CODE should be LOW during >= 50us)
+		-- (50us => 50000 ns) / 20ns = 2500 clk edge
+		-- adding a little padding = 2500 + (1000 => 2us)
+		assert_should_maintain_LOW_state_during(2600);
 
 		
 		wait;

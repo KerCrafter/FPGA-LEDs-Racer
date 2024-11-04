@@ -7,10 +7,10 @@ entity LEDs_racer_main is
 		clk : in std_logic;
 		enable : in std_logic;
 		
-		green_pos : in integer range 0 to 3;
+		green_input : in std_logic;
 		red_input : in std_logic;
 		blue_input : in std_logic;
-		yellow_pos : in integer range 0 to 3;
+		yellow_input : in std_logic;
 		
 		leds_line : out std_logic := '0'
 	);
@@ -123,6 +123,8 @@ begin
 		
 		variable red_lock : std_logic := '0';
 		variable blue_lock : std_logic := '0';
+		variable green_lock : std_logic := '0';
+		variable yellow_lock : std_logic := '0';
 	begin
 		if rising_edge(clk) then
 
@@ -158,7 +160,7 @@ begin
 					leds_line <= serial_state_led_line(
 						bit_proceed => bit_proceed,
 						step => step,
-						players_in_case => bool_to_logic(red_cur_pos = led_proceed) & bool_to_logic(blue_cur_pos = led_proceed) & bool_to_logic(green_pos = led_proceed) & bool_to_logic(yellow_pos = led_proceed)
+						players_in_case => bool_to_logic(red_cur_pos = led_proceed) & bool_to_logic(blue_cur_pos = led_proceed) & bool_to_logic(green_cur_pos = led_proceed) & bool_to_logic(yellow_cur_pos = led_proceed)
 					);
 				
 				when ValidateSeq =>
@@ -174,6 +176,16 @@ begin
 						stage <= SendLEDsData;
 					end if;
 					
+					if green_input = '1' and green_input /= green_lock then
+						green_cur_pos := green_cur_pos + 1;
+						stage <= SendLEDsData;
+					end if;
+					
+					if yellow_input = '1' and yellow_input /= yellow_lock then
+						yellow_cur_pos := yellow_cur_pos + 1;
+						stage <= SendLEDsData;
+					end if;
+					
 					if red_input /= red_lock then
 						red_lock := red_input;
 					end if;
@@ -181,19 +193,15 @@ begin
 					if blue_input /= blue_lock then
 						blue_lock := blue_input;
 					end if;
-
 					
-					if not (green_pos = green_cur_pos and yellow_pos = yellow_cur_pos) then
-						if green_pos /= green_cur_pos then
-							green_cur_pos := green_pos;
-						end if;
-						
-						if yellow_pos /= yellow_cur_pos then
-							yellow_cur_pos := yellow_pos;
-						end if;
-						
-						stage <= SendLEDsData;
+					if green_input /= green_lock then
+						green_lock := green_input;
 					end if;
+					
+					if yellow_input /= yellow_lock then
+						yellow_lock := yellow_input;
+					end if;
+
 				when others =>
 					--nothing todo
 			end case;
