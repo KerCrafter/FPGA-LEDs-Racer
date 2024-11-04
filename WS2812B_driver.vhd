@@ -77,7 +77,6 @@ architecture behaviour of WS2812B_driver is
 		
 		players_in_case : std_logic_vector(3 downto 0)
 	) return std_logic is
-		
 	begin		
 		if players_in_case = "0000" then
 			return serial_state_led_line_for_color(
@@ -116,7 +115,7 @@ architecture behaviour of WS2812B_driver is
 	
 	
 begin
-	process(clk)	
+	process(clk)
 		variable red_cur_pos : integer range 0 to 3;
 		variable blue_cur_pos : integer range 0 to 3;
 		variable green_cur_pos : integer range 0 to 3;
@@ -163,10 +162,7 @@ begin
 					leds_line <= '0';
 					
 					
-					if blue_pos = blue_cur_pos and red_pos = red_cur_pos and green_pos = green_cur_pos and yellow_pos = yellow_cur_pos then
-						--stay here
-					else
-					
+					if not (blue_pos = blue_cur_pos and red_pos = red_cur_pos and green_pos = green_cur_pos and yellow_pos = yellow_cur_pos) then
 						if blue_pos /= blue_cur_pos then
 							blue_cur_pos := blue_pos;
 						end if;
