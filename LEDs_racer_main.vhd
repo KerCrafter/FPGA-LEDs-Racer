@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity WS2812B_driver is
+entity LEDs_racer_main is
 	port(
 		clk : in std_logic;
 		enable : in std_logic;
@@ -16,7 +16,7 @@ entity WS2812B_driver is
 	);
 end entity;
 
-architecture behaviour of WS2812B_driver is
+architecture behaviour of LEDs_racer_main is
 	signal step : integer range 0 to 62;
 	signal bit_proceed : integer range 0 to 23;
 	signal led_proceed : integer range 0 to 3;

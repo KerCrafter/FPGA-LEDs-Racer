@@ -2,10 +2,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity WS2812B_driver_tb is
-end WS2812B_driver_tb;
+entity LEDs_racer_main_tb is
+end LEDs_racer_main_tb;
 
-architecture behaviour of WS2812B_driver_tb is
+architecture behaviour of LEDs_racer_main_tb is
 	signal clk : std_logic;
 	signal enable : std_logic;
 	signal green_pos : integer range 0 to 3;
@@ -278,7 +278,7 @@ architecture behaviour of WS2812B_driver_tb is
 	end procedure;
 	
 begin
-	UUT: entity work.WS2812B_driver port map (
+	UUT: entity work.LEDs_racer_main port map (
 		clk => clk,
 		enable => enable,
 		green_pos => green_pos,
