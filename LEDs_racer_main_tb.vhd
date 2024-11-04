@@ -10,7 +10,8 @@ architecture behaviour of LEDs_racer_main_tb is
 	signal enable : std_logic;
 	signal green_pos : integer range 0 to 3;
 	signal red_input : std_logic;
-	signal blue_pos : integer range 0 to 3;
+	signal blue_input : std_logic;
+	
 	signal yellow_pos : integer range 0 to 3;
 	
 	signal leds_line : std_logic;
@@ -283,7 +284,7 @@ begin
 		enable => enable,
 		green_pos => green_pos,
 		red_input => red_input,
-		blue_pos => blue_pos,
+		blue_input => blue_input,
 		yellow_pos => yellow_pos,
 		leds_line => leds_line
 	);
@@ -298,10 +299,10 @@ begin
 	PLAYS_STIM: process
 	begin
 		green_pos <= 0;
-		blue_pos <= 0;
 		yellow_pos <= 0;
 		
 		red_input <= '0';
+		blue_input <= '0';
 		
 		wait for 1 ms;
 		red_input <= '1'; wait for 0.5 ms; red_input <= '0'; --red position up to 1
@@ -313,15 +314,15 @@ begin
 		red_input <= '1'; wait for 0.5 ms; red_input <= '0'; --red position up to 3
 		
 		wait for 0.5 ms;
-		blue_pos <= 1;
+		blue_input <= '1'; wait for 0.5 ms; blue_input <= '0'; --blue position up to 1
 		
-		wait for 1 ms;
-		blue_pos <= 2;
+		wait for 0.5 ms;
+		blue_input <= '1'; wait for 0.5 ms; blue_input <= '0'; --blue position up to 2
 
-		wait for 1 ms;
-		blue_pos <= 3;
+		wait for 0.5 ms;
+		blue_input <= '1'; wait for 0.5 ms; blue_input <= '0'; --blue position up to 3
 		
-		wait for 1 ms;
+		wait for 0.5 ms;
 		green_pos <= 1;
 		
 		wait for 1 ms;
@@ -420,7 +421,7 @@ begin
 		-- adding a little padding = 2500 + (1000 => 2us)
 		assert_should_maintain_LOW_state_during(2600);
 
-		wait until blue_pos = 1;
+		wait until blue_input = '1';
 		wait until clk = '0';
 		wait until clk = '1';
 		
@@ -436,7 +437,8 @@ begin
 		-- adding a little padding = 2500 + (1000 => 2us)
 		assert_should_maintain_LOW_state_during(2600);
 		
-		wait until blue_pos = 2;
+		wait until blue_input = '0';
+		wait until blue_input = '1';
 		wait until clk = '0';
 		wait until clk = '1';
 		
@@ -453,7 +455,8 @@ begin
 		assert_should_maintain_LOW_state_during(2600);
 		
 		
-		wait until blue_pos = 3;
+		wait until blue_input = '0';
+		wait until blue_input = '1';
 		wait until clk = '0';
 		wait until clk = '1';
 		

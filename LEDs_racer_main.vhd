@@ -9,7 +9,7 @@ entity LEDs_racer_main is
 		
 		green_pos : in integer range 0 to 3;
 		red_input : in std_logic;
-		blue_pos : in integer range 0 to 3;
+		blue_input : in std_logic;
 		yellow_pos : in integer range 0 to 3;
 		
 		leds_line : out std_logic := '0'
@@ -122,6 +122,7 @@ begin
 		variable yellow_cur_pos : integer range 0 to 3;
 		
 		variable red_lock : std_logic := '0';
+		variable blue_lock : std_logic := '0';
 	begin
 		if rising_edge(clk) then
 
@@ -157,7 +158,7 @@ begin
 					leds_line <= serial_state_led_line(
 						bit_proceed => bit_proceed,
 						step => step,
-						players_in_case => bool_to_logic(red_cur_pos = led_proceed) & bool_to_logic(blue_pos = led_proceed) & bool_to_logic(green_pos = led_proceed) & bool_to_logic(yellow_pos = led_proceed)
+						players_in_case => bool_to_logic(red_cur_pos = led_proceed) & bool_to_logic(blue_cur_pos = led_proceed) & bool_to_logic(green_pos = led_proceed) & bool_to_logic(yellow_pos = led_proceed)
 					);
 				
 				when ValidateSeq =>
@@ -168,18 +169,21 @@ begin
 						stage <= SendLEDsData;
 					end if;
 					
+					if blue_input = '1' and blue_input /= blue_lock then
+						blue_cur_pos := blue_cur_pos + 1;
+						stage <= SendLEDsData;
+					end if;
+					
 					if red_input /= red_lock then
 						red_lock := red_input;
-					end if;	
+					end if;
+					
+					if blue_input /= blue_lock then
+						blue_lock := blue_input;
+					end if;
 
 					
-					if not (blue_pos = blue_cur_pos and green_pos = green_cur_pos and yellow_pos = yellow_cur_pos) then
-
-						
-						if blue_pos /= blue_cur_pos then
-							blue_cur_pos := blue_pos;
-						end if;
-						
+					if not (green_pos = green_cur_pos and yellow_pos = yellow_cur_pos) then
 						if green_pos /= green_cur_pos then
 							green_cur_pos := green_pos;
 						end if;
