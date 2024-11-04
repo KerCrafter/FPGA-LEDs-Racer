@@ -163,15 +163,15 @@ begin
 				when ValidateSeq =>
 					leds_line <= '0';
 					
-					if red_input = '1' and red_lock = '0' then
-						red_lock := '1';
+					if red_input = '1' and red_input /= red_lock then
 						red_cur_pos := red_cur_pos + 1;
 						stage <= SendLEDsData;
 					end if;
 					
-					if red_input = '0' and red_lock = '1' then
-						red_lock := '0';
-					end if;
+					if red_input /= red_lock then
+						red_lock := red_input;
+					end if;	
+
 					
 					if not (blue_pos = blue_cur_pos and green_pos = green_cur_pos and yellow_pos = yellow_cur_pos) then
 
