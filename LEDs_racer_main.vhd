@@ -115,20 +115,14 @@ architecture behaviour of LEDs_racer_main is
 	
 	
 begin
-	process(clk, red_input)
+	process(clk)
 		variable red_cur_pos : integer range 0 to 3;
 		variable blue_cur_pos : integer range 0 to 3;
 		variable green_cur_pos : integer range 0 to 3;
 		variable yellow_cur_pos : integer range 0 to 3;
 		
-		variable refresh : std_logic := '0';
+		variable red_lock : std_logic := '0';
 	begin
-	
-		if rising_edge(red_input) then
-			red_cur_pos := red_cur_pos + 1;
-			refresh := '1';
-		end if;
-	
 		if rising_edge(clk) then
 
 			case stage is
@@ -149,7 +143,6 @@ begin
 							if led_proceed = 3 then
 								led_proceed <= 0;
 								
-								refresh := '0';
 								stage <= ValidateSeq;
 							else
 								led_proceed <= led_proceed + 1;
@@ -170,8 +163,14 @@ begin
 				when ValidateSeq =>
 					leds_line <= '0';
 					
-					if refresh = '1' then
+					if red_input = '1' and red_lock = '0' then
+						red_lock := '1';
+						red_cur_pos := red_cur_pos + 1;
 						stage <= SendLEDsData;
+					end if;
+					
+					if red_input = '0' and red_lock = '1' then
+						red_lock := '0';
 					end if;
 					
 					if not (blue_pos = blue_cur_pos and green_pos = green_cur_pos and yellow_pos = yellow_cur_pos) then
