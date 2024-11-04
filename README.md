@@ -26,3 +26,15 @@ I'm putting here the software I use for development to date. It's possible that 
 
 I concentrated mainly on implementing the WS2812B LED driver. With the help of the testbench tool, I implemented tests as I went along in order to discover the communication algorithm with the WS2812B LED serial line. 
 This enabled me to optimize the number of registers and logic elements used (120 to 51 LE).
+
+## Architecture (Top View Usage)
+
+|  pin input   | input description  |   output description             |  pin output                    |
+|  :---   |  :--- | ---:                         |  ---:                    |
+|  **clk**  |  50 Mhz clock input signal  |  WS2812B transmission  |  **leds_line**  |
+|  **red_input**  |  Player Red input (connected to Red button)  |    |  |
+|  **green_input**  |  Player Green input (connected to Green button)  |    |  |
+|  **blue_input**  |  Player Blue input (connected to Blue button)  |    |  |
+|  **yellow_input**  |  Player Yellow input (connected to Yellow button)  |    |  |
+
+
