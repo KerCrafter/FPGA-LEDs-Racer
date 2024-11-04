@@ -9,7 +9,6 @@ architecture behaviour of WS2812B_driver_tb is
 	signal clk : std_logic;
 	signal enable : std_logic;
 	signal green_pos : integer range 0 to 3;
-	signal red_pos : integer range 0 to 3;
 	signal red_input : std_logic;
 	signal blue_pos : integer range 0 to 3;
 	signal yellow_pos : integer range 0 to 3;
@@ -283,7 +282,6 @@ begin
 		clk => clk,
 		enable => enable,
 		green_pos => green_pos,
-		red_pos => red_pos,
 		red_input => red_input,
 		blue_pos => blue_pos,
 		yellow_pos => yellow_pos,

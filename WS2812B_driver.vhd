@@ -8,7 +8,6 @@ entity WS2812B_driver is
 		enable : in std_logic;
 		
 		green_pos : in integer range 0 to 3;
-		red_pos : in integer range 0 to 3;
 		red_input : in std_logic;
 		blue_pos : in integer range 0 to 3;
 		yellow_pos : in integer range 0 to 3;
@@ -21,10 +20,6 @@ architecture behaviour of WS2812B_driver is
 	signal step : integer range 0 to 62;
 	signal bit_proceed : integer range 0 to 23;
 	signal led_proceed : integer range 0 to 3;
-	
-	--signal red_cur_pos : integer range 0 to 3;
-	
-	--signal refresh : std_logic := '0';
 	
 	constant WaitStart : std_logic_vector(0 to 1) := "00";
 	constant SendLEDsData : std_logic_vector(0 to 1) := "01";
