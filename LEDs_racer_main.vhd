@@ -17,9 +17,13 @@ entity LEDs_racer_main is
 end entity;
 
 architecture behaviour of LEDs_racer_main is
-	signal step : integer range 0 to 62;
-	signal bit_proceed : integer range 0 to 23;
-	signal led_proceed : integer range 0 to 3;
+	constant step_max : integer := 62;
+	constant bit_proceed_max : integer := 23;
+	constant led_proceed_max : integer := 3;
+
+	signal step : integer range 0 to step_max;
+	signal bit_proceed : integer range 0 to bit_proceed_max;
+	signal led_proceed : integer range 0 to led_proceed_max;
 	
 	constant WaitStart : std_logic_vector(0 to 1) := "00";
 	constant SendLEDsData : std_logic_vector(0 to 1) := "01";
@@ -50,14 +54,14 @@ architecture behaviour of LEDs_racer_main is
 	end function bool_to_logic;
 	
 	function serial_state_led_line_for_color (
-		step : integer range 0 to 62;
-		bit_proceed : integer range 0 to 23;
+		step : integer range 0 to step_max;
+		bit_proceed : integer range 0 to bit_proceed_max;
 		
 		green: integer range 0 to 255;
 		red: integer range 0 to 255;
 		blue: integer range 0 to 255
 	) return std_logic is
-		variable data :  std_logic_vector(0 to 23);
+		variable data :  std_logic_vector(0 to bit_proceed_max);
 	begin
 		data := std_logic_vector( to_unsigned( green, 8)) & std_logic_vector( to_unsigned( red, 8)) & std_logic_vector( to_unsigned( blue, 8));
 	
@@ -72,7 +76,7 @@ architecture behaviour of LEDs_racer_main is
 	
 	
 	function serial_state_led_line (
-		step : integer range 0 to 62;
+		step : integer range 0 to step_max;
 		bit_proceed : integer range 0 to 23;
 		
 		players_in_case : std_logic_vector(3 downto 0)
@@ -116,10 +120,10 @@ architecture behaviour of LEDs_racer_main is
 	
 begin
 	process(clk)
-		variable red_cur_pos : integer range 0 to 3;
-		variable blue_cur_pos : integer range 0 to 3;
-		variable green_cur_pos : integer range 0 to 3;
-		variable yellow_cur_pos : integer range 0 to 3;
+		variable red_cur_pos : integer range 0 to led_proceed_max;
+		variable blue_cur_pos : integer range 0 to led_proceed_max;
+		variable green_cur_pos : integer range 0 to led_proceed_max;
+		variable yellow_cur_pos : integer range 0 to led_proceed_max;
 		
 		variable red_lock : std_logic := '0';
 		variable blue_lock : std_logic := '0';
@@ -137,13 +141,13 @@ begin
 					leds_line <= '0';
 		
 				when SendLEDsData =>
-					if step = 62 then
+					if step = step_max then
 						step <= 0;
 						
-						if bit_proceed = 23 then
+						if bit_proceed = bit_proceed_max then
 							bit_proceed <= 0;
 							
-							if led_proceed = 3 then
+							if led_proceed = led_proceed_max then
 								led_proceed <= 0;
 								
 								stage <= ValidateSeq;
