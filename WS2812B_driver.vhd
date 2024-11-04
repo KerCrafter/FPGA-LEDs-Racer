@@ -9,6 +9,7 @@ entity WS2812B_driver is
 		
 		green_pos : in integer range 0 to 3;
 		red_pos : in integer range 0 to 3;
+		red_input : in std_logic;
 		blue_pos : in integer range 0 to 3;
 		yellow_pos : in integer range 0 to 3;
 		
@@ -20,6 +21,10 @@ architecture behaviour of WS2812B_driver is
 	signal step : integer range 0 to 62;
 	signal bit_proceed : integer range 0 to 23;
 	signal led_proceed : integer range 0 to 3;
+	
+	--signal red_cur_pos : integer range 0 to 3;
+	
+	--signal refresh : std_logic := '0';
 	
 	constant WaitStart : std_logic_vector(0 to 1) := "00";
 	constant SendLEDsData : std_logic_vector(0 to 1) := "01";
@@ -115,12 +120,19 @@ architecture behaviour of WS2812B_driver is
 	
 	
 begin
-	process(clk)
+	process(clk, red_input)
 		variable red_cur_pos : integer range 0 to 3;
 		variable blue_cur_pos : integer range 0 to 3;
 		variable green_cur_pos : integer range 0 to 3;
 		variable yellow_cur_pos : integer range 0 to 3;
+		
+		variable refresh : std_logic := '0';
 	begin
+	
+		if rising_edge(red_input) then
+			red_cur_pos := red_cur_pos + 1;
+			refresh := '1';
+		end if;
 	
 		if rising_edge(clk) then
 
@@ -141,6 +153,8 @@ begin
 							
 							if led_proceed = 3 then
 								led_proceed <= 0;
+								
+								refresh := '0';
 								stage <= ValidateSeq;
 							else
 								led_proceed <= led_proceed + 1;
@@ -155,20 +169,21 @@ begin
 					leds_line <= serial_state_led_line(
 						bit_proceed => bit_proceed,
 						step => step,
-						players_in_case => bool_to_logic(red_pos = led_proceed) & bool_to_logic(blue_pos = led_proceed) & bool_to_logic(green_pos = led_proceed) & bool_to_logic(yellow_pos = led_proceed)
+						players_in_case => bool_to_logic(red_cur_pos = led_proceed) & bool_to_logic(blue_pos = led_proceed) & bool_to_logic(green_pos = led_proceed) & bool_to_logic(yellow_pos = led_proceed)
 					);
 				
 				when ValidateSeq =>
 					leds_line <= '0';
 					
+					if refresh = '1' then
+						stage <= SendLEDsData;
+					end if;
 					
-					if not (blue_pos = blue_cur_pos and red_pos = red_cur_pos and green_pos = green_cur_pos and yellow_pos = yellow_cur_pos) then
+					if not (blue_pos = blue_cur_pos and green_pos = green_cur_pos and yellow_pos = yellow_cur_pos) then
+
+						
 						if blue_pos /= blue_cur_pos then
 							blue_cur_pos := blue_pos;
-						end if;
-						
-						if red_pos /= red_cur_pos then
-							red_cur_pos := red_pos;
 						end if;
 						
 						if green_pos /= green_cur_pos then

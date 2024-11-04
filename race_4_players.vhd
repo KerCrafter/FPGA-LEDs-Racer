@@ -7,10 +7,10 @@ entity race_4_players is
 		p2_input : in std_logic;
 		p3_input : in std_logic;
 		p4_input : in std_logic;
-		p1_position : buffer integer range 1 to 100;
-		p2_position : buffer integer range 1 to 100;
-		p3_position : buffer integer range 1 to 100;
-		p4_position : buffer integer range 1 to 100
+		p1_position : buffer integer range 0 to 3;
+		p2_position : buffer integer range 0 to 3;
+		p3_position : buffer integer range 0 to 3;
+		p4_position : buffer integer range 0 to 3
 	);		
 end entity;
 
