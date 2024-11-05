@@ -22,7 +22,7 @@ I'm putting here the software I use for development to date. It's possible that 
 - Questa Sim
 
 ## Actual State
-**51** Logic Element (LE) - **24** Registers
+**49** Logic Element (LE) - **27** Registers
 
 I concentrated mainly on implementing the WS2812B LED driver. With the help of the testbench tool, I implemented tests as I went along in order to discover the communication algorithm with the WS2812B LED serial line. 
 This enabled me to optimize the number of registers and logic elements used (120 to 51 LE).
