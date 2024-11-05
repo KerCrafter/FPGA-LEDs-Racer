@@ -356,7 +356,7 @@ begin
 	CHECK_SIG: process
 		variable v : integer;
 	begin
-		assert_should_maintain_LOW_state_during(4);
+		assert_should_maintain_LOW_state_during(3);
 		
 		-- All players are in 1st case
 		
@@ -371,7 +371,6 @@ begin
 		assert_should_maintain_LOW_state_during(2600);
 	
 		wait until red_input = '1';
-		wait until clk = '0';
 		wait until clk = '1';
 		
 		-- Red go to second led
@@ -384,11 +383,10 @@ begin
 		-- (Spec: RESET CODE should be LOW during >= 50us)
 		-- (50us => 50000 ns) / 20ns = 2500 clk edge
 		-- adding a little padding = 2500 + (1000 => 2us)
-		assert_should_maintain_LOW_state_during(2600);				
+		assert_should_maintain_LOW_state_during(2600);
 
 		wait until red_input = '0';
 		wait until red_input = '1';
-		wait until clk = '0';
 		wait until clk = '1';
 		
 		-- Red go to third led
@@ -405,7 +403,6 @@ begin
 		
 		wait until red_input = '0';
 		wait until red_input = '1';
-		wait until clk = '0';
 		wait until clk = '1';
 		
 		-- Red go to third led
@@ -421,7 +418,6 @@ begin
 		assert_should_maintain_LOW_state_during(2600);
 
 		wait until blue_input = '1';
-		wait until clk = '0';
 		wait until clk = '1';
 		
 		-- Blue go to second led
@@ -438,7 +434,6 @@ begin
 		
 		wait until blue_input = '0';
 		wait until blue_input = '1';
-		wait until clk = '0';
 		wait until clk = '1';
 		
 		-- Blue go to third led
@@ -456,7 +451,6 @@ begin
 		
 		wait until blue_input = '0';
 		wait until blue_input = '1';
-		wait until clk = '0';
 		wait until clk = '1';
 		
 		-- Blue go to 4th led
@@ -472,7 +466,6 @@ begin
 		assert_should_maintain_LOW_state_during(2600);
 		
 		wait until green_input = '1';
-		wait until clk = '0';
 		wait until clk = '1';
 		
 		-- Green go to 2nd led
@@ -489,7 +482,6 @@ begin
 		
 		wait until green_input = '0';
 		wait until green_input = '1';
-		wait until clk = '0';
 		wait until clk = '1';
 		
 		-- Green go to 3rd led
@@ -506,7 +498,6 @@ begin
 		
 
 		wait until yellow_input = '1';
-		wait until clk = '0';
 		wait until clk = '1';
 
 		-- Yellow go to 2nd led
@@ -520,7 +511,6 @@ begin
 		-- (50us => 50000 ns) / 20ns = 2500 clk edge
 		-- adding a little padding = 2500 + (1000 => 2us)
 		assert_should_maintain_LOW_state_during(2600);
-
 		
 		wait;
 	end process;

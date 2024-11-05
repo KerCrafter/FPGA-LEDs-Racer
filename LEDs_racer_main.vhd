@@ -16,6 +16,39 @@ entity LEDs_racer_main is
 	);
 end entity;
 
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity player_button is
+	port (
+		btn : in std_logic;
+		clk: in std_logic;
+		cur_pos : buffer integer range 0 to 3;
+		activity : out std_logic
+	);
+end entity;
+
+architecture beh of player_button is
+	signal lock : std_logic;
+begin
+	process(clk)
+	begin
+		if rising_edge(clk) then
+			if btn = '1' and btn /= lock then
+				lock <= btn;
+				
+				cur_pos <= cur_pos + 1;
+			elsif btn = '0' and btn /= lock then
+				lock <= btn;
+			end if;
+		end if;
+	end process;
+	
+	activity <= '1' when btn = '1' and btn /= lock else '0';
+	
+end architecture;
+
 architecture behaviour of LEDs_racer_main is
 	constant step_max : integer := 62;
 	constant bit_proceed_max : integer := 23;
@@ -24,6 +57,17 @@ architecture behaviour of LEDs_racer_main is
 	signal step : integer range 0 to step_max;
 	signal bit_proceed : integer range 0 to bit_proceed_max;
 	signal led_proceed : integer range 0 to led_proceed_max;
+	
+	signal red_cur_pos : integer range 0 to led_proceed_max;
+	signal blue_cur_pos : integer range 0 to led_proceed_max;
+	signal green_cur_pos : integer range 0 to led_proceed_max;
+	signal yellow_cur_pos : integer range 0 to led_proceed_max;
+	
+	signal red_activity : std_logic;
+	signal blue_activity : std_logic;
+	signal green_activity : std_logic;
+	signal yellow_activity : std_logic;
+
 	
 	constant WaitStart : std_logic_vector(0 to 1) := "00";
 	constant SendLEDsData : std_logic_vector(0 to 1) := "01";
@@ -116,30 +160,43 @@ architecture behaviour of LEDs_racer_main is
 			);
 		end if;
 	end function;
-	
-	
 begin
+	red_btn: entity work.player_button port map (
+		clk => clk,
+		btn => red_input,
+		cur_pos => red_cur_pos,
+		activity => red_activity
+	);
+	
+	blue_btn: entity work.player_button port map (
+		clk => clk,
+		btn => blue_input,
+		cur_pos => blue_cur_pos,
+		activity => blue_activity
+	);
+	
+	green_btn: entity work.player_button port map (
+		clk => clk,
+		btn => green_input,
+		cur_pos => green_cur_pos,
+		activity => green_activity
+	);
+	
+	yellow_btn: entity work.player_button port map (
+		clk => clk,
+		btn => yellow_input,
+		cur_pos => yellow_cur_pos,
+		activity => yellow_activity
+	);
+
 	process(clk)
-		variable red_cur_pos : integer range 0 to led_proceed_max;
-		variable blue_cur_pos : integer range 0 to led_proceed_max;
-		variable green_cur_pos : integer range 0 to led_proceed_max;
-		variable yellow_cur_pos : integer range 0 to led_proceed_max;
-		
-		variable red_lock : std_logic := '0';
-		variable blue_lock : std_logic := '0';
-		variable green_lock : std_logic := '0';
-		variable yellow_lock : std_logic := '0';
 	begin
 		if rising_edge(clk) then
-
 			case stage is
 				when WaitStart =>
 					if enable = '1' then
 						stage <= SendLEDsData;
-					end if;
-				
-					leds_line <= '0';
-		
+					end if;		
 				when SendLEDsData =>
 					if step = step_max then
 						step <= 0;
@@ -160,50 +217,10 @@ begin
 					else
 						step <= step + 1;
 					end if;
-					
-					leds_line <= serial_state_led_line(
-						bit_proceed => bit_proceed,
-						step => step,
-						players_in_case => bool_to_logic(red_cur_pos = led_proceed) & bool_to_logic(blue_cur_pos = led_proceed) & bool_to_logic(green_cur_pos = led_proceed) & bool_to_logic(yellow_cur_pos = led_proceed)
-					);
 				
-				when ValidateSeq =>
-					leds_line <= '0';
-					
-					if red_input = '1' and red_input /= red_lock then
-						red_cur_pos := red_cur_pos + 1;
+				when ValidateSeq =>					
+					if red_activity = '1' or blue_activity = '1' or green_activity = '1' or yellow_activity = '1' then
 						stage <= SendLEDsData;
-					end if;
-					
-					if blue_input = '1' and blue_input /= blue_lock then
-						blue_cur_pos := blue_cur_pos + 1;
-						stage <= SendLEDsData;
-					end if;
-					
-					if green_input = '1' and green_input /= green_lock then
-						green_cur_pos := green_cur_pos + 1;
-						stage <= SendLEDsData;
-					end if;
-					
-					if yellow_input = '1' and yellow_input /= yellow_lock then
-						yellow_cur_pos := yellow_cur_pos + 1;
-						stage <= SendLEDsData;
-					end if;
-					
-					if red_input /= red_lock then
-						red_lock := red_input;
-					end if;
-					
-					if blue_input /= blue_lock then
-						blue_lock := blue_input;
-					end if;
-					
-					if green_input /= green_lock then
-						green_lock := green_input;
-					end if;
-					
-					if yellow_input /= yellow_lock then
-						yellow_lock := yellow_input;
 					end if;
 
 				when others =>
@@ -212,4 +229,12 @@ begin
 		end if;
 
 	end process;
+	
+	
+	leds_line <= serial_state_led_line(
+		bit_proceed => bit_proceed,
+		step => step,
+		players_in_case => bool_to_logic(red_cur_pos = led_proceed) & bool_to_logic(blue_cur_pos = led_proceed) & bool_to_logic(green_cur_pos = led_proceed) & bool_to_logic(yellow_cur_pos = led_proceed)
+	) when stage = SendLEDsData else '0';
+	
 end architecture;
