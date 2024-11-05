@@ -29,6 +29,78 @@ entity player_button is
 	);
 end entity;
 
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity WS2812B_gameplay_program is
+	port (
+		red_pos : in integer range 0 to 3;
+		blue_pos : in integer range 0 to 3;
+		green_pos : in integer range 0 to 3;
+		yellow_pos : in integer range 0 to 3;
+		
+		led_number : in integer range 0 to 3;
+	
+		red_intensity : out integer range 0 to 255;
+		blue_intensity : out integer range 0 to 255;
+		green_intensity : out integer range 0 to 255
+	);
+end entity;
+
+architecture beh of WS2812B_gameplay_program is
+
+	function bool_to_logic(b: boolean) return std_logic is
+	begin
+		 if (b) then
+			  return '1';
+		 else
+			  return '0';
+		 end if;
+	end function bool_to_logic;
+
+begin
+	process(led_number, red_pos, blue_pos, green_pos, yellow_pos)
+		variable v : std_logic_vector(3 downto 0);
+	begin
+	
+		v := bool_to_logic(red_pos = led_number) & bool_to_logic(blue_pos = led_number) & bool_to_logic(green_pos = led_number) & bool_to_logic(yellow_pos = led_number);
+	
+		case v is
+			when "0000" =>
+				green_intensity <= 0;
+				red_intensity <= 0;
+				blue_intensity <= 0;
+
+			when "0001" =>
+				green_intensity <= 5;
+				red_intensity <= 5;
+				blue_intensity <= 0;
+				
+			when "1000" =>
+				green_intensity <= 0;
+				red_intensity <= 10;
+				blue_intensity <= 0;
+				
+			when "0100" =>
+				green_intensity <= 0;
+				red_intensity <= 0;
+				blue_intensity <= 10;
+				
+			when "0010" =>
+				green_intensity <= 10;
+				red_intensity <= 0;
+				blue_intensity <= 0;
+
+			when others =>
+				green_intensity <= 5;
+				red_intensity <= 5;
+				blue_intensity <= 5;
+		end case;
+	end process;
+
+end architecture;
+
 architecture beh of player_button is
 	signal lock : std_logic;
 begin
@@ -67,7 +139,10 @@ architecture behaviour of LEDs_racer_main is
 	signal blue_activity : std_logic;
 	signal green_activity : std_logic;
 	signal yellow_activity : std_logic;
-
+	
+	signal red_intensity : integer range 0 to 255;
+	signal blue_intensity : integer range 0 to 255;
+	signal green_intensity : integer range 0 to 255;
 	
 	constant WaitStart : std_logic_vector(0 to 1) := "00";
 	constant SendLEDsData : std_logic_vector(0 to 1) := "01";
@@ -117,49 +192,6 @@ architecture behaviour of LEDs_racer_main is
 			return '0';
 		end if;
 	end function;
-	
-	
-	function serial_state_led_line (
-		step : integer range 0 to step_max;
-		bit_proceed : integer range 0 to 23;
-		
-		players_in_case : std_logic_vector(3 downto 0)
-	) return std_logic is
-	begin		
-		if players_in_case = "0000" then
-			return serial_state_led_line_for_color(
-				bit_proceed => bit_proceed,
-				step => step,
-				green => 0,
-				red => 0,
-				blue => 0
-			);
-		elsif players_in_case = "0001" then
-			return serial_state_led_line_for_color(
-				bit_proceed => bit_proceed,
-				step => step,
-				green => 5,
-				red => 5,
-				blue => 0
-			);
-		elsif players_in_case = "0010" or players_in_case = "0100" or players_in_case = "1000" then
-			return serial_state_led_line_for_color(
-				bit_proceed => bit_proceed,
-				step => step,
-				green => ite(players_in_case = "0010", 10, 0),
-				red => ite(players_in_case = "1000", 10, 0),
-				blue => ite(players_in_case = "0100", 10, 0)
-			);
-		else
-			return serial_state_led_line_for_color(
-				bit_proceed => bit_proceed,
-				step => step,
-				green => 5,
-				red => 5,
-				blue => 5
-			);
-		end if;
-	end function;
 begin
 	red_btn: entity work.player_button port map (
 		clk => clk,
@@ -187,6 +219,19 @@ begin
 		btn => yellow_input,
 		cur_pos => yellow_cur_pos,
 		activity => yellow_activity
+	);
+	
+	WS2812B_gameplay_program: entity work.WS2812B_gameplay_program port map(
+		red_pos => red_cur_pos,
+		blue_pos => blue_cur_pos,
+		green_pos => green_cur_pos,
+		yellow_pos => yellow_cur_pos,
+		
+		led_number => led_proceed,
+	
+		green_intensity => green_intensity,
+		red_intensity => red_intensity,
+		blue_intensity => blue_intensity
 	);
 
 	process(clk)
@@ -218,7 +263,7 @@ begin
 						step <= step + 1;
 					end if;
 				
-				when ValidateSeq =>					
+				when ValidateSeq =>
 					if red_activity = '1' or blue_activity = '1' or green_activity = '1' or yellow_activity = '1' then
 						stage <= SendLEDsData;
 					end if;
@@ -230,11 +275,13 @@ begin
 
 	end process;
 	
-	
-	leds_line <= serial_state_led_line(
+	leds_line <= serial_state_led_line_for_color(
 		bit_proceed => bit_proceed,
 		step => step,
-		players_in_case => bool_to_logic(red_cur_pos = led_proceed) & bool_to_logic(blue_cur_pos = led_proceed) & bool_to_logic(green_cur_pos = led_proceed) & bool_to_logic(yellow_cur_pos = led_proceed)
+		green => green_intensity,
+		red => red_intensity,
+		blue => blue_intensity
 	) when stage = SendLEDsData else '0';
+	
 	
 end architecture;
