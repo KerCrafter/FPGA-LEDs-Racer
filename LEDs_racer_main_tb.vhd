@@ -7,7 +7,7 @@ end LEDs_racer_main_tb;
 
 architecture behaviour of LEDs_racer_main_tb is
 	signal clk : std_logic;
-	signal enable : std_logic;
+	signal enable : std_logic := '0';
 	signal red_input : std_logic;
 	signal blue_input : std_logic;
 	signal green_input : std_logic;

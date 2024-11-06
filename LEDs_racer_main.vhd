@@ -1,5 +1,20 @@
 library ieee;
 use ieee.std_logic_1164.all;
+
+entity activity_detector is
+	port(
+		A : in std_logic;
+		B : in std_logic;
+		C : in std_logic;
+		D : in std_logic;
+		
+		R : out std_logic
+	);
+end entity;
+
+
+library ieee;
+use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity LEDs_racer_main is
@@ -12,7 +27,7 @@ entity LEDs_racer_main is
 		blue_input : in std_logic;
 		yellow_input : in std_logic;
 		
-		leds_line : out std_logic := '0'
+		leds_line : out std_logic
 	);
 end entity;
 
@@ -47,6 +62,125 @@ entity WS2812B_gameplay_program is
 		green_intensity : out integer range 0 to 255
 	);
 end entity;
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity WS2812B_driver is
+	port (
+		clk : in std_logic;
+		enable : in std_logic;
+		leds_line : out std_logic := '0';
+		
+		update_frame : in std_logic;
+		
+		program_led_number : buffer integer range 0 to 3;
+		program_red_intensity : in integer range 0 to 255;
+		program_blue_intensity : in integer range 0 to 255;
+		program_green_intensity : in integer range 0 to 255
+	);
+end entity;
+
+architecture beha of activity_detector is
+begin
+	process(A, B, C, D)
+	begin
+		R <= A or B or C or D;
+	end process;
+
+end architecture;
+
+architecture beh of WS2812B_driver is
+	constant step_max : integer := 62;
+	constant bit_proceed_max : integer := 23;
+	constant led_proceed_max : integer := 3;
+
+	signal step : integer range 0 to step_max;
+	signal bit_proceed : integer range 0 to bit_proceed_max;
+
+	constant WaitStart : std_logic_vector(0 to 1) := "00";
+	constant SendLEDsData : std_logic_vector(0 to 1) := "01";
+	constant ValidateSeq : std_logic_vector(0 to 1) := "10";
+	
+	signal stage : std_logic_vector(0 to 1) := WaitStart;
+	
+	
+	constant HIGH_DURATION_FOR_CODE_1 : integer := 39;
+	constant HIGH_DURATION_FOR_CODE_0 : integer := 19;
+	
+	function serial_state_led_line_for_color (
+		step : integer range 0 to step_max;
+		bit_proceed : integer range 0 to bit_proceed_max;
+		
+		green: integer range 0 to 255;
+		red: integer range 0 to 255;
+		blue: integer range 0 to 255
+	) return std_logic is
+		variable data :  std_logic_vector(0 to bit_proceed_max);
+	begin
+		data := std_logic_vector( to_unsigned( green, 8)) & std_logic_vector( to_unsigned( red, 8)) & std_logic_vector( to_unsigned( blue, 8));
+	
+		if data(bit_proceed) = '0' and step <= HIGH_DURATION_FOR_CODE_0 then
+			return '1';
+		elsif data(bit_proceed) = '1' and step <= HIGH_DURATION_FOR_CODE_1 then
+			return '1';
+		else
+			return '0';
+		end if;
+	end function;
+begin
+	process(clk)
+	begin
+		if rising_edge(clk) then
+			case stage is
+				when WaitStart =>
+					if enable = '1' then
+						stage <= SendLEDsData;
+					end if;		
+				when SendLEDsData =>
+					if step = step_max then
+						step <= 0;
+						
+						if bit_proceed = bit_proceed_max then
+							bit_proceed <= 0;
+							
+							if program_led_number = led_proceed_max then
+								program_led_number <= 0;
+								
+								stage <= ValidateSeq;
+							else
+								program_led_number <= program_led_number + 1;
+							end if;
+						else
+							bit_proceed <= bit_proceed + 1;
+						end if;
+					else
+						step <= step + 1;
+					end if;
+				
+				when ValidateSeq =>
+					if update_frame = '1' then
+						stage <= SendLEDsData;
+					end if;
+
+				when others =>
+					--nothing todo
+			end case;
+		end if;
+
+	end process;
+	
+	leds_line <= serial_state_led_line_for_color(
+		bit_proceed => bit_proceed,
+		step => step,
+		green => program_green_intensity,
+		red => program_red_intensity,
+		blue => program_blue_intensity
+	) when stage = SendLEDsData else '0';
+
+end architecture;
+
 
 architecture beh of WS2812B_gameplay_program is
 
@@ -122,18 +256,10 @@ begin
 end architecture;
 
 architecture behaviour of LEDs_racer_main is
-	constant step_max : integer := 62;
-	constant bit_proceed_max : integer := 23;
-	constant led_proceed_max : integer := 3;
-
-	signal step : integer range 0 to step_max;
-	signal bit_proceed : integer range 0 to bit_proceed_max;
-	signal led_proceed : integer range 0 to led_proceed_max;
-	
-	signal red_cur_pos : integer range 0 to led_proceed_max;
-	signal blue_cur_pos : integer range 0 to led_proceed_max;
-	signal green_cur_pos : integer range 0 to led_proceed_max;
-	signal yellow_cur_pos : integer range 0 to led_proceed_max;
+	signal red_cur_pos : integer range 0 to 3;
+	signal blue_cur_pos : integer range 0 to 3;
+	signal green_cur_pos : integer range 0 to 3;
+	signal yellow_cur_pos : integer range 0 to 3;
 	
 	signal red_activity : std_logic;
 	signal blue_activity : std_logic;
@@ -144,36 +270,23 @@ architecture behaviour of LEDs_racer_main is
 	signal blue_intensity : integer range 0 to 255;
 	signal green_intensity : integer range 0 to 255;
 	
-	constant WaitStart : std_logic_vector(0 to 1) := "00";
-	constant SendLEDsData : std_logic_vector(0 to 1) := "01";
-	constant ValidateSeq : std_logic_vector(0 to 1) := "10";
+	signal led_proceed : integer range 0 to 3;
 	
-	signal stage : std_logic_vector(0 to 1) := WaitStart;
+	signal update_frame : std_logic;
 	
 	
-	constant HIGH_DURATION_FOR_CODE_1 : integer := 39;
-	constant HIGH_DURATION_FOR_CODE_0 : integer := 19;
+	component OR_4
+		port(
+			A: in std_logic;
+			B: in std_logic;
+			C: in std_logic;
+			D: in std_logic;
+			
+			R: out std_logic
+		);
+	end component;
 	
-	function serial_state_led_line_for_color (
-		step : integer range 0 to step_max;
-		bit_proceed : integer range 0 to bit_proceed_max;
-		
-		green: integer range 0 to 255;
-		red: integer range 0 to 255;
-		blue: integer range 0 to 255
-	) return std_logic is
-		variable data :  std_logic_vector(0 to bit_proceed_max);
-	begin
-		data := std_logic_vector( to_unsigned( green, 8)) & std_logic_vector( to_unsigned( red, 8)) & std_logic_vector( to_unsigned( blue, 8));
 	
-		if data(bit_proceed) = '0' and step <= HIGH_DURATION_FOR_CODE_0 then
-			return '1';
-		elsif data(bit_proceed) = '1' and step <= HIGH_DURATION_FOR_CODE_1 then
-			return '1';
-		else
-			return '0';
-		end if;
-	end function;
 begin
 	red_btn: entity work.player_button port map (
 		clk => clk,
@@ -203,6 +316,28 @@ begin
 		activity => yellow_activity
 	);
 	
+	activity_detector: entity work.activity_detector port map(
+		A => green_activity,
+		B => red_activity,
+		C => blue_activity,
+		D => yellow_activity,
+		
+		R => update_frame
+	);
+	
+	WS2812B_driver: entity work.WS2812B_driver port map(
+		clk => clk,
+		leds_line => leds_line,
+		enable => enable,
+		
+		program_led_number => led_proceed,
+		program_red_intensity => red_intensity,
+		program_blue_intensity => blue_intensity,
+		program_green_intensity => green_intensity,
+		
+		update_frame => update_frame
+	);
+	
 	WS2812B_gameplay_program: entity work.WS2812B_gameplay_program port map(
 		red_pos => red_cur_pos,
 		blue_pos => blue_cur_pos,
@@ -215,55 +350,5 @@ begin
 		red_intensity => red_intensity,
 		blue_intensity => blue_intensity
 	);
-
-	process(clk)
-	begin
-		if rising_edge(clk) then
-			case stage is
-				when WaitStart =>
-					if enable = '1' then
-						stage <= SendLEDsData;
-					end if;		
-				when SendLEDsData =>
-					if step = step_max then
-						step <= 0;
-						
-						if bit_proceed = bit_proceed_max then
-							bit_proceed <= 0;
-							
-							if led_proceed = led_proceed_max then
-								led_proceed <= 0;
-								
-								stage <= ValidateSeq;
-							else
-								led_proceed <= led_proceed + 1;
-							end if;
-						else
-							bit_proceed <= bit_proceed + 1;
-						end if;
-					else
-						step <= step + 1;
-					end if;
-				
-				when ValidateSeq =>
-					if red_activity = '1' or blue_activity = '1' or green_activity = '1' or yellow_activity = '1' then
-						stage <= SendLEDsData;
-					end if;
-
-				when others =>
-					--nothing todo
-			end case;
-		end if;
-
-	end process;
-	
-	leds_line <= serial_state_led_line_for_color(
-		bit_proceed => bit_proceed,
-		step => step,
-		green => green_intensity,
-		red => red_intensity,
-		blue => blue_intensity
-	) when stage = SendLEDsData else '0';
-	
 	
 end architecture;
