@@ -154,24 +154,6 @@ architecture behaviour of LEDs_racer_main is
 	constant HIGH_DURATION_FOR_CODE_1 : integer := 39;
 	constant HIGH_DURATION_FOR_CODE_0 : integer := 19;
 	
-	function ite(b: boolean; x, y: integer) return integer is
-	begin
-		 if (b) then
-			  return x;
-		 else
-			  return y;
-		 end if;
-	end function ite;
-	
-	function bool_to_logic(b: boolean) return std_logic is
-	begin
-		 if (b) then
-			  return '1';
-		 else
-			  return '0';
-		 end if;
-	end function bool_to_logic;
-	
 	function serial_state_led_line_for_color (
 		step : integer range 0 to step_max;
 		bit_proceed : integer range 0 to bit_proceed_max;
