@@ -34,6 +34,7 @@ This enabled me to optimize the number of registers and logic elements used (120
 |  pin input   | input description  |   output description             |  pin output                    |
 |  :---   |  :--- | ---:                         |  ---:                    |
 |  **clk**  |  50 Mhz clock input signal  |  WS2812B transmission  |  **leds_line**  |
+|  **enable**  |  High state to start  | |  |
 |  **red_input**  |  Player Red input (connected to Red button)  |    |  |
 |  **green_input**  |  Player Green input (connected to Green button)  |    |  |
 |  **blue_input**  |  Player Blue input (connected to Blue button)  |    |  |
