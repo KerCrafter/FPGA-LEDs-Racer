@@ -29,6 +29,8 @@ This enabled me to optimize the number of registers and logic elements used (120
 
 ## Architecture (Top View Usage)
 
+![Top View Architecture](./assets/top_level_arch.png)
+
 |  pin input   | input description  |   output description             |  pin output                    |
 |  :---   |  :--- | ---:                         |  ---:                    |
 |  **clk**  |  50 Mhz clock input signal  |  WS2812B transmission  |  **leds_line**  |
