@@ -40,4 +40,9 @@ This enabled me to optimize the number of registers and logic elements used (120
 |  **blue_input**  |  Player Blue input (connected to Blue button)  |    |  |
 |  **yellow_input**  |  Player Yellow input (connected to Yellow button)  |    |  |
 
+### See more about sub-components
 
+[Player Button](./docs/player_button.md)
+[Activity Detector](./docs/activity_detector.md)
+[WS2812B Driver](./docs/ws2812b_driver.md)
+[WS2812B Gameplay Program](./docs/ws2812b_gameplay_program.md)
