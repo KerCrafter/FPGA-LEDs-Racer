@@ -11,7 +11,7 @@ Manage the serial output signal for the LEDs of type WS2812B.
 
 ## RTL Architecture 
 
-![WS2812B Driver Architecture](./../assets/ws2812b_driver_arch.png)
+![WS2812B Driver Architecture](./../assets/WS2812B_driver_arch.png)
 
 |  pin input   | input description  |   output description             |  pin output                    |
 |  :---   |  :--- | ---:                         |  ---:                    |
