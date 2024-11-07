@@ -1,0 +1,7 @@
+/#auto_saved_files#
+_autosave-*
+*.kicad_pcb
+*.kicad_sch.lck
+*.kicad_pro
+*-backups/
+*.kicad_prl
