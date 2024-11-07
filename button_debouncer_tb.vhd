@@ -18,13 +18,13 @@ end entity;
 
 architecture beh of button_debouncer is
 begin
-
+	btn_debounced <= '0';
 end architecture;
 
 
 architecture behaviour of button_debouncer_tb is
 	signal clk : std_logic;
-	signal btn_in : std_logic;
+	signal btn_in : std_logic := '0';
 	signal btn_debounced : std_logic;
 begin
 
@@ -44,21 +44,31 @@ begin
 	begin
 		btn_in <= '0'; wait for 50 ns;
 		
-		btn_in <= '1'; wait for 3 ns;
-		btn_in <= '0'; wait for 3 ns;
-		btn_in <= '1'; wait for 3 ns;
-		btn_in <= '0'; wait for 3 ns;
-		btn_in <= '1'; wait for 3 ns;
-		btn_in <= '0'; wait for 3 ns;
-		btn_in <= '1'; wait for 3 ns;
-		btn_in <= '0'; wait for 3 ns;
-		btn_in <= '1'; wait for 3 ns;
-		btn_in <= '0'; wait for 3 ns;
-		btn_in <= '1'; wait for 3 ns;
-		btn_in <= '0'; wait for 3 ns;
+--		btn_in <= '1'; wait for 3 ns;
+--		btn_in <= '0'; wait for 3 ns;
+--		btn_in <= '1'; wait for 3 ns;
+--		btn_in <= '0'; wait for 3 ns;
+--		btn_in <= '1'; wait for 3 ns;
+--		btn_in <= '0'; wait for 3 ns;
+--		btn_in <= '1'; wait for 3 ns;
+--		btn_in <= '0'; wait for 3 ns;
+--		btn_in <= '1'; wait for 3 ns;
+--		btn_in <= '0'; wait for 3 ns;
+--		btn_in <= '1'; wait for 3 ns;
+--		btn_in <= '0'; wait for 3 ns;
 		btn_in <= '1';
 		
 		wait;
+	end process;
+	
+	CHECK_BTN_DEBOUNCE: process
+	begin
+		wait until btn_in <= '1';
+		
+		assert btn_debounced = '0' report "just when button is pressed, should be LOW";
+		
+		wait;
+	
 	end process;
 	
 
