@@ -5,9 +5,18 @@ Displaying logic per LEDs. designed to work with WS2812B Driver.
 
 ## Responsabilities :
 
-- Receive Positions of the 4 players
-- Reveive LED should be coded
-- Send Green/Red/Blue values to the WS2812B driver
+- Receive players positions 
+- Reveive position of current LED should be coded
+- Send Green/Red/Blue light intensity for the WS2812B driver
+
+## Displaying Rules
+
+- White (Green: 5, Red: 5, Blue: 5) when 2+ players are in the LED.
+- Black (OR light off => Green: 0, Red: 0, Blue: 0) when no players are actually in the LED.
+- Green (Green 10, Red: 0, Blue: 0) when only Green player is in the LED.
+- Red (Green 0, Red: 10, Blue: 0) when only Red player is in the LED.
+- Blue (Green 0, Red: 0, Blue: 10) when only Blue player is in the LED.
+- Yellow (Green 5, Red: 5, Blue: 0) when only Yellow player is in the LED.
 
 ## RTL Architecture 
 
