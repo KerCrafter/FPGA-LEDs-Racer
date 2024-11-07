@@ -27,6 +27,12 @@ I'm putting here the software I use for development to date. It's possible that 
 I concentrated mainly on implementing the WS2812B LED driver. With the help of the testbench tool, I implemented tests as I went along in order to discover the communication algorithm with the WS2812B LED serial line. 
 This enabled me to optimize the number of registers and logic elements used (120 to 51 LE).
 
+### Identified problems
+
+- Initial players position seems LED 1 instead LED 0 (probably caused by initial state of inputs from the FPGA)
+- Pressing in button not jump to the next position (probably caused by hardware button bouncing on press)
+- LEDs display multiple times (probably caused by WS2812B Driver, I think frame validation (RET code) acordingly the DataSheet should be LOW during **Treset** = Above 50µs. Is not implemented now. 
+
 ## Architecture (Top View Usage)
 
 ![Top View Architecture](./assets/top_level_arch.png)
