@@ -25,7 +25,9 @@ begin
 	begin
 	
 		if rising_edge(clk) then
-			if btn_in = '1' and cnt /= 2 then
+			if btn_in = '0' then
+				cnt <= 0;
+			elsif btn_in = '1' and cnt /= 2 then
 				cnt <= cnt + 1;
 			end if;
 		end if;
@@ -57,6 +59,8 @@ begin
 	
 	BTN_STIM: process
 	begin
+	
+		--without press bounce
 		btn_in <= '0'; wait for 50 ns;
 		
 --		btn_in <= '1'; wait for 3 ns;
@@ -71,7 +75,15 @@ begin
 --		btn_in <= '0'; wait for 3 ns;
 --		btn_in <= '1'; wait for 3 ns;
 --		btn_in <= '0'; wait for 3 ns;
-		btn_in <= '1';
+		btn_in <= '1'; wait for 50ns;
+		btn_in <= '0'; wait for 50ns;
+		
+--		-- with one press bounce
+--		btn_in <= '1'; wait for 3 ns;
+--		btn_in <= '0'; wait for 3 ns;
+--		btn_in <= '1'; wait for 50 ns;
+--		
+--		btn_in <= '0'; wait for 50 ns;
 		
 		wait;
 	end process;
@@ -100,6 +112,13 @@ begin
 		end if;
 		
 		assert btn_debounced = '1' report "debounced button should up to HIGH";
+		
+		wait until btn_in = '0';
+		wait until clk = '1';
+		wait until clk = '0'; --fix
+
+		assert btn_debounced = '0' report "debounced button should down to LOW when btn released";
+
 		
 		wait;
 	
