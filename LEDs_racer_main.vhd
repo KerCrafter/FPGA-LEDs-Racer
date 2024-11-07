@@ -256,6 +256,9 @@ begin
 end architecture;
 
 architecture behaviour of LEDs_racer_main is
+
+	signal green_input_debounced : std_logic;
+
 	signal red_cur_pos : integer range 0 to 3;
 	signal blue_cur_pos : integer range 0 to 3;
 	signal green_cur_pos : integer range 0 to 3;
@@ -302,9 +305,15 @@ begin
 		activity => blue_activity
 	);
 	
+	green_debouncer: entity work.button_debouncer port map (
+		clk => clk,
+		btn_in => green_input,
+		btn_debounced => green_input_debounced
+	);
+	
 	green_btn: entity work.player_button port map (
 		clk => clk,
-		btn => green_input,
+		btn => green_input_debounced,
 		cur_pos => green_cur_pos,
 		activity => green_activity
 	);
