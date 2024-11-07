@@ -61,3 +61,4 @@ This enabled me to optimize the number of registers and logic elements used (120
 Should be connected to the FPGA inputs with a pull down resistor (note: not sure 1M is an ideal value)
 
 ![Buttons Wires](./assets/buttons_wires.png)
+![race_4_players.kicad_sch](./schematic/race_4_players/race_4_players.kicad_sch)
