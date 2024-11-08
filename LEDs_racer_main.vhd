@@ -195,12 +195,12 @@ architecture beh of WS2812B_gameplay_program is
 
 begin
 	process(led_number, red_pos, blue_pos, green_pos, yellow_pos)
-		variable v : std_logic_vector(3 downto 0);
+		variable players_into_the_led : std_logic_vector(3 downto 0);
 	begin
 	
-		v := bool_to_logic(red_pos = led_number) & bool_to_logic(blue_pos = led_number) & bool_to_logic(green_pos = led_number) & bool_to_logic(yellow_pos = led_number);
+		players_into_the_led := bool_to_logic(red_pos = led_number) & bool_to_logic(blue_pos = led_number) & bool_to_logic(green_pos = led_number) & bool_to_logic(yellow_pos = led_number);
 	
-		case v is
+		case players_into_the_led is
 			when "0000" =>
 				green_intensity <= 0;
 				red_intensity <= 0;
