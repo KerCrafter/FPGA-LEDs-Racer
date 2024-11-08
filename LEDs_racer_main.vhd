@@ -39,7 +39,7 @@ entity player_button is
 	port (
 		btn : in std_logic;
 		clk: in std_logic;
-		cur_pos : buffer integer range 0 to 3;
+		cur_pos : buffer integer range 0 to 108;
 		activity : out std_logic
 	);
 end entity;
@@ -50,12 +50,12 @@ use ieee.numeric_std.all;
 
 entity WS2812B_gameplay_program is
 	port (
-		red_pos : in integer range 0 to 3;
-		blue_pos : in integer range 0 to 3;
-		green_pos : in integer range 0 to 3;
-		yellow_pos : in integer range 0 to 3;
+		red_pos : in integer range 0 to 108;
+		blue_pos : in integer range 0 to 108;
+		green_pos : in integer range 0 to 108;
+		yellow_pos : in integer range 0 to 108;
 		
-		led_number : in integer range 0 to 3;
+		led_number : in integer range 0 to 108;
 	
 		red_intensity : out integer range 0 to 255;
 		blue_intensity : out integer range 0 to 255;
@@ -75,7 +75,7 @@ entity WS2812B_driver is
 		
 		update_frame : in std_logic;
 		
-		program_led_number : buffer integer range 0 to 3;
+		program_led_number : buffer integer range 0 to 108;
 		program_red_intensity : in integer range 0 to 255;
 		program_blue_intensity : in integer range 0 to 255;
 		program_green_intensity : in integer range 0 to 255
@@ -94,7 +94,7 @@ end architecture;
 architecture beh of WS2812B_driver is
 	constant step_max : integer := 62;
 	constant bit_proceed_max : integer := 23;
-	constant led_proceed_max : integer := 3;
+	constant led_proceed_max : integer := 108;
 
 	signal step : integer range 0 to step_max;
 	signal bit_proceed : integer range 0 to bit_proceed_max;
@@ -259,10 +259,10 @@ architecture behaviour of LEDs_racer_main is
 
 	signal green_input_debounced : std_logic;
 
-	signal red_cur_pos : integer range 0 to 3;
-	signal blue_cur_pos : integer range 0 to 3;
-	signal green_cur_pos : integer range 0 to 3;
-	signal yellow_cur_pos : integer range 0 to 3;
+	signal red_cur_pos : integer range 0 to 108;
+	signal blue_cur_pos : integer range 0 to 108;
+	signal green_cur_pos : integer range 0 to 108;
+	signal yellow_cur_pos : integer range 0 to 108;
 	
 	signal red_activity : std_logic;
 	signal blue_activity : std_logic;
@@ -273,7 +273,7 @@ architecture behaviour of LEDs_racer_main is
 	signal blue_intensity : integer range 0 to 255;
 	signal green_intensity : integer range 0 to 255;
 	
-	signal led_proceed : integer range 0 to 3;
+	signal led_proceed : integer range 0 to 108;
 	
 	signal update_frame : std_logic;
 	
