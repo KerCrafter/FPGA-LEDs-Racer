@@ -363,7 +363,6 @@ begin
 	end process;
 	
 	CHECK_SIG: process
-		variable v : integer;
 	begin
 		assert_should_maintain_LOW_state_during(3);
 		
@@ -408,8 +407,9 @@ begin
 		assert_serial_white_led_signal_should_sent; -- first LED : Players (GREEN + BLUE + YELLOW) => White
 		assert_serial_black_led_signal_should_sent; -- second LED : Players (No Players) => Black
 		
-		--BUG detected in simulation
+		--BUG detected in simulation : RED player seems move direcly two positions.
 		assert_serial_black_led_signal_should_sent; -- Problem, display Black instead Red ...
+		assert_serial_red_led_signal_should_sent; -- Problem, display Red instead Black ...
 		
 		wait; -- Problem HERE
 		assert_serial_red_led_signal_should_sent; -- third LED : Players (RED) => Red
