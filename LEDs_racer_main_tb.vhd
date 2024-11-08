@@ -363,7 +363,6 @@ begin
 	end process;
 	
 	CHECK_SIG: process
-		variable v : integer;
 	begin
 		assert_should_maintain_LOW_state_during(3);
 		
@@ -410,6 +409,7 @@ begin
 		
 		--BUG detected in simulation
 		assert_serial_black_led_signal_should_sent; -- Problem, display Black instead Red ...
+		assert_serial_red_led_signal_should_sent; -- Problem, display Black instead Red ...
 		
 		wait; -- Problem HERE
 		assert_serial_red_led_signal_should_sent; -- third LED : Players (RED) => Red
