@@ -29,9 +29,10 @@ This enabled me to optimize the number of registers and logic elements used (120
 
 ### Identified problems
 
-- Initial players position seems LED 1 instead LED 0 (probably caused by initial state of inputs from the FPGA)
-- Pressing in button not jump to the next position (probably caused by hardware button bouncing on press)
-- LEDs display multiple times (probably caused by WS2812B Driver, I think frame validation (RET code) acordingly the DataSheet should be LOW during **Treset** = Above 50µs. Is not implemented now. 
+- Initial players position seems LED 1 instead LED 0 (probably caused by initial state of inputs from the FPGA). Since Button Debouncer implemented in Green Player, we see it start from LED 0, but others without Button Debouncer starts to LED 1.
+- WS2812B Driver, Seems not implement frame validation (RET code) according to the DataSheet, should be LOW during **Treset** = Above 50µs.
+- From Test Bench we identify a Refresh problem about the RED Player led : it's described in [LEDs_racer_main_tb.vhd](./LEDs_racer_main_tb)
+- Debouncer TestBench KO with new clock value
 
 ## Architecture (Top View Usage)
 
