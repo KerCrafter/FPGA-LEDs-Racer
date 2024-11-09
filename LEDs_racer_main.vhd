@@ -1,20 +1,5 @@
 library ieee;
 use ieee.std_logic_1164.all;
-
-entity activity_detector is
-	port(
-		A : in std_logic;
-		B : in std_logic;
-		C : in std_logic;
-		D : in std_logic;
-		
-		R : out std_logic
-	);
-end entity;
-
-
-library ieee;
-use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity LEDs_racer_main is
@@ -68,15 +53,6 @@ entity WS2812B_driver is
 		program_green_intensity : in integer range 0 to 255
 	);
 end entity;
-
-architecture beha of activity_detector is
-begin
-	process(A, B, C, D)
-	begin
-		R <= A or B or C or D;
-	end process;
-
-end architecture;
 
 architecture beh of WS2812B_driver is
 	constant step_max : integer := 62;
