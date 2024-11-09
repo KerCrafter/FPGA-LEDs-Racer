@@ -16,7 +16,7 @@ entity LEDs_racer_main is
 	);
 end entity;
 
-architecture behaviour of LEDs_racer_main is
+architecture structural of LEDs_racer_main is
 
 	signal green_input_debounced : std_logic;
 
@@ -37,20 +37,7 @@ architecture behaviour of LEDs_racer_main is
 	signal led_proceed : integer range 0 to 108;
 	
 	signal update_frame : std_logic;
-	
-	
-	component OR_4
-		port(
-			A: in std_logic;
-			B: in std_logic;
-			C: in std_logic;
-			D: in std_logic;
-			
-			R: out std_logic
-		);
-	end component;
-	
-	
+
 begin
 	red_btn: entity work.player_button port map (
 		clk => clk,
