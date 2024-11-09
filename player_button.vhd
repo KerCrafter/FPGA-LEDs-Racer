@@ -6,7 +6,7 @@ entity player_button is
 	port (
 		btn : in std_logic;
 		clk: in std_logic;
-		cur_pos : buffer integer range 0 to 108;
+		cur_pos : buffer integer range 0 to 15;
 		activity : out std_logic := '0'
 	);
 end entity;

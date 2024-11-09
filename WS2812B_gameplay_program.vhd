@@ -4,12 +4,12 @@ use ieee.numeric_std.all;
 
 entity WS2812B_gameplay_program is
 	port (
-		red_pos : in integer range 0 to 108;
-		blue_pos : in integer range 0 to 108;
-		green_pos : in integer range 0 to 108;
-		yellow_pos : in integer range 0 to 108;
+		red_pos : in integer range 0 to 15;
+		blue_pos : in integer range 0 to 15;
+		green_pos : in integer range 0 to 15;
+		yellow_pos : in integer range 0 to 15;
 		
-		led_number : in integer range 0 to 108;
+		led_number : in integer range 0 to 15;
 	
 		red_intensity : out integer range 0 to 255;
 		blue_intensity : out integer range 0 to 255;

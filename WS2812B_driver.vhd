@@ -10,7 +10,7 @@ entity WS2812B_driver is
 		
 		update_frame : in std_logic;
 		
-		program_led_number : buffer integer range 0 to 108;
+		program_led_number : buffer integer range 0 to 15;
 		program_red_intensity : in integer range 0 to 255;
 		program_blue_intensity : in integer range 0 to 255;
 		program_green_intensity : in integer range 0 to 255
@@ -21,7 +21,7 @@ end entity;
 architecture beh of WS2812B_driver is
 	constant step_max : integer := 62;
 	constant bit_proceed_max : integer := 23;
-	constant led_proceed_max : integer := 108;
+	constant led_proceed_max : integer := 15;
 
 	signal step : integer range 0 to step_max;
 	signal bit_proceed : integer range 0 to bit_proceed_max;

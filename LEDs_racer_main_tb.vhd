@@ -373,7 +373,7 @@ begin
 		assert_serial_black_led_signal_should_sent; -- third LED : Players (No Players) => Black
 		assert_serial_black_led_signal_should_sent; -- 4th LED : Players (No Players) => Black
 		
-		assert_next_black_leds_should_sent(105);
+		assert_next_black_leds_should_sent(4 + 8);
 
 		
 		-- (Spec: RESET CODE should be LOW during >= 50us)
@@ -393,7 +393,7 @@ begin
 		assert_serial_black_led_signal_should_sent; -- third LED : Players (No Players) => Black
 		assert_serial_black_led_signal_should_sent; -- 4th LED : Players (No Players) => Black
 		
-		assert_next_black_leds_should_sent(105);
+		assert_next_black_leds_should_sent(4 + 8);
 		
 		-- (Spec: RESET CODE should be LOW during >= 50us)
 		-- (50us => 50000 ns) / 20ns = 2500 clk edge
@@ -412,6 +412,10 @@ begin
 		assert_serial_black_led_signal_should_sent; -- second LED : Players (No Players) => Black
 		
 		--BUG detected in simulation : RED player seems move direcly two positions.
+		
+		--Problem starts when Player Button register count >8 (3 bits)
+		-- it can be interesting to implement a counter instead of and adder.
+		
 		assert_serial_black_led_signal_should_sent; -- Problem, display Black instead Red ...
 		assert_serial_red_led_signal_should_sent; -- Problem, display Red instead Black ...
 		
