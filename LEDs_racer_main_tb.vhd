@@ -383,6 +383,8 @@ begin
 	
 		wait until red_input = '1';
 		wait until clk = '1';
+		wait until clk = '0';
+		wait until clk = '1';
 		
 		-- Red go to second led
 		
@@ -400,6 +402,8 @@ begin
 
 		wait until red_input = '0';
 		wait until red_input = '1';
+		wait until clk = '1';
+		wait until clk = '0';
 		wait until clk = '1';
 		
 		-- Red go to third led
@@ -426,6 +430,8 @@ begin
 		wait until red_input = '0';
 		wait until red_input = '1';
 		wait until clk = '1';
+		wait until clk = '0';
+		wait until clk = '1';
 		
 		-- Red go to 4th led		
 		assert_serial_white_led_signal_should_sent; -- first LED : Players (GREEN + BLUE + YELLOW) => White
@@ -441,6 +447,8 @@ begin
 		assert_should_maintain_LOW_state_during(2600);
 
 		wait until blue_input = '1';
+		wait until clk = '1';
+		wait until clk = '0';
 		wait until clk = '1';
 		
 		-- Blue go to second led
@@ -459,6 +467,8 @@ begin
 		
 		wait until blue_input = '0';
 		wait until blue_input = '1';
+		wait until clk = '1';
+		wait until clk = '0';
 		wait until clk = '1';
 		
 		-- Blue go to third led
@@ -479,6 +489,8 @@ begin
 		wait until blue_input = '0';
 		wait until blue_input = '1';
 		wait until clk = '1';
+		wait until clk = '0';
+		wait until clk = '1';
 		
 		-- Blue go to 4th led
 		
@@ -496,6 +508,8 @@ begin
 		assert_should_maintain_LOW_state_during(2600);
 		
 		wait until green_input = '1';
+		wait until clk = '1';
+		wait until clk = '0';
 		wait until clk = '1';
 
 		
@@ -516,6 +530,8 @@ begin
 		wait until green_input = '0';
 		wait until green_input = '1';
 		wait until clk = '1';
+		wait until clk = '0';
+		wait until clk = '1';
 		
 		-- Green go to 3rd led
 		
@@ -534,6 +550,8 @@ begin
 		
 
 		wait until yellow_input = '1';
+		wait until clk = '1';
+		wait until clk = '0';
 		wait until clk = '1';
 
 		-- Yellow go to 2nd led

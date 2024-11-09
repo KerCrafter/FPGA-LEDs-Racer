@@ -7,7 +7,7 @@ entity player_button is
 		btn : in std_logic;
 		clk: in std_logic;
 		cur_pos : buffer integer range 0 to 108;
-		activity : out std_logic
+		activity : out std_logic := '0'
 	);
 end entity;
 
@@ -21,12 +21,13 @@ begin
 				lock <= btn;
 				
 				cur_pos <= cur_pos + 1;
+				activity <= '1';
 			elsif btn = '0' and btn /= lock then
 				lock <= btn;
+			else
+				activity <= '0';
 			end if;
 		end if;
 	end process;
-	
-	activity <= '1' when btn = '1' and btn /= lock else '0';
 	
 end architecture;
