@@ -2,7 +2,7 @@
 
 Manage the input for ONE player, typically Yellow player implement one instance of this
 
-![State Diagram of Player Button](../state_diagram_player_button.png)
+![State Diagram of Player Button](../assets/state_diagram_player_button.png)
 
 ## Responsabilities :
 
