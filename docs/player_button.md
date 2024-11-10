@@ -2,11 +2,12 @@
 
 Manage the input for ONE player, typically Yellow player implement one instance of this
 
+![State Diagram of Player Button](../state_diagram_player_button.png)
+
 ## Responsabilities :
 
 - Increments a counter at each press into the button
 - Send a short impulsion just to inform that the displayed informations has changed
-
 
 ## RTL Architecture
 
