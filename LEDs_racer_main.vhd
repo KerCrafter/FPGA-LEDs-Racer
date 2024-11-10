@@ -43,19 +43,23 @@ architecture structural of LEDs_racer_main is
 	signal update_frame : std_logic;
 
 begin
-	red_btn: entity work.player_button port map (
-		clk => clk,
-		btn => red_input,
-		cur_pos => red_cur_pos,
-		activity => red_activity
-	);
+	red_btn: entity work.player_button
+		generic map(max_pos => max_pos)
+		port map (
+			clk => clk,
+			btn => red_input,
+			cur_pos => red_cur_pos,
+			activity => red_activity
+		);
 	
-	blue_btn: entity work.player_button port map (
-		clk => clk,
-		btn => blue_input,
-		cur_pos => blue_cur_pos,
-		activity => blue_activity
-	);
+	blue_btn: entity work.player_button
+		generic map(max_pos => max_pos)
+		port map (
+			clk => clk,
+			btn => blue_input,
+			cur_pos => blue_cur_pos,
+			activity => blue_activity
+		);
 	
 	green_debouncer: entity work.button_debouncer port map (
 		clk => clk,
@@ -63,19 +67,23 @@ begin
 		btn_debounced => green_input_debounced
 	);
 	
-	green_btn: entity work.player_button port map (
-		clk => clk,
-		btn => green_input_debounced,
-		cur_pos => green_cur_pos,
-		activity => green_activity
-	);
+	green_btn: entity work.player_button
+		generic map(max_pos => max_pos)
+		port map (
+			clk => clk,
+			btn => green_input_debounced,
+			cur_pos => green_cur_pos,
+			activity => green_activity
+		);
 	
-	yellow_btn: entity work.player_button port map (
-		clk => clk,
-		btn => yellow_input,
-		cur_pos => yellow_cur_pos,
-		activity => yellow_activity
-	);
+	yellow_btn: entity work.player_button
+		generic map(max_pos => max_pos)
+		port map (
+			clk => clk,
+			btn => yellow_input,
+			cur_pos => yellow_cur_pos,
+			activity => yellow_activity
+		);
 	
 	activity_detector: entity work.activity_detector port map(
 		A => green_activity,
@@ -86,30 +94,34 @@ begin
 		R => update_frame
 	);
 	
-	WS2812B_driver: entity work.WS2812B_driver port map(
-		clk => clk,
-		leds_line => leds_line,
-		enable => enable,
-		
-		program_led_number => led_proceed,
-		program_red_intensity => red_intensity,
-		program_blue_intensity => blue_intensity,
-		program_green_intensity => green_intensity,
-		
-		update_frame => update_frame
-	);
+	WS2812B_driver: entity work.WS2812B_driver
+		generic map(max_pos => max_pos)
+		port map(
+			clk => clk,
+			leds_line => leds_line,
+			enable => enable,
+			
+			program_led_number => led_proceed,
+			program_red_intensity => red_intensity,
+			program_blue_intensity => blue_intensity,
+			program_green_intensity => green_intensity,
+			
+			update_frame => update_frame
+		);
 	
-	WS2812B_gameplay_program: entity work.WS2812B_gameplay_program port map(
-		red_pos => red_cur_pos,
-		blue_pos => blue_cur_pos,
-		green_pos => green_cur_pos,
-		yellow_pos => yellow_cur_pos,
+	WS2812B_gameplay_program: entity work.WS2812B_gameplay_program
+		generic map(max_pos => max_pos)
+		port map(
+			red_pos => red_cur_pos,
+			blue_pos => blue_cur_pos,
+			green_pos => green_cur_pos,
+			yellow_pos => yellow_cur_pos,
+			
+			led_number => led_proceed,
 		
-		led_number => led_proceed,
-	
-		green_intensity => green_intensity,
-		red_intensity => red_intensity,
-		blue_intensity => blue_intensity
-	);
+			green_intensity => green_intensity,
+			red_intensity => red_intensity,
+			blue_intensity => blue_intensity
+		);
 	
 end architecture;

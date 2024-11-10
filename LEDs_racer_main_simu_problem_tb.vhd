@@ -2,10 +2,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity LEDs_racer_main_tb is
-end LEDs_racer_main_tb;
+entity LEDs_racer_main_simu_problem_tb is
+end LEDs_racer_main_simu_problem_tb;
 
-architecture behaviour of LEDs_racer_main_tb is
+architecture behaviour of LEDs_racer_main_simu_problem_tb is
 	signal clk : std_logic;
 	signal enable : std_logic := '0';
 	signal red_input : std_logic;
@@ -288,7 +288,7 @@ architecture behaviour of LEDs_racer_main_tb is
 	
 begin
 	UUT: entity work.LEDs_racer_main
-		generic map(max_pos => 14)
+		generic map(max_pos => 15)
 		port map (
 			clk => clk,
 			enable => enable,
@@ -375,7 +375,7 @@ begin
 		assert_serial_black_led_signal_should_sent; -- third LED : Players (No Players) => Black
 		assert_serial_black_led_signal_should_sent; -- 4th LED : Players (No Players) => Black
 		
-		assert_next_black_leds_should_sent(10);
+		assert_next_black_leds_should_sent(11);
 
 		
 		-- (Spec: RESET CODE should be LOW during >= 50us)
@@ -395,7 +395,7 @@ begin
 		assert_serial_black_led_signal_should_sent; -- third LED : Players (No Players) => Black
 		assert_serial_black_led_signal_should_sent; -- 4th LED : Players (No Players) => Black
 		
-		assert_next_black_leds_should_sent(10);
+		assert_next_black_leds_should_sent(11);
 		
 		-- (Spec: RESET CODE should be LOW during >= 50us)
 		-- (50us => 50000 ns) / 20ns = 2500 clk edge
@@ -409,161 +409,17 @@ begin
 		wait until clk = '1';
 		
 		-- Red go to third led
+		
 		assert_serial_white_led_signal_should_sent; -- first LED : Players (GREEN + BLUE + YELLOW) => White
 		assert_serial_black_led_signal_should_sent; -- second LED : Players (No Players) => Black
-		assert_serial_red_led_signal_should_sent; -- third LED : Players (RED) => Red
-		assert_serial_black_led_signal_should_sent; -- 4th LED : Players (No Players) => Black
 		
-		assert_next_black_leds_should_sent(10);
-
-		-- (Spec: RESET CODE should be LOW during >= 50us)
-		-- (50us => 50000 ns) / 20ns = 2500 clk edge
-		-- adding a little padding = 2500 + (1000 => 2us)
-		assert_should_maintain_LOW_state_during(2600);
+		--BUG detected in simulation : RED player seems move direcly two positions.
 		
+		--Problem starts when Player Button register manage 15+ positions.
+		-- it can be interesting to implement a counter instead of and adder.
 		
-		wait; --Todo adapt next tests with button debounder
-		
-		wait until red_input = '0';
-		wait until red_input = '1';
-		wait until clk = '1';
-		wait until clk = '0';
-		wait until clk = '1';
-		
-		-- Red go to 4th led		
-		assert_serial_white_led_signal_should_sent; -- first LED : Players (GREEN + BLUE + YELLOW) => White
-		assert_serial_black_led_signal_should_sent; -- second LED : Players (No Players) => Black
-		assert_serial_black_led_signal_should_sent; -- third LED : Players (No Players) => Black
-		assert_serial_red_led_signal_should_sent; -- 4th LED : Players (RED) => Red
-		
-		assert_next_black_leds_should_sent(105);
-
-		-- (Spec: RESET CODE should be LOW during >= 50us)
-		-- (50us => 50000 ns) / 20ns = 2500 clk edge
-		-- adding a little padding = 2500 + (1000 => 2us)
-		assert_should_maintain_LOW_state_during(2600);
-
-		wait until blue_input = '1';
-		wait until clk = '1';
-		wait until clk = '0';
-		wait until clk = '1';
-		
-		-- Blue go to second led
-		
-		assert_serial_white_led_signal_should_sent; -- first LED : Players (GREEN + YELLOW) => White
-		assert_serial_blue_led_signal_should_sent; -- second LED : Players (BLUE) => Blue
-		assert_serial_black_led_signal_should_sent; -- third LED : Players (No Players) => Black
-		assert_serial_red_led_signal_should_sent; -- 4th LED : Players (RED) => Red
-		
-		assert_next_black_leds_should_sent(105);
-
-		-- (Spec: RESET CODE should be LOW during >= 50us)
-		-- (50us => 50000 ns) / 20ns = 2500 clk edge
-		-- adding a little padding = 2500 + (1000 => 2us)
-		assert_should_maintain_LOW_state_during(2600);
-		
-		wait until blue_input = '0';
-		wait until blue_input = '1';
-		wait until clk = '1';
-		wait until clk = '0';
-		wait until clk = '1';
-		
-		-- Blue go to third led
-		
-		assert_serial_white_led_signal_should_sent; -- first LED : Players (GREEN + YELLOW) => White
-		assert_serial_black_led_signal_should_sent; -- second LED : Players (No Players) => Black
-		assert_serial_blue_led_signal_should_sent; -- third LED : Players (BLUE) => Blue
-		assert_serial_red_led_signal_should_sent; -- 4th LED : Players (RED) => Red
-		
-		assert_next_black_leds_should_sent(105);
-
-		-- (Spec: RESET CODE should be LOW during >= 50us)
-		-- (50us => 50000 ns) / 20ns = 2500 clk edge
-		-- adding a little padding = 2500 + (1000 => 2us)
-		assert_should_maintain_LOW_state_during(2600);
-		
-		
-		wait until blue_input = '0';
-		wait until blue_input = '1';
-		wait until clk = '1';
-		wait until clk = '0';
-		wait until clk = '1';
-		
-		-- Blue go to 4th led
-		
-		assert_serial_white_led_signal_should_sent; -- first LED : Players (GREEN + YELLOW) => White
-		assert_serial_black_led_signal_should_sent; -- second LED : Players (No Players) => Black
-		assert_serial_black_led_signal_should_sent; -- third LED : Players (No Players) => Black
-		assert_serial_white_led_signal_should_sent; -- 4th LED : Players (BLUE + RED) => White
-		
-		assert_next_black_leds_should_sent(105);
-
-
-		-- (Spec: RESET CODE should be LOW during >= 50us)
-		-- (50us => 50000 ns) / 20ns = 2500 clk edge
-		-- adding a little padding = 2500 + (1000 => 2us)
-		assert_should_maintain_LOW_state_during(2600);
-		
-		wait until green_input = '1';
-		wait until clk = '1';
-		wait until clk = '0';
-		wait until clk = '1';
-
-		
-		-- Green go to 2nd led
-		
-		assert_serial_yellow_led_signal_should_sent; -- first LED : Players (YELLOW) => Yellow
-		assert_serial_green_led_signal_should_sent; -- second LED : Players (GREEN) => Green
-		assert_serial_black_led_signal_should_sent; -- third LED : Players (No Players) => Black
-		assert_serial_white_led_signal_should_sent; -- 4th LED : Players (BLUE + RED) => White
-		
-		assert_next_black_leds_should_sent(105);
-
-		-- (Spec: RESET CODE should be LOW during >= 50us)
-		-- (50us => 50000 ns) / 20ns = 2500 clk edge
-		-- adding a little padding = 2500 + (1000 => 2us)
-		assert_should_maintain_LOW_state_during(2600);
-		
-		wait until green_input = '0';
-		wait until green_input = '1';
-		wait until clk = '1';
-		wait until clk = '0';
-		wait until clk = '1';
-		
-		-- Green go to 3rd led
-		
-		assert_serial_yellow_led_signal_should_sent; -- first LED : Players (YELLOW) => Yellow
-		assert_serial_black_led_signal_should_sent; -- second LED : Players (No Players) => Black
-		assert_serial_green_led_signal_should_sent; -- third LED : Players (GREEN) => Green
-		assert_serial_white_led_signal_should_sent; -- 4th LED : Players (BLUE + RED) => White
-		
-		assert_next_black_leds_should_sent(105);
-
-
-		-- (Spec: RESET CODE should be LOW during >= 50us)
-		-- (50us => 50000 ns) / 20ns = 2500 clk edge
-		-- adding a little padding = 2500 + (1000 => 2us)
-		assert_should_maintain_LOW_state_during(2600);
-		
-
-		wait until yellow_input = '1';
-		wait until clk = '1';
-		wait until clk = '0';
-		wait until clk = '1';
-
-		-- Yellow go to 2nd led
-		
-		assert_serial_black_led_signal_should_sent; -- first LED : Players (No Players) => Black
-		assert_serial_yellow_led_signal_should_sent; -- second LED : Players (YELLOW) => Yellow
-		assert_serial_green_led_signal_should_sent; -- third LED : Players (GREEN) => Green
-		assert_serial_white_led_signal_should_sent; -- 4th LED : Players (BLUE + RED) => White
-		
-		assert_next_black_leds_should_sent(105);
-
-		-- (Spec: RESET CODE should be LOW during >= 50us)
-		-- (50us => 50000 ns) / 20ns = 2500 clk edge
-		-- adding a little padding = 2500 + (1000 => 2us)
-		assert_should_maintain_LOW_state_during(2600);
+		assert_serial_black_led_signal_should_sent; -- Problem, display Black instead Red ...
+		assert_serial_red_led_signal_should_sent; -- Problem, display Red instead Black ...
 		
 		wait;
 	end process;

@@ -4,8 +4,11 @@ In my Quartus environment, Using Questa Sim. A player counter seems Move to 2 po
 
 ![Global Test Flow](../assets/sim_problem_global_tb_run.png)
 
-Execution of [LEDs_racer_main_tb.vhd](../LEDs_racer_main_tb.vhd)
+Execution of [LEDs_racer_main_simu_problem_tb.vhd](../LEDs_racer_main_simu_problem_tb.vhd)
 
+I've isolate the problem in a specific Test Bench. It seems appear when I try to work with 15+ LEDs.
+
+**note :** [LEDs_racer_main_tb.vhd](../LEDs_racer_main_tb.vhd) (with 14 LEDs) works fine.
 
 ## Test Flow
 
