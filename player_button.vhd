@@ -3,10 +3,14 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity player_button is
+	generic(
+		max_pos : integer := 16
+	);
+
 	port (
 		btn : in std_logic;
 		clk: in std_logic;
-		cur_pos : buffer integer range 0 to 15;
+		cur_pos : buffer integer range 0 to max_pos-1;
 		activity : out std_logic := '0'
 	);
 end entity;
