@@ -3,13 +3,17 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity WS2812B_gameplay_program is
+	generic (
+		max_pos : integer := 16
+	);
+
 	port (
-		red_pos : in integer range 0 to 15;
-		blue_pos : in integer range 0 to 15;
-		green_pos : in integer range 0 to 15;
-		yellow_pos : in integer range 0 to 15;
+		red_pos : in integer range 0 to max_pos-1;
+		blue_pos : in integer range 0 to max_pos-1;
+		green_pos : in integer range 0 to max_pos-1;
+		yellow_pos : in integer range 0 to max_pos-1;
 		
-		led_number : in integer range 0 to 15;
+		led_number : in integer range 0 to max_pos-1;
 	
 		red_intensity : out integer range 0 to 255;
 		blue_intensity : out integer range 0 to 255;
