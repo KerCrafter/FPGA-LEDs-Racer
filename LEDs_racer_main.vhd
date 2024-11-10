@@ -3,6 +3,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity LEDs_racer_main is
+	generic (
+		max_pos : integer := 16
+	);
+
 	port(
 		clk : in std_logic;
 		enable : in std_logic;
@@ -20,10 +24,10 @@ architecture structural of LEDs_racer_main is
 
 	signal green_input_debounced : std_logic;
 
-	signal red_cur_pos : integer range 0 to 15;
-	signal blue_cur_pos : integer range 0 to 15;
-	signal green_cur_pos : integer range 0 to 15;
-	signal yellow_cur_pos : integer range 0 to 15;
+	signal red_cur_pos : integer range 0 to max_pos-1;
+	signal blue_cur_pos : integer range 0 to max_pos-1;
+	signal green_cur_pos : integer range 0 to max_pos-1;
+	signal yellow_cur_pos : integer range 0 to max_pos-1;
 	
 	signal red_activity : std_logic;
 	signal blue_activity : std_logic;
@@ -34,7 +38,7 @@ architecture structural of LEDs_racer_main is
 	signal blue_intensity : integer range 0 to 255;
 	signal green_intensity : integer range 0 to 255;
 	
-	signal led_proceed : integer range 0 to 15;
+	signal led_proceed : integer range 0 to max_pos-1;
 	
 	signal update_frame : std_logic;
 
