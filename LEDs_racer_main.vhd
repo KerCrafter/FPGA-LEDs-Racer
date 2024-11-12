@@ -16,6 +16,12 @@ entity LEDs_racer_main is
 		blue_input : in std_logic;
 		yellow_input : in std_logic;
 		
+		dp_0 : out integer range 0 to max_pos-1;
+		
+		dp_green : out integer range 0 to 255;
+		dp_red : out integer range 0 to 255;
+		dp_blue : out integer range 0 to 255;
+		
 		leds_line : out std_logic
 	);
 end entity;
@@ -105,7 +111,6 @@ begin
 			program_red_intensity => red_intensity,
 			program_blue_intensity => blue_intensity,
 			program_green_intensity => green_intensity,
-			
 			update_frame => update_frame
 		);
 	
@@ -123,5 +128,11 @@ begin
 			red_intensity => red_intensity,
 			blue_intensity => blue_intensity
 		);
+		
+	dp_0 <= led_proceed;
+	
+	dp_green <= green_intensity;
+	dp_red <= red_intensity;
+	dp_blue <= blue_intensity;
 	
 end architecture;
