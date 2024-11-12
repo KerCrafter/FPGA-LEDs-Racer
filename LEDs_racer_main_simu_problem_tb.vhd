@@ -19,6 +19,8 @@ architecture behaviour of LEDs_racer_main_simu_problem_tb is
 	signal dp_red : integer range 0 to 255;
 	signal dp_blue : integer range 0 to 255;
 	
+	signal dp_red_cur_pos : integer range 0 to 15;
+	
 	signal leds_line : std_logic;
 	
 	signal elapsed_clk_top : integer := 1;
@@ -309,6 +311,8 @@ begin
 			dp_green => dp_green,
 			dp_red => dp_red,
 			dp_blue => dp_blue,
+			
+			dp_red_cur_pos => dp_red_cur_pos,
 
 			leds_line => leds_line
 		);

@@ -22,6 +22,8 @@ entity LEDs_racer_main is
 		dp_red : out integer range 0 to 255;
 		dp_blue : out integer range 0 to 255;
 		
+		dp_red_cur_pos : out integer range 0 to max_pos-1;
+		
 		leds_line : out std_logic
 	);
 end entity;
@@ -134,5 +136,7 @@ begin
 	dp_green <= green_intensity;
 	dp_red <= red_intensity;
 	dp_blue <= blue_intensity;
+	
+	dp_red_cur_pos <= red_cur_pos;
 	
 end architecture;
