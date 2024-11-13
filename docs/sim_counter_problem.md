@@ -48,6 +48,8 @@ To manange the position of Players, the Entity [Player Button](../player_button.
 
 - Independently, I've add a Test Bench to test only the [Player Button](../player_button.vhd) in [Player Button Test Bench](../player_button_tb.vhd), this test display a very good behaviour for this component.
 
+- WS2812B Driver seems works correcly, I've test with 9 trigger of frames with 5000 LEDs... [WS2812B Driver TestBench](../WS2812B_driver_tb.vhd)
+
 ![State Diagram of Player Button](../assets/state_diagram_player_button.png)
 
 ![Player Button Test Bench Result](../assets/sim_problem_player_button_tb.png)
