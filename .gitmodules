@@ -1,0 +1,3 @@
+[submodule "WS2812B-driver"]
+	path = WS2812B-driver
+	url = git@github.com:KerCrafter/WS2812B-driver.git
