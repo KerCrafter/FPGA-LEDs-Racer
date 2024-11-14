@@ -52,7 +52,7 @@ This enabled me to optimize the number of registers and logic elements used (120
 
 - [Player Button](./docs/player_button.md)
 - [Activity Detector](./docs/activity_detector.md)
-- [WS2812B Driver](https://github.com/KerCrafter/WS2812B-driver/docs/ws2812b_driver.md)
+- [WS2812B Driver](https://github.com/KerCrafter/WS2812B-driver/README.md)
 - [WS2812B Gameplay Program](./docs/ws2812b_gameplay_program.md)
 
 
