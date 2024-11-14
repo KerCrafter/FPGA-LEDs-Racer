@@ -1,3 +1,6 @@
 [submodule "WS2812B-driver"]
 	path = WS2812B-driver
 	url = git@github.com:KerCrafter/WS2812B-driver.git
+[submodule "button-debouncer"]
+	path = button-debouncer
+	url = git@github.com:KerCrafter/button-debouncer.git
