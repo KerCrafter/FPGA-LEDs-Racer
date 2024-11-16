@@ -15,15 +15,7 @@ entity LEDs_racer_main is
 		red_input : in std_logic;
 		blue_input : in std_logic;
 		yellow_input : in std_logic;
-		
-		dp_0 : out integer range 0 to max_pos-1;
-		
-		dp_green : out integer range 0 to 255;
-		dp_red : out integer range 0 to 255;
-		dp_blue : out integer range 0 to 255;
-		
-		dp_red_cur_pos : out integer range 0 to max_pos-1;
-		
+
 		leds_line : out std_logic
 	);
 end entity;
