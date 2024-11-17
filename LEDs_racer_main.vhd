@@ -4,7 +4,8 @@ use ieee.numeric_std.all;
 
 entity LEDs_racer_main is
 	generic (
-		max_pos : integer := 16
+		max_pos : integer := 16;
+		debounce_clk_cnt : integer := 65536
 	);
 
 	port(
@@ -33,7 +34,7 @@ architecture structural of LEDs_racer_main is
 begin
 
 	green_debouncer: entity work.button_debouncer
-		generic map(debounce_clk_cnt => 65536)
+		generic map(debounce_clk_cnt => debounce_clk_cnt)
 		port map (
 			clk => clk,
 			btn_in => green_input,
