@@ -25,8 +25,6 @@ entity LEDs_racer_core is
 end entity;
 
 architecture structural of LEDs_racer_core is
-	signal green_input_debounced : std_logic;
-
 	signal red_cur_pos : integer range 0 to max_pos-1;
 	signal blue_cur_pos : integer range 0 to max_pos-1;
 	signal green_cur_pos : integer range 0 to max_pos-1;
@@ -55,19 +53,11 @@ begin
 			activity => blue_activity
 		);
 	
-	green_debouncer: entity work.button_debouncer
-		generic map(debounce_clk_cnt => 65536)
-		port map (
-			clk => clk,
-			btn_in => green_input,
-			btn_debounced => green_input_debounced
-		);
-	
 	green_btn: entity work.player_button
 		generic map(max_pos => max_pos)
 		port map (
 			clk => clk,
-			btn => green_input_debounced,
+			btn => green_input,
 			cur_pos => green_cur_pos,
 			activity => green_activity
 		);
