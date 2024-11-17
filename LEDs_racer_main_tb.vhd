@@ -288,7 +288,10 @@ architecture behaviour of LEDs_racer_main_tb is
 	
 begin
 	UUT: entity work.LEDs_racer_main
-		generic map(max_pos => 14)
+		generic map(
+			max_pos => 14,
+			debounce_clk_cnt => 1
+		)
 		port map (
 			clk => clk,
 			enable => enable,
