@@ -391,6 +391,10 @@ begin
 		wait until clk = '0';
 		wait until clk = '1';
 		
+		-- Debounce Count
+		wait until clk = '0';
+		wait until clk = '1';
+		
 		-- Red go to second led
 		
 		assert_serial_white_led_signal_should_sent; -- first LED : Players (GREEN + BLUE + YELLOW) => White
@@ -408,6 +412,10 @@ begin
 		wait until red_input = '0';
 		wait until red_input = '1';
 		wait until clk = '1';
+		wait until clk = '0';
+		wait until clk = '1';
+		
+		-- Debounce Count
 		wait until clk = '0';
 		wait until clk = '1';
 		
