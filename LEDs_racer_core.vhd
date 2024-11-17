@@ -55,11 +55,13 @@ begin
 			activity => blue_activity
 		);
 	
-	green_debouncer: entity work.button_debouncer port map (
-		clk => clk,
-		btn_in => green_input,
-		btn_debounced => green_input_debounced
-	);
+	green_debouncer: entity work.button_debouncer
+		generic map(debounce_clk_cnt => 65536)
+		port map (
+			clk => clk,
+			btn_in => green_input,
+			btn_debounced => green_input_debounced
+		);
 	
 	green_btn: entity work.player_button
 		generic map(max_pos => max_pos)
