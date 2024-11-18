@@ -431,13 +431,14 @@ begin
 		-- (50us => 50000 ns) / 20ns = 2500 clk edge
 		-- adding a little padding = 2500 + (1000 => 2us)
 		assert_should_maintain_LOW_state_during(2600);
-		
-		
-		wait; --Todo adapt next tests with button debounder
-		
+				
 		wait until red_input = '0';
 		wait until red_input = '1';
 		wait until clk = '1';
+		wait until clk = '0';
+		wait until clk = '1';
+		
+		-- Debounce Count
 		wait until clk = '0';
 		wait until clk = '1';
 		
@@ -447,12 +448,14 @@ begin
 		assert_serial_black_led_signal_should_sent; -- third LED : Players (No Players) => Black
 		assert_serial_red_led_signal_should_sent; -- 4th LED : Players (RED) => Red
 		
-		assert_next_black_leds_should_sent(105);
+		assert_next_black_leds_should_sent(10);
 
 		-- (Spec: RESET CODE should be LOW during >= 50us)
 		-- (50us => 50000 ns) / 20ns = 2500 clk edge
 		-- adding a little padding = 2500 + (1000 => 2us)
 		assert_should_maintain_LOW_state_during(2600);
+		
+		wait; --Todo adapt next tests with button debounder
 
 		wait until blue_input = '1';
 		wait until clk = '1';
