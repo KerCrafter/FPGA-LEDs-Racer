@@ -33,6 +33,7 @@ architecture structural of LEDs_racer_main is
 	signal red_input_debounced : std_logic;
 	signal green_input_debounced : std_logic;
 	signal blue_input_debounced : std_logic;
+	signal yellow_input_debounced : std_logic;
 begin
 
 	green_debouncer: entity work.button_debouncer
@@ -57,6 +58,14 @@ begin
 			clk => clk,
 			btn_in => blue_input,
 			btn_debounced => blue_input_debounced
+		);
+		
+	yellow_debouncer: entity work.button_debouncer
+		generic map(debounce_clk_cnt => debounce_clk_cnt)
+		port map (
+			clk => clk,
+			btn_in => yellow_input,
+			btn_debounced => yellow_input_debounced
 		);
 
 	WS2812B_driver: entity work.WS2812B_driver
@@ -83,7 +92,7 @@ begin
 			green_input => green_input_debounced,
 			red_input => red_input_debounced,
 			blue_input => blue_input_debounced,
-			yellow_input => yellow_input,
+			yellow_input => yellow_input_debounced,
 		
 			current_led => led_proceed,
 			led_green_intensity => green_intensity,
