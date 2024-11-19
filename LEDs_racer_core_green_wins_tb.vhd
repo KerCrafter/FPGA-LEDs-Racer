@@ -41,15 +41,13 @@ begin
 	begin
 		green_input <= '0'; --green position = 0
 		
-		wait for 5 ns; green_input <= '1'; wait for 5 ns; green_input <= '0'; --green position up to 1
-		wait for 5 ns; green_input <= '1'; wait for 5 ns; green_input <= '0'; --green position up to 2
-		wait for 5 ns; green_input <= '1'; wait for 5 ns; green_input <= '0'; --green position up to 3
-		wait for 5 ns; green_input <= '1'; wait for 5 ns; green_input <= '0'; --green position up to 4
-		
-		wait for 5 ns;
+		wait for 20 ns; green_input <= '1'; wait for 20 ns; green_input <= '0'; --green position up to 1
+		wait for 20 ns; green_input <= '1'; wait for 20 ns; green_input <= '0'; --green position up to 2
+		wait for 20 ns; green_input <= '1'; wait for 20 ns; green_input <= '0'; --green position up to 3
+		wait for 20 ns; green_input <= '1'; wait for 20 ns; green_input <= '0'; --green position up to 4
 		
 		-- check the display (all LEDs should be GREEN)
-		current_led <= 0; wait for 1 ps; assert led_green_intensity = 10 and led_red_intensity = 0 and led_blue_intensity = 0 report "LED 0 : should be GREEN";
+		wait for 20 ns; current_led <= 0; wait for 1 ps; assert led_green_intensity = 10 and led_red_intensity = 0 and led_blue_intensity = 0 report "LED 0 : should be GREEN";
 		
 		wait;
 	end process;

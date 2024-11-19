@@ -38,39 +38,46 @@ begin
 		variable players_into_the_led : std_logic_vector(3 downto 0);
 	begin
 	
-		players_into_the_led := bool_to_logic(red_pos = led_number) & bool_to_logic(blue_pos = led_number) & bool_to_logic(green_pos = led_number) & bool_to_logic(yellow_pos = led_number);
 	
-		case players_into_the_led is
-			when "0000" =>
-				green_intensity <= 0;
-				red_intensity <= 0;
-				blue_intensity <= 0;
+		if green_pos = 4 then
+			green_intensity <= 10;
+			red_intensity <= 0;
+			blue_intensity <= 0;
+		else
+			players_into_the_led := bool_to_logic(red_pos = led_number) & bool_to_logic(blue_pos = led_number) & bool_to_logic(green_pos = led_number) & bool_to_logic(yellow_pos = led_number);
 
-			when "0001" =>
-				green_intensity <= 5;
-				red_intensity <= 5;
-				blue_intensity <= 0;
-				
-			when "1000" =>
-				green_intensity <= 0;
-				red_intensity <= 10;
-				blue_intensity <= 0;
-				
-			when "0100" =>
-				green_intensity <= 0;
-				red_intensity <= 0;
-				blue_intensity <= 10;
-				
-			when "0010" =>
-				green_intensity <= 10;
-				red_intensity <= 0;
-				blue_intensity <= 0;
+			case players_into_the_led is
+				when "0000" =>
+					green_intensity <= 0;
+					red_intensity <= 0;
+					blue_intensity <= 0;
 
-			when others =>
-				green_intensity <= 5;
-				red_intensity <= 5;
-				blue_intensity <= 5;
-		end case;
+				when "0001" =>
+					green_intensity <= 5;
+					red_intensity <= 5;
+					blue_intensity <= 0;
+					
+				when "1000" =>
+					green_intensity <= 0;
+					red_intensity <= 10;
+					blue_intensity <= 0;
+					
+				when "0100" =>
+					green_intensity <= 0;
+					red_intensity <= 0;
+					blue_intensity <= 10;
+					
+				when "0010" =>
+					green_intensity <= 10;
+					red_intensity <= 0;
+					blue_intensity <= 0;
+
+				when others =>
+					green_intensity <= 5;
+					red_intensity <= 5;
+					blue_intensity <= 5;
+			end case;
+		end if;
 	end process;
 
 end architecture;
