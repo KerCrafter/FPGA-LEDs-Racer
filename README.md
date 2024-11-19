@@ -48,6 +48,10 @@ This enabled me to optimize the number of registers and logic elements used (120
 |  **blue_input**  |  Player Blue input (connected to Blue button)  |    |  |
 |  **yellow_input**  |  Player Yellow input (connected to Yellow button)  |    |  |
 
+### LEDs Racer Core Architecture
+
+![LEDs Racer Core Architecture](./assets/LEDs_racer_core_arch.png)
+
 ### See more about sub-components
 
 - [Button Debouncer](https://github.com/KerCrafter/button-debouncer)
