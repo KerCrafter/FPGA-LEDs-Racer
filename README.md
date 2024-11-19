@@ -50,6 +50,7 @@ This enabled me to optimize the number of registers and logic elements used (120
 
 ### See more about sub-components
 
+- [Button Debouncer](https://github.com/KerCrafter/button-debouncer)
 - [Player Button](./docs/player_button.md)
 - [Activity Detector](./docs/activity_detector.md)
 - [WS2812B Driver](https://github.com/KerCrafter/WS2812B-driver/README.md)
