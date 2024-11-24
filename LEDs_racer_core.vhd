@@ -16,9 +16,9 @@ entity LEDs_racer_core is
 		yellow_input : in std_logic;
 		
 		current_led : in integer range 0 to max_pos-1;
-		led_green_intensity : out integer range 0 to 255;
-		led_red_intensity : out integer range 0 to 255;
-		led_blue_intensity : out integer range 0 to 255;
+		led_green_intensity : out std_logic_vector(7 downto 0);
+		led_red_intensity : out std_logic_vector(7 downto 0);
+		led_blue_intensity : out std_logic_vector(7 downto 0);
 		update_frame : out std_logic
 		
 	);

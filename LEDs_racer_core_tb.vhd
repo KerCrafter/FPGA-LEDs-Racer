@@ -14,9 +14,9 @@ architecture behaviour of LEDs_racer_core_tb is
 	signal yellow_input : std_logic;
 	
 	signal current_led : integer range 0 to 108;
-	signal led_green_intensity : integer range 0 to 255;
-	signal led_red_intensity : integer range 0 to 255;
-	signal led_blue_intensity : integer range 0 to 255;
+	signal led_green_intensity : std_logic_vector(7 downto 0);
+	signal led_red_intensity : std_logic_vector(7 downto 0);
+	signal led_blue_intensity : std_logic_vector(7 downto 0);
 	
 	signal update_frame : std_logic;
 begin
@@ -69,19 +69,19 @@ begin
 	
 	CHECK_SIG: process
 	begin
-		wait for 1 ps; assert led_green_intensity = 5 and led_red_intensity = 5 and led_blue_intensity = 5 report "LED 0 : should be WHITE";
+		wait for 1 ps; assert led_green_intensity = std_logic_vector(to_unsigned(5, 8)) and led_red_intensity = std_logic_vector(to_unsigned(5, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(5, 8)) report "LED 0 : should be WHITE";
 		
 		wait until current_led = 1; wait for 1 ps;
-		assert led_green_intensity = 0 and led_red_intensity = 0 and led_blue_intensity = 0 report "LED 1 : should be BLACK";
+		assert led_green_intensity = std_logic_vector(to_unsigned(0, 8)) and led_red_intensity = std_logic_vector(to_unsigned(0, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(0, 8)) report "LED 1 : should be BLACK";
 
 		wait until current_led = 2; wait for 1 ps;
-		assert led_green_intensity = 0 and led_red_intensity = 0 and led_blue_intensity = 0 report "LED 2 : should be BLACK";
+		assert led_green_intensity = std_logic_vector(to_unsigned(0, 8)) and led_red_intensity = std_logic_vector(to_unsigned(0, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(0, 8)) report "LED 2 : should be BLACK";
 		
 		wait until current_led = 3; wait for 1 ps;
-		assert led_green_intensity = 0 and led_red_intensity = 0 and led_blue_intensity = 0 report "LED 3 : should be BLACK";
+		assert led_green_intensity = std_logic_vector(to_unsigned(0, 8)) and led_red_intensity = std_logic_vector(to_unsigned(0, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(0, 8)) report "LED 3 : should be BLACK";
 		
 		wait until current_led = 4; wait for 1 ps;
-		assert led_green_intensity = 0 and led_red_intensity = 0 and led_blue_intensity = 0 report "LED 4 : should be BLACK";
+		assert led_green_intensity = std_logic_vector(to_unsigned(0, 8)) and led_red_intensity = std_logic_vector(to_unsigned(0, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(0, 8)) report "LED 4 : should be BLACK";
 		
 	
 		wait;

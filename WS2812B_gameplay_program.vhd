@@ -16,9 +16,9 @@ entity WS2812B_gameplay_program is
 		
 		led_number : in integer range 0 to max_pos-1;
 	
-		red_intensity : out integer range 0 to 255;
-		blue_intensity : out integer range 0 to 255;
-		green_intensity : out integer range 0 to 255
+		red_intensity : out std_logic_vector(7 downto 0);
+		blue_intensity : out std_logic_vector(7 downto 0);
+		green_intensity : out std_logic_vector(7 downto 0)
 	);
 end entity;
 
@@ -41,49 +41,48 @@ begin
 	
 		if enable = '1' then
 			if green_pos = 4 then
-				green_intensity <= 10;
-				red_intensity <= 0;
-				blue_intensity <= 0;
+				green_intensity <= std_logic_vector(to_unsigned(10, 8));
+				red_intensity <= std_logic_vector(to_unsigned(0, 8));
+				blue_intensity <= std_logic_vector(to_unsigned(0, 8));
 			else
 				players_into_the_led := bool_to_logic(red_pos = led_number) & bool_to_logic(blue_pos = led_number) & bool_to_logic(green_pos = led_number) & bool_to_logic(yellow_pos = led_number);
 
 				case players_into_the_led is
 					when "0000" =>
-						green_intensity <= 0;
-						red_intensity <= 0;
-						blue_intensity <= 0;
+						green_intensity <= std_logic_vector(to_unsigned(0, 8));
+						red_intensity <= std_logic_vector(to_unsigned(0, 8));
+						blue_intensity <= std_logic_vector(to_unsigned(0, 8));
 
 					when "0001" =>
-						green_intensity <= 5;
-						red_intensity <= 5;
-						blue_intensity <= 0;
+						green_intensity <= std_logic_vector(to_unsigned(5, 8));
+						red_intensity <= std_logic_vector(to_unsigned(5, 8));
+						blue_intensity <= std_logic_vector(to_unsigned(0, 8));
 						
 					when "1000" =>
-						green_intensity <= 0;
-						red_intensity <= 10;
-						blue_intensity <= 0;
+						green_intensity <= std_logic_vector(to_unsigned(0, 8));
+						red_intensity <= std_logic_vector(to_unsigned(10, 8));
+						blue_intensity <= std_logic_vector(to_unsigned(0, 8));
 						
 					when "0100" =>
-						green_intensity <= 0;
-						red_intensity <= 0;
-						blue_intensity <= 10;
+						green_intensity <= std_logic_vector(to_unsigned(0, 8));
+						red_intensity <= std_logic_vector(to_unsigned(0, 8));
+						blue_intensity <= std_logic_vector(to_unsigned(10, 8));
 						
 					when "0010" =>
-						green_intensity <= 10;
-						red_intensity <= 0;
-						blue_intensity <= 0;
+						green_intensity <= std_logic_vector(to_unsigned(10, 8));
+						red_intensity <= std_logic_vector(to_unsigned(0, 8));
+						blue_intensity <= std_logic_vector(to_unsigned(0, 8));
 
 					when others =>
-						green_intensity <= 5;
-						red_intensity <= 5;
-						blue_intensity <= 5;
+						green_intensity <= std_logic_vector(to_unsigned(5, 8));
+						red_intensity <= std_logic_vector(to_unsigned(5, 8));
+						blue_intensity <= std_logic_vector(to_unsigned(5, 8));
 				end case;
 			end if;
 		else
-			-- need tri-state buffer
-			--green_intensity <= 5;
-			--red_intensity <= 5;
-			--blue_intensity <= 5;
+			green_intensity <= "ZZZZZZZZ";
+			red_intensity <= "ZZZZZZZZ";
+			blue_intensity <= "ZZZZZZZZ";
 		end if;
 	end process;
 

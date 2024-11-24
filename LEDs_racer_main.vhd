@@ -26,9 +26,9 @@ architecture structural of LEDs_racer_main is
 	
 	signal update_frame : std_logic;
 	
-	signal red_intensity : integer range 0 to 255;
-	signal blue_intensity : integer range 0 to 255;
-	signal green_intensity : integer range 0 to 255;
+	signal red_intensity : std_logic_vector(7 downto 0);
+	signal blue_intensity : std_logic_vector(7 downto 0);
+	signal green_intensity : std_logic_vector(7 downto 0);
 	
 	signal red_input_debounced : std_logic;
 	signal green_input_debounced : std_logic;
