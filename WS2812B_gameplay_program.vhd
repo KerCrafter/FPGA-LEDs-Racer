@@ -8,6 +8,7 @@ entity WS2812B_gameplay_program is
 	);
 
 	port (
+		enable : in std_logic;
 		red_pos : in integer range 0 to max_pos-1;
 		blue_pos : in integer range 0 to max_pos-1;
 		green_pos : in integer range 0 to max_pos-1;
@@ -38,45 +39,51 @@ begin
 		variable players_into_the_led : std_logic_vector(3 downto 0);
 	begin
 	
-	
-		if green_pos = 4 then
-			green_intensity <= 10;
-			red_intensity <= 0;
-			blue_intensity <= 0;
+		if enable = '1' then
+			if green_pos = 4 then
+				green_intensity <= 10;
+				red_intensity <= 0;
+				blue_intensity <= 0;
+			else
+				players_into_the_led := bool_to_logic(red_pos = led_number) & bool_to_logic(blue_pos = led_number) & bool_to_logic(green_pos = led_number) & bool_to_logic(yellow_pos = led_number);
+
+				case players_into_the_led is
+					when "0000" =>
+						green_intensity <= 0;
+						red_intensity <= 0;
+						blue_intensity <= 0;
+
+					when "0001" =>
+						green_intensity <= 5;
+						red_intensity <= 5;
+						blue_intensity <= 0;
+						
+					when "1000" =>
+						green_intensity <= 0;
+						red_intensity <= 10;
+						blue_intensity <= 0;
+						
+					when "0100" =>
+						green_intensity <= 0;
+						red_intensity <= 0;
+						blue_intensity <= 10;
+						
+					when "0010" =>
+						green_intensity <= 10;
+						red_intensity <= 0;
+						blue_intensity <= 0;
+
+					when others =>
+						green_intensity <= 5;
+						red_intensity <= 5;
+						blue_intensity <= 5;
+				end case;
+			end if;
 		else
-			players_into_the_led := bool_to_logic(red_pos = led_number) & bool_to_logic(blue_pos = led_number) & bool_to_logic(green_pos = led_number) & bool_to_logic(yellow_pos = led_number);
-
-			case players_into_the_led is
-				when "0000" =>
-					green_intensity <= 0;
-					red_intensity <= 0;
-					blue_intensity <= 0;
-
-				when "0001" =>
-					green_intensity <= 5;
-					red_intensity <= 5;
-					blue_intensity <= 0;
-					
-				when "1000" =>
-					green_intensity <= 0;
-					red_intensity <= 10;
-					blue_intensity <= 0;
-					
-				when "0100" =>
-					green_intensity <= 0;
-					red_intensity <= 0;
-					blue_intensity <= 10;
-					
-				when "0010" =>
-					green_intensity <= 10;
-					red_intensity <= 0;
-					blue_intensity <= 0;
-
-				when others =>
-					green_intensity <= 5;
-					red_intensity <= 5;
-					blue_intensity <= 5;
-			end case;
+			-- need tri-state buffer
+			--green_intensity <= 5;
+			--red_intensity <= 5;
+			--blue_intensity <= 5;
 		end if;
 	end process;
 
