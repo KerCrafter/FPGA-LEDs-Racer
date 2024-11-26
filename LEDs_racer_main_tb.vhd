@@ -307,7 +307,8 @@ begin
 	STIM: process
 	begin
 		enable <= '0'; wait for 50 ns;
-		enable <= '1';
+		enable <= '1'; wait for 50 ns;
+		enable <= '0';
 		wait;
 	end process;
 	
