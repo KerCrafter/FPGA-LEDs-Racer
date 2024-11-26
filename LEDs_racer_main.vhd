@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity LEDs_racer_main is
 	generic (
-		max_pos : integer := 16;
+		max_pos : integer := 109;
 		debounce_clk_cnt : integer := 65536
 	);
 
