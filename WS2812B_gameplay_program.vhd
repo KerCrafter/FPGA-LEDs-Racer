@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity WS2812B_gameplay_program is
 	generic (
-		max_pos : integer := 16
+		max_pos : integer := 109
 	);
 
 	port (
@@ -40,7 +40,7 @@ begin
 	begin
 	
 		if enable = '1' then
-			if green_pos = 4 then
+			if green_pos = max_pos-1 then
 				green_intensity <= std_logic_vector(to_unsigned(10, 8));
 				red_intensity <= std_logic_vector(to_unsigned(0, 8));
 				blue_intensity <= std_logic_vector(to_unsigned(0, 8));
