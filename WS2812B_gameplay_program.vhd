@@ -85,23 +85,23 @@ begin
 			elsif yellow_pos = max_pos-1 then
 				set_LED_yellow;
 			else
-				players_into_the_led := bool_to_logic(red_pos = led_number) & bool_to_logic(blue_pos = led_number) & bool_to_logic(green_pos = led_number) & bool_to_logic(yellow_pos = led_number);
+				players_into_the_led := bool_to_logic(green_pos = led_number) & bool_to_logic(red_pos = led_number) & bool_to_logic(blue_pos = led_number) & bool_to_logic(yellow_pos = led_number);
 
 				case players_into_the_led is
 					when "0000" =>
 						set_LED_off;
-
-					when "0001" =>
-						set_LED_yellow;
 						
 					when "1000" =>
-						set_LED_red;
+						set_LED_green;
 						
 					when "0100" =>
-						set_LED_blue;
+						set_LED_red;
 						
 					when "0010" =>
-						set_LED_green;
+						set_LED_blue;
+						
+					when "0001" =>
+						set_LED_yellow;
 
 					when others =>
 						set_LED_white;
