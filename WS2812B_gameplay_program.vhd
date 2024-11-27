@@ -64,6 +64,11 @@ begin
 			set_GRB(0, 10, 0);
 		end procedure;
 		
+		procedure set_LED_blue is
+		begin
+			set_GRB(0, 0, 10);
+		end procedure;
+		
 	begin
 	
 		if enable = '1' then
@@ -72,7 +77,7 @@ begin
 			elsif red_pos = max_pos-1 then
 				set_GRB(0, 10, 0);
 			elsif blue_pos = max_pos-1 then
-				set_GRB(0, 0, 10);
+				set_LED_blue;
 			elsif yellow_pos = max_pos-1 then
 				set_GRB(5, 5, 0);
 			else
@@ -89,7 +94,7 @@ begin
 						set_LED_red;
 						
 					when "0100" =>
-						set_GRB(0, 0, 10);
+						set_LED_blue;
 						
 					when "0010" =>
 						set_LED_green;
