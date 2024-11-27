@@ -58,6 +58,11 @@ begin
 		begin
 			set_GRB(10, 0, 0);
 		end procedure;
+
+		procedure set_LED_red is
+		begin
+			set_GRB(0, 10, 0);
+		end procedure;
 		
 	begin
 	
@@ -81,7 +86,7 @@ begin
 						set_GRB(5, 5, 0);
 						
 					when "1000" =>
-						set_GRB(0, 10, 0);
+						set_LED_red;
 						
 					when "0100" =>
 						set_GRB(0, 0, 10);
