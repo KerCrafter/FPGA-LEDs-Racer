@@ -33,62 +33,48 @@ architecture beh of WS2812B_gameplay_program is
 			  return '0';
 		 end if;
 	end function bool_to_logic;
-
 begin
 	process(led_number, red_pos, blue_pos, green_pos, yellow_pos)
 		variable players_into_the_led : std_logic_vector(3 downto 0);
+		
+		procedure set_GRB (green_intensity_i: integer range 0 to 255; red_intensity_i: integer range 0 to 255; blue_intensity_i: integer range 0 to 255) is
+		begin
+			green_intensity <= std_logic_vector(to_unsigned(green_intensity_i, 8));
+			red_intensity <= std_logic_vector(to_unsigned(red_intensity_i, 8));
+			blue_intensity <= std_logic_vector(to_unsigned(blue_intensity_i, 8));
+		end procedure;
 	begin
 	
 		if enable = '1' then
 			if green_pos = max_pos-1 then
-				green_intensity <= std_logic_vector(to_unsigned(10, 8));
-				red_intensity <= std_logic_vector(to_unsigned(0, 8));
-				blue_intensity <= std_logic_vector(to_unsigned(0, 8));
+				set_GRB(10, 0, 0);
 			elsif red_pos = max_pos-1 then
-				green_intensity <= std_logic_vector(to_unsigned(0, 8));
-				red_intensity <= std_logic_vector(to_unsigned(10, 8));
-				blue_intensity <= std_logic_vector(to_unsigned(0, 8));
+				set_GRB(0, 10, 0);
 			elsif blue_pos = max_pos-1 then
-				green_intensity <= std_logic_vector(to_unsigned(0, 8));
-				red_intensity <= std_logic_vector(to_unsigned(0, 8));
-				blue_intensity <= std_logic_vector(to_unsigned(10, 8));
+				set_GRB(0, 0, 10);
 			elsif yellow_pos = max_pos-1 then
-				green_intensity <= std_logic_vector(to_unsigned(5, 8));
-				red_intensity <= std_logic_vector(to_unsigned(5, 8));
-				blue_intensity <= std_logic_vector(to_unsigned(0, 8));
+				set_GRB(5, 5, 0);
 			else
 				players_into_the_led := bool_to_logic(red_pos = led_number) & bool_to_logic(blue_pos = led_number) & bool_to_logic(green_pos = led_number) & bool_to_logic(yellow_pos = led_number);
 
 				case players_into_the_led is
 					when "0000" =>
-						green_intensity <= std_logic_vector(to_unsigned(0, 8));
-						red_intensity <= std_logic_vector(to_unsigned(0, 8));
-						blue_intensity <= std_logic_vector(to_unsigned(0, 8));
+						set_GRB(0, 0, 0);
 
 					when "0001" =>
-						green_intensity <= std_logic_vector(to_unsigned(5, 8));
-						red_intensity <= std_logic_vector(to_unsigned(5, 8));
-						blue_intensity <= std_logic_vector(to_unsigned(0, 8));
+						set_GRB(5, 5, 0);
 						
 					when "1000" =>
-						green_intensity <= std_logic_vector(to_unsigned(0, 8));
-						red_intensity <= std_logic_vector(to_unsigned(10, 8));
-						blue_intensity <= std_logic_vector(to_unsigned(0, 8));
+						set_GRB(0, 10, 0);
 						
 					when "0100" =>
-						green_intensity <= std_logic_vector(to_unsigned(0, 8));
-						red_intensity <= std_logic_vector(to_unsigned(0, 8));
-						blue_intensity <= std_logic_vector(to_unsigned(10, 8));
+						set_GRB(0, 0, 10);
 						
 					when "0010" =>
-						green_intensity <= std_logic_vector(to_unsigned(10, 8));
-						red_intensity <= std_logic_vector(to_unsigned(0, 8));
-						blue_intensity <= std_logic_vector(to_unsigned(0, 8));
+						set_GRB(10, 0, 0);
 
 					when others =>
-						green_intensity <= std_logic_vector(to_unsigned(5, 8));
-						red_intensity <= std_logic_vector(to_unsigned(5, 8));
-						blue_intensity <= std_logic_vector(to_unsigned(5, 8));
+						set_GRB(5, 5, 5);
 				end case;
 			end if;
 		else
