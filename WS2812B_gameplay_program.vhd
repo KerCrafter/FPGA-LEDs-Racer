@@ -75,7 +75,7 @@ begin
 			if green_pos = max_pos-1 then
 				set_LED_green;
 			elsif red_pos = max_pos-1 then
-				set_GRB(0, 10, 0);
+				set_LED_red;
 			elsif blue_pos = max_pos-1 then
 				set_LED_blue;
 			elsif yellow_pos = max_pos-1 then
