@@ -43,11 +43,17 @@ begin
 			red_intensity <= std_logic_vector(to_unsigned(red_intensity_i, 8));
 			blue_intensity <= std_logic_vector(to_unsigned(blue_intensity_i, 8));
 		end procedure;
+		
+		procedure set_LED_green is
+		begin
+			set_GRB(10, 0, 0);
+		end procedure;
+		
 	begin
 	
 		if enable = '1' then
 			if green_pos = max_pos-1 then
-				set_GRB(10, 0, 0);
+				set_LED_green;
 			elsif red_pos = max_pos-1 then
 				set_GRB(0, 10, 0);
 			elsif blue_pos = max_pos-1 then
