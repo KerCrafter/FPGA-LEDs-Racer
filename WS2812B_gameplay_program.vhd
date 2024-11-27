@@ -44,6 +44,10 @@ begin
 				green_intensity <= std_logic_vector(to_unsigned(10, 8));
 				red_intensity <= std_logic_vector(to_unsigned(0, 8));
 				blue_intensity <= std_logic_vector(to_unsigned(0, 8));
+			elsif red_pos = max_pos-1 then
+				green_intensity <= std_logic_vector(to_unsigned(0, 8));
+				red_intensity <= std_logic_vector(to_unsigned(10, 8));
+				blue_intensity <= std_logic_vector(to_unsigned(0, 8));
 			else
 				players_into_the_led := bool_to_logic(red_pos = led_number) & bool_to_logic(blue_pos = led_number) & bool_to_logic(green_pos = led_number) & bool_to_logic(yellow_pos = led_number);
 
