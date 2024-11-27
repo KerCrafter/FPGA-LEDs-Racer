@@ -44,6 +44,11 @@ begin
 			blue_intensity <= std_logic_vector(to_unsigned(blue_intensity_i, 8));
 		end procedure;
 		
+		procedure set_LED_white is
+		begin
+			set_GRB(5, 5, 5);
+		end procedure;
+		
 		procedure set_LED_green is
 		begin
 			set_GRB(10, 0, 0);
@@ -80,7 +85,7 @@ begin
 						set_LED_green;
 
 					when others =>
-						set_GRB(5, 5, 5);
+						set_LED_white;
 				end case;
 			end if;
 		else
