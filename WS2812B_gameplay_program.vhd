@@ -68,7 +68,11 @@ begin
 		begin
 			set_GRB(0, 0, 10);
 		end procedure;
-		
+
+		procedure set_LED_yellow is
+		begin
+			set_GRB(5, 5, 0);
+		end procedure;
 	begin
 	
 		if enable = '1' then
@@ -79,7 +83,7 @@ begin
 			elsif blue_pos = max_pos-1 then
 				set_LED_blue;
 			elsif yellow_pos = max_pos-1 then
-				set_GRB(5, 5, 0);
+				set_LED_yellow;
 			else
 				players_into_the_led := bool_to_logic(red_pos = led_number) & bool_to_logic(blue_pos = led_number) & bool_to_logic(green_pos = led_number) & bool_to_logic(yellow_pos = led_number);
 
@@ -88,7 +92,7 @@ begin
 						set_LED_off;
 
 					when "0001" =>
-						set_GRB(5, 5, 0);
+						set_LED_yellow;
 						
 					when "1000" =>
 						set_LED_red;
