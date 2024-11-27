@@ -77,7 +77,7 @@ begin
 						set_GRB(0, 0, 10);
 						
 					when "0010" =>
-						set_GRB(10, 0, 0);
+						set_LED_green;
 
 					when others =>
 						set_GRB(5, 5, 5);
