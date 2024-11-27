@@ -49,6 +49,11 @@ begin
 			set_GRB(5, 5, 5);
 		end procedure;
 		
+		procedure set_LED_off is
+		begin
+			set_GRB(0, 0, 0);
+		end procedure;
+		
 		procedure set_LED_green is
 		begin
 			set_GRB(10, 0, 0);
@@ -70,7 +75,7 @@ begin
 
 				case players_into_the_led is
 					when "0000" =>
-						set_GRB(0, 0, 0);
+						set_LED_off;
 
 					when "0001" =>
 						set_GRB(5, 5, 0);
