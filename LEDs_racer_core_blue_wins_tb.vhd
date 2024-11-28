@@ -39,14 +39,14 @@ begin
 	
 	PLAYS_STIM: process
 	begin
-		blue_input <= '0'; --red position = 0
+		blue_input <= '0'; --blue position = 0
 		
 		wait for 20 ns; blue_input <= '1'; wait for 20 ns; blue_input <= '0'; --blue position up to 1
 		wait for 20 ns; blue_input <= '1'; wait for 20 ns; blue_input <= '0'; --blue position up to 2
 		wait for 20 ns; blue_input <= '1'; wait for 20 ns; blue_input <= '0'; --blue position up to 3
 		wait for 20 ns; blue_input <= '1'; wait for 20 ns; blue_input <= '0'; --blue position up to 4
 		
-		-- check the display (all LEDs should be RED)
+		-- check the display (all LEDs should be BLUE)
 		wait for 20 ns; current_led <= 0; wait for 1 ps; assert led_green_intensity = std_logic_vector(to_unsigned(0, 8)) and led_red_intensity = std_logic_vector(to_unsigned(0, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(10, 8)) report "LED 0 : should be BLUE";
 		wait for 20 ns; current_led <= 1; wait for 1 ps; assert led_green_intensity = std_logic_vector(to_unsigned(0, 8)) and led_red_intensity = std_logic_vector(to_unsigned(0, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(10, 8)) report "LED 1 : should be BLUE";
 		wait for 20 ns; current_led <= 2; wait for 1 ps; assert led_green_intensity = std_logic_vector(to_unsigned(0, 8)) and led_red_intensity = std_logic_vector(to_unsigned(0, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(10, 8)) report "LED 2 : should be BLUE";
