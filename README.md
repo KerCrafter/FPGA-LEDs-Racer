@@ -27,11 +27,12 @@ I'm putting here the software I use for development to date. It's possible that 
 I concentrated mainly on implementing the WS2812B LED driver. With the help of the testbench tool, I implemented tests as I went along in order to discover the communication algorithm with the WS2812B LED serial line. 
 This enabled me to optimize the number of registers and logic elements used (120 to 51 LE).
 
-### Identified problems
+### Identified problems / todo
 
 - Too much clk edges required to debounce button, it could be interesting to test with a capacitor.
 - WS2812B Driver, not implement frame validation (RET code) according to the DataSheet, should be LOW during **Treset** = Above 50µs.
 - From Test Bench we identify a problem about the RED Player led seems move two positions direcly : it's described in [LEDs_racer_main_tb](./LEDs_racer_main_tb.vhd#L414) / [this doc](./docs/sim_counter_problem.md)
+- Todo refacto, use procedure like in [LEDs_racer_core_green_wins_tb](./LEDs_racer_core_green_wins_tb.vhd) in other test benches
 
 - Debouncer TestBench KO with new clock value
 
