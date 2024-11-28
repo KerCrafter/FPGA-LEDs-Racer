@@ -48,15 +48,22 @@ begin
 		begin
 			assert led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) report report_message;
 		end procedure;
+		
+		procedure green_player_press_his_button_during(duration: time) is
+		begin
+			green_input <= '1';
+			wait for duration;
+			green_input <= '0';
+		end procedure;
 
 	
 	begin
 		green_input <= '0'; --green position = 0
 		
-		wait for 20 ns; green_input <= '1'; wait for 20 ns; green_input <= '0'; --green position up to 1
-		wait for 20 ns; green_input <= '1'; wait for 20 ns; green_input <= '0'; --green position up to 2
-		wait for 20 ns; green_input <= '1'; wait for 20 ns; green_input <= '0'; --green position up to 3
-		wait for 20 ns; green_input <= '1'; wait for 20 ns; green_input <= '0'; --green position up to 4
+		wait for 20 ns; green_player_press_his_button_during(20 ns); --GREEN player up to position 1
+		wait for 20 ns; green_player_press_his_button_during(20 ns); --GREEN player up to position 2
+		wait for 20 ns; green_player_press_his_button_during(20 ns); --GREEN player up to position 3
+		wait for 20 ns; green_player_press_his_button_during(20 ns); --GREEN player up to position 4
 		
 		-- check the display (all LEDs should be GREEN)
 		wait for 20 ns; current_led <= 0; wait for 1 ps; assert_GRB(10, 0, 0, "LED 0 : should be GREEN");
