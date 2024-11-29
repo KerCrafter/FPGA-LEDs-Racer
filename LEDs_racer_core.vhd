@@ -28,7 +28,16 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 entity screen_manager is
+	generic (
+		max_pos : integer := 109
+	);
+
 	port(
+		green_cur_pos : in integer range 0 to max_pos-1;
+		red_cur_pos : in integer range 0 to max_pos-1;
+		blue_cur_pos : in integer range 0 to max_pos-1;
+		yellow_cur_pos : in integer range 0 to max_pos-1;
+	
 		game_in_progress_screen : out std_logic := '1'
 	);
 end entity;
@@ -97,7 +106,13 @@ begin
 	);
 	
 	screen_manager: entity work.screen_manager
+		generic map(max_pos => max_pos)
 		port map(
+			green_cur_pos => green_cur_pos,
+			red_cur_pos => red_cur_pos,
+			blue_cur_pos => blue_cur_pos,
+			yellow_cur_pos => yellow_cur_pos,
+		
 			game_in_progress_screen => game_in_progress_screen_enabled
 		);
 
