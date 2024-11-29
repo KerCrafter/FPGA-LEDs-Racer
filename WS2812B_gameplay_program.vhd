@@ -34,7 +34,7 @@ architecture beh of WS2812B_gameplay_program is
 		 end if;
 	end function bool_to_logic;
 begin
-	process(led_number, red_pos, blue_pos, green_pos, yellow_pos)
+	process(enable, led_number, red_pos, blue_pos, green_pos, yellow_pos)
 		variable players_into_the_led : std_logic_vector(3 downto 0);
 		
 		procedure set_GRB (green_intensity_i: integer range 0 to 255; red_intensity_i: integer range 0 to 255; blue_intensity_i: integer range 0 to 255) is
