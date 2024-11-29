@@ -76,15 +76,7 @@ begin
 	begin
 	
 		if enable = '1' then
-			if green_pos = max_pos-1 then
-				set_LED_green;
-			elsif red_pos = max_pos-1 then
-				set_LED_red;
-			elsif blue_pos = max_pos-1 then
-				set_LED_blue;
-			elsif yellow_pos = max_pos-1 then
-				set_LED_yellow;
-			else
+
 				players_into_the_led := bool_to_logic(green_pos = led_number) & bool_to_logic(red_pos = led_number) & bool_to_logic(blue_pos = led_number) & bool_to_logic(yellow_pos = led_number);
 
 				case players_into_the_led is
@@ -106,7 +98,7 @@ begin
 					when others =>
 						set_LED_white;
 				end case;
-			end if;
+
 		else
 			green_intensity <= "ZZZZZZZZ";
 			red_intensity <= "ZZZZZZZZ";
