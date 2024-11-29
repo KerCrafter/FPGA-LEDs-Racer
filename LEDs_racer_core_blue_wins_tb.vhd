@@ -69,6 +69,17 @@ begin
 		wait for 20 ns; current_led <= 3; wait for 1 ps; assert_GRB(0, 0, 10, "LED 3 : should be BLUE");
 		wait for 20 ns; current_led <= 4; wait for 1 ps; assert_GRB(0, 0, 10, "LED 4 : should be BLUE");
 
+		
+		-- Game is END Should lock BLUE actions
+		wait for 20 ns; blue_player_press_his_button_during(20 ns); --BLUE player stay in position 4
+
+		wait for 20 ns; current_led <= 0; wait for 1 ps; assert_GRB(0, 0, 10, "LED 0 : should be BLUE");
+		wait for 20 ns; current_led <= 1; wait for 1 ps; assert_GRB(0, 0, 10, "LED 1 : should be BLUE");
+		wait for 20 ns; current_led <= 2; wait for 1 ps; assert_GRB(0, 0, 10, "LED 2 : should be BLUE");
+		wait for 20 ns; current_led <= 3; wait for 1 ps; assert_GRB(0, 0, 10, "LED 3 : should be BLUE");
+		wait for 20 ns; current_led <= 4; wait for 1 ps; assert_GRB(0, 0, 10, "LED 4 : should be BLUE");
+		
+		
 		wait;
 	end process;
 	
