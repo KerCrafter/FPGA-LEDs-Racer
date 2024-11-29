@@ -24,6 +24,20 @@ entity LEDs_racer_core is
 	);
 end entity;
 
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity screen_manager is
+	port(
+		game_in_progress_screen : out std_logic := '1'
+	);
+end entity;
+
+architecture behaviour of screen_manager is
+begin
+	game_in_progress_screen <= '1';
+end architecture;
+
 architecture structural of LEDs_racer_core is
 	signal red_cur_pos : integer range 0 to max_pos-1;
 	signal blue_cur_pos : integer range 0 to max_pos-1;
@@ -34,6 +48,8 @@ architecture structural of LEDs_racer_core is
 	signal blue_activity : std_logic;
 	signal green_activity : std_logic;
 	signal yellow_activity : std_logic;
+	
+	signal game_in_progress_screen_enabled : std_logic;
 begin
 	red_btn: entity work.player_button
 		generic map(max_pos => max_pos)
@@ -79,11 +95,16 @@ begin
 		
 		R => update_frame
 	);
+	
+	screen_manager: entity work.screen_manager
+		port map(
+			game_in_progress_screen => game_in_progress_screen_enabled
+		);
 
 	WS2812B_gameplay_program: entity work.WS2812B_gameplay_program
 		generic map(max_pos => max_pos)
 		port map(
-			enable => '1',
+			enable => game_in_progress_screen_enabled,
 			red_pos => red_cur_pos,
 			blue_pos => blue_cur_pos,
 			green_pos => green_cur_pos,
