@@ -22,10 +22,12 @@ begin
 	begin
 		if rising_edge(clk) then
 			if btn = '1' and btn /= lock then
-				lock <= btn;
-				
-				cur_pos <= cur_pos + 1;
-				activity <= '1';
+				if cur_pos /= max_pos-1 then
+					lock <= btn;
+					
+					cur_pos <= cur_pos + 1;
+					activity <= '1';
+				end if;
 			elsif btn = '0' and btn /= lock then
 				lock <= btn;
 			else
