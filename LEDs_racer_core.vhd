@@ -39,7 +39,7 @@ entity screen_manager is
 		yellow_cur_pos : in integer range 0 to max_pos-1;
 	
 		game_in_progress_screen : out std_logic := '1';
-		game_finished_screen : out std_logic
+		game_finished_screen : out std_logic := '0'
 	);
 end entity;
 
@@ -134,4 +134,21 @@ begin
 			red_intensity => led_red_intensity,
 			blue_intensity => led_blue_intensity
 		);
+		
+	game_finished_program: entity work.game_finished_program
+		generic map(max_pos => max_pos)
+		port map(
+			enable => game_finished_screen_enabled,
+			red_pos => red_cur_pos,
+			blue_pos => blue_cur_pos,
+			green_pos => green_cur_pos,
+			yellow_pos => yellow_cur_pos,
+			
+			led_number => current_led,
+		
+			green_intensity => led_green_intensity,
+			red_intensity => led_red_intensity,
+			blue_intensity => led_blue_intensity
+		);
+
 end architecture;
