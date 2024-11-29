@@ -39,13 +39,14 @@ entity screen_manager is
 		yellow_cur_pos : in integer range 0 to max_pos-1;
 	
 		game_in_progress_screen : out std_logic := '1';
-		game_finished_screen : out std_logic := '0'
+		game_finished_screen : buffer std_logic := '0'
 	);
 end entity;
 
 architecture behaviour of screen_manager is
 begin
-	game_in_progress_screen <= '1';
+	game_finished_screen <= '1' when green_cur_pos = max_pos-1 or red_cur_pos = max_pos-1 or blue_cur_pos = max_pos-1 or green_cur_pos = max_pos-1 else '0';
+	game_in_progress_screen <= not game_finished_screen;
 end architecture;
 
 architecture structural of LEDs_racer_core is
