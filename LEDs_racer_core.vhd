@@ -38,7 +38,8 @@ entity screen_manager is
 		blue_cur_pos : in integer range 0 to max_pos-1;
 		yellow_cur_pos : in integer range 0 to max_pos-1;
 	
-		game_in_progress_screen : out std_logic := '1'
+		game_in_progress_screen : out std_logic := '1';
+		game_finished_screen : out std_logic
 	);
 end entity;
 
@@ -59,6 +60,7 @@ architecture structural of LEDs_racer_core is
 	signal yellow_activity : std_logic;
 	
 	signal game_in_progress_screen_enabled : std_logic;
+	signal game_finished_screen_enabled : std_logic;
 begin
 	red_btn: entity work.player_button
 		generic map(max_pos => max_pos)
@@ -113,7 +115,8 @@ begin
 			blue_cur_pos => blue_cur_pos,
 			yellow_cur_pos => yellow_cur_pos,
 		
-			game_in_progress_screen => game_in_progress_screen_enabled
+			game_in_progress_screen => game_in_progress_screen_enabled,
+			game_finished_screen => game_finished_screen_enabled
 		);
 
 	WS2812B_gameplay_program: entity work.WS2812B_gameplay_program
