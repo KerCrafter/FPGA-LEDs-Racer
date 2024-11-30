@@ -24,10 +24,17 @@ I'm putting here the software I use for development to date. It's possible that 
 - Questa Sim
 
 ## Actual State
-**49** Logic Element (LE) - **27** Registers
+**248** Logic Element (LE) - **133** Registers
 
-I concentrated mainly on implementing the WS2812B LED driver. With the help of the testbench tool, I implemented tests as I went along in order to discover the communication algorithm with the WS2812B LED serial line. 
-This enabled me to optimize the number of registers and logic elements used (120 to 51 LE).
+I concentrated mainly on implementing the WS2812B LED driver. With the help of the testbench tool, I implemented tests as I went along in order to discover the communication algorithm with the WS2812B LED serial line.
+
+the project works correctly End to End with DE0 Nano device.
+
+The next step of the development could manage the initial Menu screen, to allow players to join the game level, we just try to reproduce [this MicroPython implementation](https://github.com/KerCrafter/micropython-leds-racer).
+
+The end of game level isn't totally implemented, at this stage it seems Player can continue to up to next position, even after the game level is finished: Need to lock others players.
+
+Also from game finished screen, we should implement a delay to restart game level.
 
 ### Identified problems / todo
 
