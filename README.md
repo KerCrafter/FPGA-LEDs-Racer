@@ -6,6 +6,8 @@ A fun little game, 4 players (Red, Blue, Green, Yellow) around a table, each wit
 
 Pressing the button causes their led to progress to the center circle. The first to reach the center wins.
 
+[![Video Preview](./assets/video-preview.png)](https://youtu.be/GDuj1pzoBWQ)
+
 ## Hardware
 
 I'm putting here the material I used for the project, but of course if it's compatible this list can be adapted.
