@@ -41,7 +41,7 @@ Also from game finished screen, we should implement a delay to restart game leve
 - [Electronic Experimentation] Too much clk edges required to debounce button, it could be interesting to test with a capacitor.
 - WS2812B Driver, not implement frame validation (RET code) according to the DataSheet, should be LOW during **Treset** = Above 50µs.
 - From Test Bench we identify a problem about the RED Player led seems move two positions direcly : it's described in [LEDs_racer_main_tb](./LEDs_racer_main_tb.vhd#L414) / [this doc](./docs/sim_counter_problem.md)
-- Not explain why all players seems start in the Second LED in DE0 Nano device, I suspect it caused by initial state in pins before injecting the new wireing (need to test physically this case).
+- Not explain why all players seems start in the Second LED in DE0 Nano device, I suspect it caused by initial state in pins before injecting wireing configuration of LEDs Racer (need to verify physically this case).
 
 ## Architecture (Top View Usage)
 
