@@ -48,7 +48,7 @@ begin
 			assert led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) report report_message;
 		end procedure;
 		
-		procedure blue_player_press_his_button_during(duration: time) is
+		procedure BLUE_player_press_his_button_during(duration: time) is
 		begin
 			wait for 20 ns;
 
