@@ -49,14 +49,16 @@ begin
 			assert led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) report report_message;
 		end procedure;
 		
-		procedure red_player_press_his_button_during(duration: time) is
+		procedure RED_player_press_his_button_during(duration: time) is
 		begin
+			wait for 20 ns;
+		
 			red_input <= '1';
 			wait for duration;
 			red_input <= '0';
 		end procedure;
 		
-		procedure all_the_screen_should_RED is
+		procedure assert_all_LEDs_should_be_RED is
 		begin
 			wait for 20 ns; current_led <= 0; wait for 1 ps; assert_GRB(0, 10, 0, "LED 0 : should be RED");
 			wait for 20 ns; current_led <= 1; wait for 1 ps; assert_GRB(0, 10, 0, "LED 1 : should be RED");
@@ -65,20 +67,17 @@ begin
 			wait for 20 ns; current_led <= 4; wait for 1 ps; assert_GRB(0, 10, 0, "LED 4 : should be RED");
 		end procedure;
 	begin
-		red_input <= '0'; --red position = 0
+		RED_player_press_his_button_during(20 ns); --RED Player, UP from position 0 to 1
+		RED_player_press_his_button_during(20 ns); --RED Player, UP from position 1 to 2
+		RED_player_press_his_button_during(20 ns); --RED Player, UP from position 2 to 3
+		RED_player_press_his_button_during(20 ns); --RED Player, UP from position 3 to 4
 		
-		wait for 20 ns; red_player_press_his_button_during(20 ns); --red player up to position 1
-		wait for 20 ns; red_player_press_his_button_during(20 ns); --red player up to position 2
-		wait for 20 ns; red_player_press_his_button_during(20 ns); --red player up to position 3
-		wait for 20 ns; red_player_press_his_button_during(20 ns); --red player up to position 4
-		
-		-- check the display (all LEDs should be RED)
-		all_the_screen_should_RED;
+		assert_all_LEDs_should_be_RED;
 
 		-- Game is END Should lock RED actions
-		wait for 20 ns; red_player_press_his_button_during(20 ns); --RED player stay in position 4
+		RED_player_press_his_button_during(20 ns); --RED player STAY in position 4
 
-		all_the_screen_should_RED;
+		assert_all_LEDs_should_be_RED;
 
 		wait;
 	end process;
