@@ -55,6 +55,15 @@ begin
 			wait for duration;
 			green_input <= '0';
 		end procedure;
+		
+		procedure all_the_screen_should_GREEN is
+		begin
+			wait for 20 ns; current_led <= 0; wait for 1 ps; assert_GRB(10, 0, 0, "LED 0 : should be GREEN");
+			wait for 20 ns; current_led <= 1; wait for 1 ps; assert_GRB(10, 0, 0, "LED 1 : should be GREEN");
+			wait for 20 ns; current_led <= 2; wait for 1 ps; assert_GRB(10, 0, 0, "LED 2 : should be GREEN");
+			wait for 20 ns; current_led <= 3; wait for 1 ps; assert_GRB(10, 0, 0, "LED 3 : should be GREEN");
+			wait for 20 ns; current_led <= 4; wait for 1 ps; assert_GRB(10, 0, 0, "LED 4 : should be GREEN");
+		end procedure;
 
 	
 	begin
@@ -66,20 +75,12 @@ begin
 		wait for 20 ns; green_player_press_his_button_during(20 ns); --GREEN player up to position 4
 		
 		-- check the display (all LEDs should be GREEN)
-		wait for 20 ns; current_led <= 0; wait for 1 ps; assert_GRB(10, 0, 0, "LED 0 : should be GREEN");
-		wait for 20 ns; current_led <= 1; wait for 1 ps; assert_GRB(10, 0, 0, "LED 1 : should be GREEN");
-		wait for 20 ns; current_led <= 2; wait for 1 ps; assert_GRB(10, 0, 0, "LED 2 : should be GREEN");
-		wait for 20 ns; current_led <= 3; wait for 1 ps; assert_GRB(10, 0, 0, "LED 3 : should be GREEN");
-		wait for 20 ns; current_led <= 4; wait for 1 ps; assert_GRB(10, 0, 0, "LED 4 : should be GREEN");
+		all_the_screen_should_GREEN;
 
 		-- Game is END Should lock GREEN actions
 		wait for 20 ns; green_player_press_his_button_during(20 ns); --GREEN player stay in position 4
 
-		wait for 20 ns; current_led <= 0; wait for 1 ps; assert_GRB(10, 0, 0, "LED 0 : should be GREEN");
-		wait for 20 ns; current_led <= 1; wait for 1 ps; assert_GRB(10, 0, 0, "LED 1 : should be GREEN");
-		wait for 20 ns; current_led <= 2; wait for 1 ps; assert_GRB(10, 0, 0, "LED 2 : should be GREEN");
-		wait for 20 ns; current_led <= 3; wait for 1 ps; assert_GRB(10, 0, 0, "LED 3 : should be GREEN");
-		wait for 20 ns; current_led <= 4; wait for 1 ps; assert_GRB(10, 0, 0, "LED 4 : should be GREEN");
+		all_the_screen_should_GREEN;
 
 		wait;
 	end process;
