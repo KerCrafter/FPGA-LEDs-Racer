@@ -50,12 +50,14 @@ begin
 		
 		procedure blue_player_press_his_button_during(duration: time) is
 		begin
+			wait for 20 ns;
+
 			blue_input <= '1';
 			wait for duration;
 			blue_input <= '0';
 		end procedure;
 		
-		procedure all_the_screen_should_BLUE is
+		procedure assert_all_LEDs_should_be_BLUE is
 		begin
 			wait for 20 ns; current_led <= 0; wait for 1 ps; assert_GRB(0, 0, 10, "LED 0 : should be BLUE");
 			wait for 20 ns; current_led <= 1; wait for 1 ps; assert_GRB(0, 0, 10, "LED 1 : should be BLUE");
@@ -63,21 +65,18 @@ begin
 			wait for 20 ns; current_led <= 3; wait for 1 ps; assert_GRB(0, 0, 10, "LED 3 : should be BLUE");
 			wait for 20 ns; current_led <= 4; wait for 1 ps; assert_GRB(0, 0, 10, "LED 4 : should be BLUE");
 		end procedure;
-	begin
-		blue_input <= '0'; --blue position = 0
+	begin		
+		BLUE_player_press_his_button_during(20 ns); --BLUE Player, UP from position 0 to 1
+		BLUE_player_press_his_button_during(20 ns); --BLUE Player, UP from position 1 to 2
+		BLUE_player_press_his_button_during(20 ns); --BLUE Player, UP from position 2 to 3
+		BLUE_player_press_his_button_during(20 ns); --BLUE Player, UP from position 3 to 4
 		
-		wait for 20 ns; blue_player_press_his_button_during(20 ns); --player blue up to position 1
-		wait for 20 ns; blue_player_press_his_button_during(20 ns); --player blue up to position 2
-		wait for 20 ns; blue_player_press_his_button_during(20 ns); --player blue up to position 3
-		wait for 20 ns; blue_player_press_his_button_during(20 ns); --player blue up to position 4
-		
-		-- check the display (all LEDs should be BLUE)
-		all_the_screen_should_BLUE;
+		assert_all_LEDs_should_be_BLUE;
 		
 		-- Game is END Should lock BLUE actions
-		wait for 20 ns; blue_player_press_his_button_during(20 ns); --BLUE player stay in position 4
+		BLUE_player_press_his_button_during(20 ns); --BLUE player STAY in position 4
 
-		all_the_screen_should_BLUE;
+		assert_all_LEDs_should_be_BLUE;
 
 		wait;
 	end process;
@@ -85,7 +84,6 @@ begin
 	CLK_STIM: process
 	begin
 		clk <= '0'; wait for 10 ns;
-		
 		clk <= '1'; wait for 10 ns;
 	end process;
 
