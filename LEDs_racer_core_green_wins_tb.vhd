@@ -51,12 +51,14 @@ begin
 		
 		procedure green_player_press_his_button_during(duration: time) is
 		begin
+			wait for 20 ns;
+
 			green_input <= '1';
 			wait for duration;
 			green_input <= '0';
 		end procedure;
 		
-		procedure all_the_screen_should_GREEN is
+		procedure assert_all_LEDs_should_be_GREEN is
 		begin
 			wait for 20 ns; current_led <= 0; wait for 1 ps; assert_GRB(10, 0, 0, "LED 0 : should be GREEN");
 			wait for 20 ns; current_led <= 1; wait for 1 ps; assert_GRB(10, 0, 0, "LED 1 : should be GREEN");
@@ -67,20 +69,17 @@ begin
 
 	
 	begin
-		green_input <= '0'; --green position = 0
+		GREEN_player_press_his_button_during(20 ns); --GREEN Player, UP from position 0 to 1
+		GREEN_player_press_his_button_during(20 ns); --GREEN Player, UP from position 1 to 2
+		GREEN_player_press_his_button_during(20 ns); --GREEN Player, UP from position 2 to 3
+		GREEN_player_press_his_button_during(20 ns); --GREEN Player, UP from position 3 to 4
 		
-		wait for 20 ns; green_player_press_his_button_during(20 ns); --GREEN player up to position 1
-		wait for 20 ns; green_player_press_his_button_during(20 ns); --GREEN player up to position 2
-		wait for 20 ns; green_player_press_his_button_during(20 ns); --GREEN player up to position 3
-		wait for 20 ns; green_player_press_his_button_during(20 ns); --GREEN player up to position 4
-		
-		-- check the display (all LEDs should be GREEN)
-		all_the_screen_should_GREEN;
+		assert_all_LEDs_should_be_GREEN;
 
 		-- Game is END Should lock GREEN actions
-		wait for 20 ns; green_player_press_his_button_during(20 ns); --GREEN player stay in position 4
+		GREEN_player_press_his_button_during(20 ns); --GREEN player STAY in position 4
 
-		all_the_screen_should_GREEN;
+		assert_all_LEDs_should_be_GREEN;
 
 		wait;
 	end process;
