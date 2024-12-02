@@ -71,7 +71,6 @@ begin
 		YELLOW_player_press_his_button_during(20 ns); --YELLOW Player, UP from position 2 to 3
 		YELLOW_player_press_his_button_during(20 ns); --YELLOW Player, UP from position 3 to 4
 		
-		-- check the display (all LEDs should be YELLOW)
 		assert_all_LEDs_should_be_YELLOW;
 
 		-- Game is END Should lock YELLOW actions
