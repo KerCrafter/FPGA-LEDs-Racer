@@ -54,6 +54,15 @@ begin
 			wait for duration;
 			yellow_input <= '0';
 		end procedure;
+		
+		procedure all_the_screen_should_YELLOW is
+		begin
+			wait for 20 ns; current_led <= 0; wait for 1 ps; assert_GRB(5, 5, 0, "LED 0 : should be YELLOW");
+			wait for 20 ns; current_led <= 1; wait for 1 ps; assert_GRB(5, 5, 0, "LED 1 : should be YELLOW");
+			wait for 20 ns; current_led <= 2; wait for 1 ps; assert_GRB(5, 5, 0, "LED 2 : should be YELLOW");
+			wait for 20 ns; current_led <= 3; wait for 1 ps; assert_GRB(5, 5, 0, "LED 3 : should be YELLOW");
+			wait for 20 ns; current_led <= 4; wait for 1 ps; assert_GRB(5, 5, 0, "LED 4 : should be YELLOW");
+		end procedure;
 	begin
 		yellow_input <= '0'; --yellow position = 0
 		
@@ -63,21 +72,12 @@ begin
 		wait for 20 ns; yellow_player_press_his_button_during(20 ns); --player yellow up to position 4
 		
 		-- check the display (all LEDs should be YELLOW)
-		wait for 20 ns; current_led <= 0; wait for 1 ps; assert_GRB(5, 5, 0, "LED 0 : should be YELLOW");
-		wait for 20 ns; current_led <= 1; wait for 1 ps; assert_GRB(5, 5, 0, "LED 1 : should be YELLOW");
-		wait for 20 ns; current_led <= 2; wait for 1 ps; assert_GRB(5, 5, 0, "LED 2 : should be YELLOW");
-		wait for 20 ns; current_led <= 3; wait for 1 ps; assert_GRB(5, 5, 0, "LED 3 : should be YELLOW");
-		wait for 20 ns; current_led <= 4; wait for 1 ps; assert_GRB(5, 5, 0, "LED 4 : should be YELLOW");
+		all_the_screen_should_YELLOW;
 
 		-- Game is END Should lock YELLOW actions
 		wait for 20 ns; yellow_player_press_his_button_during(20 ns); --YELLOW player stay in position 4
 
-		wait for 20 ns; current_led <= 0; wait for 1 ps; assert_GRB(5, 5, 0, "LED 0 : should be YELLOW");
-		wait for 20 ns; current_led <= 1; wait for 1 ps; assert_GRB(5, 5, 0, "LED 1 : should be YELLOW");
-		wait for 20 ns; current_led <= 2; wait for 1 ps; assert_GRB(5, 5, 0, "LED 2 : should be YELLOW");
-		wait for 20 ns; current_led <= 3; wait for 1 ps; assert_GRB(5, 5, 0, "LED 3 : should be YELLOW");
-		wait for 20 ns; current_led <= 4; wait for 1 ps; assert_GRB(5, 5, 0, "LED 4 : should be YELLOW");
-		
+		all_the_screen_should_YELLOW;
 		
 		wait;
 	end process;
