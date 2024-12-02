@@ -3,7 +3,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity LEDs_racer_core_green_wins_tb is
-end LEDs_racer_core_green_wins_tb;
+end entity;
 
 architecture simulation of LEDs_racer_core_green_wins_tb is
 	signal clk : std_logic;
