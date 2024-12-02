@@ -55,6 +55,15 @@ begin
 			wait for duration;
 			red_input <= '0';
 		end procedure;
+		
+		procedure all_the_screen_should_RED is
+		begin
+			wait for 20 ns; current_led <= 0; wait for 1 ps; assert_GRB(0, 10, 0, "LED 0 : should be RED");
+			wait for 20 ns; current_led <= 1; wait for 1 ps; assert_GRB(0, 10, 0, "LED 1 : should be RED");
+			wait for 20 ns; current_led <= 2; wait for 1 ps; assert_GRB(0, 10, 0, "LED 2 : should be RED");
+			wait for 20 ns; current_led <= 3; wait for 1 ps; assert_GRB(0, 10, 0, "LED 3 : should be RED");
+			wait for 20 ns; current_led <= 4; wait for 1 ps; assert_GRB(0, 10, 0, "LED 4 : should be RED");
+		end procedure;
 	begin
 		red_input <= '0'; --red position = 0
 		
@@ -64,20 +73,12 @@ begin
 		wait for 20 ns; red_player_press_his_button_during(20 ns); --red player up to position 4
 		
 		-- check the display (all LEDs should be RED)
-		wait for 20 ns; current_led <= 0; wait for 1 ps; assert_GRB(0, 10, 0, "LED 0 : should be RED");
-		wait for 20 ns; current_led <= 1; wait for 1 ps; assert_GRB(0, 10, 0, "LED 1 : should be RED");
-		wait for 20 ns; current_led <= 2; wait for 1 ps; assert_GRB(0, 10, 0, "LED 2 : should be RED");
-		wait for 20 ns; current_led <= 3; wait for 1 ps; assert_GRB(0, 10, 0, "LED 3 : should be RED");
-		wait for 20 ns; current_led <= 4; wait for 1 ps; assert_GRB(0, 10, 0, "LED 4 : should be RED");
+		all_the_screen_should_RED;
 
 		-- Game is END Should lock RED actions
 		wait for 20 ns; red_player_press_his_button_during(20 ns); --RED player stay in position 4
 
-		wait for 20 ns; current_led <= 0; wait for 1 ps; assert_GRB(0, 10, 0, "LED 0 : should be RED");
-		wait for 20 ns; current_led <= 1; wait for 1 ps; assert_GRB(0, 10, 0, "LED 1 : should be RED");
-		wait for 20 ns; current_led <= 2; wait for 1 ps; assert_GRB(0, 10, 0, "LED 2 : should be RED");
-		wait for 20 ns; current_led <= 3; wait for 1 ps; assert_GRB(0, 10, 0, "LED 3 : should be RED");
-		wait for 20 ns; current_led <= 4; wait for 1 ps; assert_GRB(0, 10, 0, "LED 4 : should be RED");
+		all_the_screen_should_RED;
 
 		wait;
 	end process;
