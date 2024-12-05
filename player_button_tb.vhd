@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 entity player_button_tb is
 end entity;
 
-architecture behaviour of player_button_tb is
+architecture simulation of player_button_tb is
 	signal clk : std_logic := '0';
 	signal btn : std_logic := '0';
 	signal activity : std_logic;

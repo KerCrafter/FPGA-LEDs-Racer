@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 entity LEDs_racer_core_tb is
 end entity;
 
-architecture testbench of LEDs_racer_core_tb is
+architecture simulation of LEDs_racer_core_tb is
 	signal clk : std_logic := '0';
 
 	signal red_input : std_logic;

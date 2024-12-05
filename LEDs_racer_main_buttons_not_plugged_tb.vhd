@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 entity LEDs_racer_main_buttons_not_plugged_tb is
 end entity;
 
-architecture behaviour of LEDs_racer_main_buttons_not_plugged_tb is
+architecture simulation of LEDs_racer_main_buttons_not_plugged_tb is
 	signal clk : std_logic;
 	signal enable : std_logic := '0';
 	
