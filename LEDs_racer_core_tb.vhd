@@ -68,21 +68,29 @@ begin
 	end process;
 	
 	CHECK_SIG: process
+		procedure assert_LED_should_lightoff(message: string) is
+		begin
+			assert led_green_intensity = std_logic_vector(to_unsigned(0, 8)) and led_red_intensity = std_logic_vector(to_unsigned(0, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(0, 8)) report message;
+		end procedure;
+
+		procedure assert_LED_should_be_white(message: string) is
+		begin
+			wait for 1 ps; assert led_green_intensity = std_logic_vector(to_unsigned(5, 8)) and led_red_intensity = std_logic_vector(to_unsigned(5, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(5, 8)) report message;
+		end procedure;
 	begin
-		wait for 1 ps; assert led_green_intensity = std_logic_vector(to_unsigned(5, 8)) and led_red_intensity = std_logic_vector(to_unsigned(5, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(5, 8)) report "LED 0 : should be WHITE";
+		assert_LED_should_be_white("LED 1 : should be BLACK");
 		
 		wait until current_led = 1; wait for 1 ps;
-		assert led_green_intensity = std_logic_vector(to_unsigned(0, 8)) and led_red_intensity = std_logic_vector(to_unsigned(0, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(0, 8)) report "LED 1 : should be BLACK";
+		assert_LED_should_lightoff("LED 1 : should be BLACK");
 
 		wait until current_led = 2; wait for 1 ps;
-		assert led_green_intensity = std_logic_vector(to_unsigned(0, 8)) and led_red_intensity = std_logic_vector(to_unsigned(0, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(0, 8)) report "LED 2 : should be BLACK";
+		assert_LED_should_lightoff("LED 2 : should be BLACK");
 		
 		wait until current_led = 3; wait for 1 ps;
-		assert led_green_intensity = std_logic_vector(to_unsigned(0, 8)) and led_red_intensity = std_logic_vector(to_unsigned(0, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(0, 8)) report "LED 3 : should be BLACK";
+		assert_LED_should_lightoff("LED 3 : should be BLACK");
 		
 		wait until current_led = 4; wait for 1 ps;
-		assert led_green_intensity = std_logic_vector(to_unsigned(0, 8)) and led_red_intensity = std_logic_vector(to_unsigned(0, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(0, 8)) report "LED 4 : should be BLACK";
-		
+		assert_LED_should_lightoff("LED 4 : should be BLACK");
 	
 		wait;
 	end process;
