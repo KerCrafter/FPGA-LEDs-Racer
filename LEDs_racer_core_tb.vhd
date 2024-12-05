@@ -38,6 +38,14 @@ begin
 		);
 	
 	PLAYS_STIM: process
+		procedure red_player_press_his_button_during(duration: time) is
+		begin
+			wait for 20 ns;
+
+			red_input <= '1';
+			wait for duration;
+			red_input <= '0';
+		end procedure;
 	begin
 		red_input <= '0';
 		blue_input <= '0';
@@ -53,9 +61,7 @@ begin
 		wait for 1 ns; current_led <= 3;
 		wait for 1 ns; current_led <= 4;
 		
-		
-		wait for 5 ms;
-		red_input <= '1'; wait for 0.5 ms; red_input <= '0'; --red position up to 1
+		red_player_press_his_button_during(0.5 ms); --RED position up from 0 to 1
 		
 		wait;
 	end process;
@@ -63,7 +69,6 @@ begin
 	CLK_STIM: process
 	begin
 		clk <= '0'; wait for 10 ns;
-		
 		clk <= '1'; wait for 10 ns;
 	end process;
 	
