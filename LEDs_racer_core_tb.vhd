@@ -83,7 +83,7 @@ begin
 			wait for 1 ps; assert led_green_intensity = std_logic_vector(to_unsigned(5, 8)) and led_red_intensity = std_logic_vector(to_unsigned(5, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(5, 8)) report message;
 		end procedure;
 	begin
-		assert_LED_should_be_white("LED 1 : should be BLACK");
+		assert_LED_should_be_white("LED 0 : should be WHITE");
 		
 		wait until current_led = 1; wait for 1 ps;
 		assert_LED_should_lightoff("LED 1 : should be BLACK");
