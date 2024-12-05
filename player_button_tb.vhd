@@ -6,7 +6,7 @@ entity player_button_tb is
 end entity;
 
 architecture behaviour of player_button_tb is
-	signal clk : std_logic;
+	signal clk : std_logic := '0';
 	signal btn : std_logic := '0';
 	signal activity : std_logic;
 	signal cur_pos : integer range 0 to 108;
@@ -21,8 +21,8 @@ begin
 
 	CLK_STIM: process
 	begin
-		clk <= '0'; wait for 10 ns;
-		clk <= '1'; wait for 10 ns;
+		-- Inverse CLK every 10ns = 20ns per cycle = 50MHz
+		clk <= not clk; wait for 10 ns;
 	end process;
 	
 	BTN_STIM: process

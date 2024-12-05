@@ -6,7 +6,7 @@ entity LEDs_racer_core_tb is
 end entity;
 
 architecture testbench of LEDs_racer_core_tb is
-	signal clk : std_logic;
+	signal clk : std_logic := '0';
 
 	signal red_input : std_logic;
 	signal blue_input : std_logic;
@@ -68,8 +68,8 @@ begin
 	
 	CLK_STIM: process
 	begin
-		clk <= '0'; wait for 10 ns;
-		clk <= '1'; wait for 10 ns;
+		-- Inverse CLK every 10ns = 20ns per cycle = 50MHz
+		clk <= not clk; wait for 10 ns;
 	end process;
 	
 	CHECK_SIG: process
