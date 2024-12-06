@@ -2,6 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
+
 entity LEDs_racer_main is
 	generic (
 		max_pos : integer := 109;
