@@ -32,3 +32,15 @@ In `Available devices` search the model `EP4CE22F17C6` (as a precaution, check t
 
 
 And press on Finish, congratulations the project is ready
+
+## Mapping inputs/outputs
+
+From Pin Planner tool you can specify the matching pins for DE0_nano
+
+| Node Name | Direction | Location |
+| clk | input | PIN_R8 |
+| green_input | input | PIN_T13 |
+| red_input | input | PIN_T15 |
+| blue_input | input | PIN_T12 |
+| yellow_input | input | PIN_T14 |
+| leds_line | output | PIN_D3 |
