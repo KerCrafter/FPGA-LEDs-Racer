@@ -4,3 +4,10 @@ transcript
 work/
 vsim.wlf
 *.swo
+*.qsf
+*.qpf
+db/
+incremental_db/
+output_files/
+simulation/
+
