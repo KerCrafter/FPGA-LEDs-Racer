@@ -23,6 +23,11 @@ I'm putting here the software I use for development to date. It's possible that 
 - Quartus Prime Lite
 - Questa Sim
 
+## Install
+
+Go to this [install guide](./docs/install.md)
+
+
 ## Actual State
 **248** Logic Element (LE) - **133** Registers
 
