@@ -44,3 +44,32 @@ From Pin Planner tool you can specify the matching pins for DE0_nano
 | blue_input | input | PIN_T12 |
 | yellow_input | input | PIN_T14 |
 | leds_line | output | PIN_D3 |
+
+## Setup simulation
+
+I currently use Questa to simulate component execution. You need to configure the free license correctly, otherwise the simulation won't run.
+
+Once your account has been created, your PC registered, a license requested and collected by email from intel.
+- [Intel® FPGA Licensing Support Center](https://www.intel.com/content/www/us/en/support/programmable/licensing/support-center.html)
+- [Setup Quartus License Windows](https://www.terasic.com.tw/wiki/Setup_Quartus_License_Windows)
+
+### Configure a simulation
+
+In Quartus, go to `Assignments > Settings...`
+
+Go to `EDA Tool Settings > Simulation` tab
+
+**Tool name:** must be Questa Intel FPGA
+in NativeLink settings section, press in `Test Benches...` button
+
+`New...` button to add a new testbench configuration
+
+**Test bench name** match with the name of the testbench. for instance `LEDs_racer_core_tb`
+
+**Top level module in test bench** match with the name of the top level module typicaly same **Test bench name**
+
+Need include the file for this test bench, for instance `LEDs_racer_core_tb.vhd`
+
+### Run simulation
+
+In root of Quartus, go to `Tools > Run Simulation Tool > RTL Simulation` should run Questa for your setup testbench.
