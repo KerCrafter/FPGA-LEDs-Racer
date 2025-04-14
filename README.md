@@ -73,7 +73,7 @@ Also from game finished screen, we should implement a delay to restart game leve
 - [Button Debouncer](https://github.com/KerCrafter/button-debouncer)
 - [Player Button](./docs/player_button.md)
 - [Activity Detector](./docs/activity_detector.md)
-- [WS2812B Driver](https://github.com/KerCrafter/WS2812B-driver/README.md)
+- [WS2812B Driver](https://github.com/KerCrafter/WS2812B-driver)
 - [WS2812B Gameplay Program](./docs/ws2812b_gameplay_program.md)
 
 
