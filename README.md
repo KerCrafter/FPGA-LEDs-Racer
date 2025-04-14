@@ -29,7 +29,7 @@ Go to this [install guide](./docs/install.md)
 
 
 ## Actual State
-**248** Logic Element (LE) - **133** Registers
+**264** Logic Element (LE) - **133** Registers
 
 I concentrated mainly on implementing the WS2812B LED driver. With the help of the testbench tool, I implemented tests as I went along in order to discover the communication algorithm with the WS2812B LED serial line.
 
