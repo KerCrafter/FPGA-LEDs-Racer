@@ -8,10 +8,10 @@ end entity;
 architecture simulation of LEDs_racer_core_green_wins_tb is
   signal clk : std_logic := '0';
 
-  signal red_input : std_logic;
-  signal blue_input : std_logic;
-  signal green_input : std_logic;
-  signal yellow_input : std_logic;
+  signal red_input : std_logic := '0';
+  signal blue_input : std_logic := '0';
+  signal green_input : std_logic := '0';
+  signal yellow_input : std_logic := '0';
   
   signal current_led : integer range 0 to 4;
   signal led_green_intensity : std_logic_vector(7 downto 0);
@@ -57,6 +57,33 @@ begin
       wait for duration;
       green_input <= '0';
     end procedure;
+
+    procedure RED_player_press_his_button_during(duration: time) is
+    begin
+      wait for 20 ns;
+
+      red_input <= '1';
+      wait for duration;
+      red_input <= '0';
+    end procedure;
+
+    procedure BLUE_player_press_his_button_during(duration: time) is
+    begin
+      wait for 20 ns;
+
+      blue_input <= '1';
+      wait for duration;
+      blue_input <= '0';
+    end procedure;
+
+    procedure YELLOW_player_press_his_button_during(duration: time) is
+    begin
+      wait for 20 ns;
+
+      yellow_input <= '1';
+      wait for duration;
+      yellow_input <= '0';
+    end procedure;
     
     procedure assert_all_LEDs_should_be_GREEN is
     begin
@@ -78,6 +105,30 @@ begin
 
     -- Game is END Should lock GREEN actions
     GREEN_player_press_his_button_during(20 ns); --GREEN player STAY in position 4
+
+    assert_all_LEDs_should_be_GREEN;
+
+    --Try move the RED player
+    RED_player_press_his_button_during(20ns);
+    RED_player_press_his_button_during(20ns);
+    RED_player_press_his_button_during(20ns);
+    RED_player_press_his_button_during(20ns);
+
+    assert_all_LEDs_should_be_GREEN;
+
+    --Try move the BLUE player
+    BLUE_player_press_his_button_during(20ns);
+    BLUE_player_press_his_button_during(20ns);
+    BLUE_player_press_his_button_during(20ns);
+    BLUE_player_press_his_button_during(20ns);
+
+    assert_all_LEDs_should_be_GREEN;
+
+    --Try move the YELLOW player
+    YELLOW_player_press_his_button_during(20ns);
+    YELLOW_player_press_his_button_during(20ns);
+    YELLOW_player_press_his_button_during(20ns);
+    YELLOW_player_press_his_button_during(20ns);
 
     assert_all_LEDs_should_be_GREEN;
 

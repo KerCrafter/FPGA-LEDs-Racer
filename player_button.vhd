@@ -8,6 +8,7 @@ entity player_button is
   );
 
   port (
+    ready : in std_logic := '1';
     btn : in std_logic;
     clk: in std_logic;
     cur_pos : buffer integer range 0 to max_pos-1;
@@ -21,7 +22,7 @@ begin
   process(clk)
   begin
     if rising_edge(clk) then
-      if btn = '1' and btn /= lock then
+      if ready = '1' and btn = '1' and btn /= lock then
         if cur_pos /= max_pos-1 then
           lock <= btn;
           

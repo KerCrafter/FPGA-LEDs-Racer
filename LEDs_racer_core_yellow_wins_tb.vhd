@@ -56,6 +56,33 @@ begin
       wait for duration;
       yellow_input <= '0';
     end procedure;
+
+    procedure GREEN_player_press_his_button_during(duration: time) is
+    begin
+      wait for 20 ns;
+    
+      green_input <= '1';
+      wait for duration;
+      green_input <= '0';
+    end procedure;
+
+    procedure RED_player_press_his_button_during(duration: time) is
+    begin
+      wait for 20 ns;
+    
+      red_input <= '1';
+      wait for duration;
+      red_input <= '0';
+    end procedure;
+
+    procedure BLUE_player_press_his_button_during(duration: time) is
+    begin
+      wait for 20 ns;
+    
+      blue_input <= '1';
+      wait for duration;
+      blue_input <= '0';
+    end procedure;
     
     procedure assert_all_LEDs_should_be_YELLOW is
     begin
@@ -76,6 +103,31 @@ begin
     -- Game is END Should lock YELLOW actions
     YELLOW_player_press_his_button_during(20 ns); --YELLOW player STAY in position 4
 
+    assert_all_LEDs_should_be_YELLOW;
+
+
+    -- try move GREEN player
+    GREEN_player_press_his_button_during(20 ns);
+    GREEN_player_press_his_button_during(20 ns);
+    GREEN_player_press_his_button_during(20 ns);
+    GREEN_player_press_his_button_during(20 ns);
+    
+    assert_all_LEDs_should_be_YELLOW;
+
+    -- try move RED player
+    RED_player_press_his_button_during(20 ns);
+    RED_player_press_his_button_during(20 ns);
+    RED_player_press_his_button_during(20 ns);
+    RED_player_press_his_button_during(20 ns);
+    
+    assert_all_LEDs_should_be_YELLOW;
+
+    -- try move BLUE player
+    BLUE_player_press_his_button_during(20 ns);
+    BLUE_player_press_his_button_during(20 ns);
+    BLUE_player_press_his_button_during(20 ns);
+    BLUE_player_press_his_button_during(20 ns);
+    
     assert_all_LEDs_should_be_YELLOW;
     
     wait;

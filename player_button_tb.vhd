@@ -9,11 +9,13 @@ architecture simulation of player_button_tb is
   signal clk : std_logic := '0';
   signal btn : std_logic := '0';
   signal activity : std_logic;
+  signal ready : std_logic := '1';
   signal cur_pos : integer range 0 to 108;
 begin
 
   UUT: entity work.player_button port map (
     clk => clk,
+    ready => ready,
     btn => btn,
     activity => activity,
     cur_pos => cur_pos
@@ -27,6 +29,7 @@ begin
   
   BTN_STIM: process
   begin
+    ready <= '1';
   
     btn <= '0'; wait for 50 ns;
     
@@ -35,6 +38,11 @@ begin
 
     btn <= '1'; wait for 50ns;
     btn <= '0'; wait for 50ns;
+
+    btn <= '1'; wait for 50ns;
+    btn <= '0'; wait for 50ns;
+
+    ready <= '0'; wait for 10ns;
 
     btn <= '1'; wait for 50ns;
     btn <= '0'; wait for 50ns;

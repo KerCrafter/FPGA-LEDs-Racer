@@ -43,7 +43,7 @@ Also from game finished screen, we should implement a delay to restart game leve
 
 ### Todo
 
-- Lock other players when game is finished.
+- Menu
 - [Electronic Experimentation] Reduce number of CLK edges required to debounce button, it could be interesting to test with a capacitor.
 - WS2812B Driver, implement frame validation (RET code) according to the DataSheet, should be LOW during **Treset** = Above 50µs.
 
