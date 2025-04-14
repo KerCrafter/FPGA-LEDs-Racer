@@ -41,12 +41,15 @@ The end of game level isn't totally implemented, at this stage it seems Player c
 
 Also from game finished screen, we should implement a delay to restart game level.
 
-### Identified problems / todo
+### Todo
 
-- [Electronic Experimentation] Too much clk edges required to debounce button, it could be interesting to test with a capacitor.
-- WS2812B Driver, not implement frame validation (RET code) according to the DataSheet, should be LOW during **Treset** = Above 50µs.
+- Lock other players when game is finished.
+- [Electronic Experimentation] Reduce number of CLK edges required to debounce button, it could be interesting to test with a capacitor.
+- WS2812B Driver, implement frame validation (RET code) according to the DataSheet, should be LOW during **Treset** = Above 50µs.
+
+### Identified problems
+
 - From Test Bench we identify a problem about the RED Player led seems move two positions direcly : it's described in [LEDs_racer_main_tb](./LEDs_racer_main_tb.vhd#L414) / [this doc](./docs/sim_counter_problem.md)
-- Not explain why all players seems start in the Second LED in DE0 Nano device, I suspect it caused by initial state in pins before injecting wireing configuration of LEDs Racer (need to verify physically this case).
 
 ## Architecture (Top View Usage)
 
@@ -56,10 +59,10 @@ Also from game finished screen, we should implement a delay to restart game leve
 |  :---   |  :--- | ---:                         |  ---:                    |
 |  **clk**  |  50 Mhz clock input signal  |  WS2812B transmission  |  **leds_line**  |
 |  **enable**  |  High state to start  | |  |
-|  **red_input**  |  Player Red input (connected to Red button)  |    |  |
-|  **green_input**  |  Player Green input (connected to Green button)  |    |  |
-|  **blue_input**  |  Player Blue input (connected to Blue button)  |    |  |
-|  **yellow_input**  |  Player Yellow input (connected to Yellow button)  |    |  |
+|  **red_input**  |  Player Red input (connected to Red button) or Grounded  |    |  |
+|  **green_input**  |  Player Green input (connected to Green button) or Grounded  |    |  |
+|  **blue_input**  |  Player Blue input (connected to Blue button) or Grounded  |    |  |
+|  **yellow_input**  |  Player Yellow input (connected to Yellow button) or Grounded  |    |  |
 
 ### LEDs Racer Core Architecture
 
