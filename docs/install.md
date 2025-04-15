@@ -38,6 +38,7 @@ And press on Finish, congratulations the project is ready
 From Pin Planner tool you can specify the matching pins for DE0_nano
 
 | Node Name | Direction | Location |
+| - | - | - |
 | clk | input | PIN_R8 |
 | green_input | input | PIN_T13 |
 | red_input | input | PIN_T15 |
