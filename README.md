@@ -29,7 +29,7 @@ Go to this [install guide](./docs/install.md)
 
 
 ## Actual State
-**264** Logic Element (LE) - **133** Registers
+**288** Logic Element (LE) - **145** Registers
 
 I concentrated mainly on implementing the WS2812B LED driver. With the help of the testbench tool, I implemented tests as I went along in order to discover the communication algorithm with the WS2812B LED serial line.
 
@@ -45,7 +45,6 @@ Also from game finished screen, we should implement a delay to restart game leve
 
 - Menu
 - [Electronic Experimentation] Reduce number of CLK edges required to debounce button, it could be interesting to test with a capacitor.
-- WS2812B Driver, implement frame validation (RET code) according to the DataSheet, should be LOW during **Treset** = Above 50µs.
 
 ### Identified problems
 
