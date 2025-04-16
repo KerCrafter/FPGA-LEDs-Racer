@@ -8,10 +8,10 @@ end entity;
 architecture simulation of LEDs_racer_core_blue_wins_tb is
   signal clk : std_logic := '0';
 
-  signal red_input : std_logic;
-  signal blue_input : std_logic;
-  signal green_input : std_logic;
-  signal yellow_input : std_logic;
+  signal red_input : std_logic := '0';
+  signal blue_input : std_logic := '0';
+  signal green_input : std_logic := '0';
+  signal yellow_input : std_logic := '0';
   
   signal current_led : integer range 0 to 4;
   signal led_green_intensity : std_logic_vector(7 downto 0);

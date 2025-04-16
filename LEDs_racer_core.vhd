@@ -10,10 +10,10 @@ entity LEDs_racer_core is
   port(
     clk : in std_logic;
     
-    green_input : in std_logic := '0';
-    red_input : in std_logic := '0';
-    blue_input : in std_logic := '0';
-    yellow_input : in std_logic := '0';
+    green_input : in std_logic;
+    red_input : in std_logic;
+    blue_input : in std_logic;
+    yellow_input : in std_logic;
     
     current_led : in integer range 0 to max_pos-1;
     led_green_intensity : out std_logic_vector(7 downto 0);

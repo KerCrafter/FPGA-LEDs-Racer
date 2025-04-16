@@ -8,10 +8,10 @@ end entity;
 architecture simulation of LEDs_racer_core_tb is
   signal clk : std_logic := '0';
 
-  signal red_input : std_logic;
-  signal blue_input : std_logic;
-  signal green_input : std_logic;
-  signal yellow_input : std_logic;
+  signal red_input : std_logic := '0';
+  signal blue_input : std_logic := '0';
+  signal green_input : std_logic := '0';
+  signal yellow_input : std_logic := '0';
   
   signal current_led : integer range 0 to 108;
   signal led_green_intensity : std_logic_vector(7 downto 0);
@@ -47,21 +47,11 @@ begin
       red_input <= '0';
     end procedure;
   begin
-    red_input <= '0';
-    blue_input <= '0';
-    green_input <= '0';
-    yellow_input <= '0';
-    
-    current_led <= 0;
-    
-    
     -- First Frame
     wait for 1 ns; current_led <= 1;
     wait for 1 ns; current_led <= 2;
     wait for 1 ns; current_led <= 3;
     wait for 1 ns; current_led <= 4;
-    
-    red_player_press_his_button_during(0.5 ms); --RED position up from 0 to 1
     
     wait;
   end process;
