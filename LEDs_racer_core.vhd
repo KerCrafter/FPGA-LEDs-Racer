@@ -42,7 +42,7 @@ begin
     generic map(max_pos => max_pos)
     port map (
       clk => clk,
-      ready => game_in_progress_screen_enabled,
+      game_started => game_in_progress_screen_enabled,
       btn => red_input,
       cur_pos => red_cur_pos,
       activity => red_activity
@@ -52,7 +52,7 @@ begin
     generic map(max_pos => max_pos)
     port map (
       clk => clk,
-      ready => game_in_progress_screen_enabled,
+      game_started => game_in_progress_screen_enabled,
       btn => blue_input,
       cur_pos => blue_cur_pos,
       activity => blue_activity
@@ -62,7 +62,7 @@ begin
     generic map(max_pos => max_pos)
     port map (
       clk => clk,
-      ready => game_in_progress_screen_enabled,
+      game_started => game_in_progress_screen_enabled,
       btn => green_input,
       cur_pos => green_cur_pos,
       activity => green_activity
@@ -72,7 +72,7 @@ begin
     generic map(max_pos => max_pos)
     port map (
       clk => clk,
-      ready => game_in_progress_screen_enabled,
+      game_started => game_in_progress_screen_enabled,
       btn => yellow_input,
       cur_pos => yellow_cur_pos,
       activity => yellow_activity
