@@ -7,9 +7,13 @@ entity screen_manager is
   );
 
   port(
+    green_ready_to_play : in std_logic;
     green_cur_pos : in integer range 0 to max_pos-1;
+    red_ready_to_play : in std_logic;
     red_cur_pos : in integer range 0 to max_pos-1;
+    blue_ready_to_play : in std_logic;
     blue_cur_pos : in integer range 0 to max_pos-1;
+    yellow_ready_to_play : in std_logic;
     yellow_cur_pos : in integer range 0 to max_pos-1;
   
     menu_screen : out std_logic := '0';
