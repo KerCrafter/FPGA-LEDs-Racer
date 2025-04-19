@@ -37,6 +37,8 @@ architecture structural of LEDs_racer_core is
   
   signal game_in_progress_screen_enabled : std_logic;
   signal game_finished_screen_enabled : std_logic;
+  signal menu_screen_enabled : std_logic;
+
 begin
   red_btn: entity work.player_button
     generic map(max_pos => max_pos)
@@ -45,7 +47,8 @@ begin
       game_started => game_in_progress_screen_enabled,
       btn => red_input,
       cur_pos => red_cur_pos,
-      activity => red_activity
+      activity => red_activity,
+      on_menu => menu_screen_enabled
     );
   
   blue_btn: entity work.player_button
@@ -55,7 +58,8 @@ begin
       game_started => game_in_progress_screen_enabled,
       btn => blue_input,
       cur_pos => blue_cur_pos,
-      activity => blue_activity
+      activity => blue_activity,
+      on_menu => menu_screen_enabled
     );
   
   green_btn: entity work.player_button
@@ -65,7 +69,8 @@ begin
       game_started => game_in_progress_screen_enabled,
       btn => green_input,
       cur_pos => green_cur_pos,
-      activity => green_activity
+      activity => green_activity,
+      on_menu => menu_screen_enabled
     );
   
   yellow_btn: entity work.player_button
@@ -75,7 +80,8 @@ begin
       game_started => game_in_progress_screen_enabled,
       btn => yellow_input,
       cur_pos => yellow_cur_pos,
-      activity => yellow_activity
+      activity => yellow_activity,
+      on_menu => menu_screen_enabled
     );
   
   activity_detector: entity work.activity_detector port map(
@@ -96,7 +102,8 @@ begin
       yellow_cur_pos => yellow_cur_pos,
     
       game_in_progress_screen => game_in_progress_screen_enabled,
-      game_finished_screen => game_finished_screen_enabled
+      game_finished_screen => game_finished_screen_enabled,
+      menu_screen => menu_screen_enabled
     );
 
   WS2812B_gameplay_program: entity work.WS2812B_gameplay_program

@@ -12,6 +12,7 @@ entity screen_manager is
     blue_cur_pos : in integer range 0 to max_pos-1;
     yellow_cur_pos : in integer range 0 to max_pos-1;
   
+    menu_screen : out std_logic := '0';
     game_in_progress_screen : out std_logic := '1';
     game_finished_screen : out std_logic := '0'
   );
