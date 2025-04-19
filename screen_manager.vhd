@@ -25,6 +25,16 @@ end entity;
 architecture structural of screen_manager is
 begin
 
+  is_in_menu: entity work.is_in_menu
+    port map (
+      green_ready_to_play => green_ready_to_play,
+      red_ready_to_play => red_ready_to_play,
+      blue_ready_to_play => blue_ready_to_play,
+      yellow_ready_to_play => yellow_ready_to_play,
+
+      result => menu_screen
+    );
+
   is_game_finished : entity work.is_game_finished
     generic map(max_pos => max_pos)
     port map (
