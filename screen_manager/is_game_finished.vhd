@@ -1,0 +1,22 @@
+library ieee;
+use ieee.std_logic_1164.all;
+
+entity is_game_finished is
+  generic (
+    max_pos : integer := 109
+  );
+
+  port(
+    green_cur_pos : in integer range 0 to max_pos-1;
+    red_cur_pos : in integer range 0 to max_pos-1;
+    blue_cur_pos : in integer range 0 to max_pos-1;
+    yellow_cur_pos : in integer range 0 to max_pos-1;
+  
+    result : out std_logic
+  );
+end entity;
+
+architecture behaviour of is_game_finished is
+begin
+  result <= '1' when green_cur_pos = max_pos-1 or red_cur_pos = max_pos-1 or blue_cur_pos = max_pos-1 or yellow_cur_pos = max_pos-1 else '0';
+end architecture;
