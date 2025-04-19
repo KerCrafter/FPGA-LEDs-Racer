@@ -7,6 +7,7 @@ entity is_game_started is
   );
 
   port(
+    is_in_menu : in std_logic;
     green_cur_pos : in integer range 0 to max_pos-1;
     red_cur_pos : in integer range 0 to max_pos-1;
     blue_cur_pos : in integer range 0 to max_pos-1;

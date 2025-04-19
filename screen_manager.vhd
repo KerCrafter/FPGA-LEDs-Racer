@@ -16,7 +16,7 @@ entity screen_manager is
     yellow_ready_to_play : in std_logic;
     yellow_cur_pos : in integer range 0 to max_pos-1;
   
-    menu_screen : out std_logic := '0';
+    menu_screen : buffer std_logic := '0';
     game_in_progress_screen : out std_logic := '1';
     game_finished_screen : out std_logic := '0'
   );
@@ -38,6 +38,7 @@ begin
   is_game_finished : entity work.is_game_finished
     generic map(max_pos => max_pos)
     port map (
+      is_in_menu => menu_screen,
       green_cur_pos => green_cur_pos,
       red_cur_pos => red_cur_pos,
       blue_cur_pos => blue_cur_pos,
@@ -49,6 +50,7 @@ begin
   is_game_started : entity work.is_game_started
     generic map(max_pos => max_pos)
     port map (
+      is_in_menu => menu_screen,
       green_cur_pos => green_cur_pos,
       red_cur_pos => red_cur_pos,
       blue_cur_pos => blue_cur_pos,
