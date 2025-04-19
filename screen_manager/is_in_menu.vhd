@@ -18,7 +18,7 @@ end entity;
 
 architecture behaviour of is_in_menu is
  
-  function to_integer( s : std_logic ) return integer is
+  function std_logic_to_integer( s : std_logic ) return integer is
   begin
     if s = '1' then
       return 1;
@@ -29,5 +29,5 @@ architecture behaviour of is_in_menu is
 
 begin
   result <= '0';
-  D_two_players_ready <= '1' when (to_integer(green_ready_to_play) + to_integer(blue_ready_to_play) + to_integer(red_ready_to_play) ) > 1 else '0'; 
+  D_two_players_ready <= '1' when (std_logic_to_integer(green_ready_to_play) + std_logic_to_integer(blue_ready_to_play) + std_logic_to_integer(red_ready_to_play) + std_logic_to_integer(yellow_ready_to_play) ) > 1 else '0'; 
 end architecture;
