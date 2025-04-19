@@ -45,6 +45,8 @@ Also from game finished screen, we should implement a delay to restart game leve
 
 - Menu
 - [Electronic Experimentation] Reduce number of CLK edges required to debounce button, it could be interesting to test with a capacitor.
+- Music
+- Random traps
 
 ### Identified problems
 
