@@ -21,6 +21,10 @@ begin
   process ( clk )
   begin
     if rising_edge(clk) then
+      if blue_ready_to_play = '1' and green_ready_to_play = '1' then
+        two_players_ready <= '1';
+      end if;
+
       if blue_ready_to_play = '1' and red_ready_to_play = '1' then
         two_players_ready <= '1';
       end if;
