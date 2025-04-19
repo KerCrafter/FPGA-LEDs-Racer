@@ -3,6 +3,8 @@ use ieee.std_logic_1164.all;
 
 entity is_in_menu is
   port(
+    clk : in std_logic;
+
     green_ready_to_play : in std_logic;
     red_ready_to_play : in std_logic;
     blue_ready_to_play : in std_logic;
