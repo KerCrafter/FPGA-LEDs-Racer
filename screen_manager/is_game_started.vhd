@@ -19,5 +19,5 @@ end entity;
 
 architecture behaviour of is_game_started is
 begin
-  result <= '1' when green_cur_pos < max_pos-1 and red_cur_pos < max_pos-1 and blue_cur_pos < max_pos-1 and yellow_cur_pos < max_pos-1 else '0';
+  result <= '1' when is_in_menu = '0' and green_cur_pos < max_pos-1 and red_cur_pos < max_pos-1 and blue_cur_pos < max_pos-1 and yellow_cur_pos < max_pos-1 else '0';
 end architecture;
