@@ -19,8 +19,8 @@ entity screen_manager is
     yellow_cur_pos : in integer range 0 to max_pos-1;
   
     menu_screen : buffer std_logic := '0';
-    game_in_progress_screen : out std_logic := '1';
-    game_finished_screen : out std_logic := '0';
+    game_in_progress_screen : buffer std_logic := '1';
+    game_finished_screen : buffer std_logic := '0';
     current_screen : out std_logic_vector(1 downto 0)
   );
 end entity;
@@ -63,5 +63,10 @@ begin
 
       result => game_in_progress_screen
     );
+
+  current_screen <= "00" when menu_screen = '1' else
+                    "01" when game_in_progress_screen = '1' else
+                    "10" when game_finished_screen = '1' else
+                    "11";
 
 end architecture;

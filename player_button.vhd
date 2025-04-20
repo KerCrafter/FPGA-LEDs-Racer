@@ -12,7 +12,7 @@ entity player_button is
     game_started : in std_logic := '1';
     btn : in std_logic;
     clk: in std_logic;
-    current_screen : in  std_logic_vector(1 downto 0);
+    current_screen : in std_logic_vector(1 downto 0);
     cur_pos : buffer integer range 0 to max_pos-1;
     activity : out std_logic := '0';
     ready_to_play : buffer std_logic := '0'
@@ -30,13 +30,14 @@ begin
           lock <= btn;
           activity <= '1';
           
-          if game_started = '1' then -- and ready_to_play = '1' then
+          if current_screen = "00" then
+            ready_to_play <= '1';
+          end if;
+
+          if current_screen = "01" then -- and ready_to_play = '1' then
             cur_pos <= cur_pos + 1;
           end if;
 
-          if on_menu = '1' then
-            ready_to_play <= '1';
-          end if;
         end if;
       elsif btn = '0' and btn /= lock then
         lock <= btn;
