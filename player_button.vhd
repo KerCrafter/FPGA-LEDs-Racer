@@ -12,6 +12,7 @@ entity player_button is
     game_started : in std_logic := '1';
     btn : in std_logic;
     clk: in std_logic;
+    current_screen : in  std_logic_vector(1 downto 0);
     cur_pos : buffer integer range 0 to max_pos-1;
     activity : out std_logic := '0';
     ready_to_play : buffer std_logic := '0'

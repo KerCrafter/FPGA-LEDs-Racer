@@ -20,7 +20,8 @@ entity screen_manager is
   
     menu_screen : buffer std_logic := '0';
     game_in_progress_screen : out std_logic := '1';
-    game_finished_screen : out std_logic := '0'
+    game_finished_screen : out std_logic := '0';
+    current_screen : out std_logic_vector(1 downto 0)
   );
 end entity;
 
