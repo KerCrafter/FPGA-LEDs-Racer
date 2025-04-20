@@ -8,8 +8,6 @@ entity player_button is
   );
 
   port (
-    on_menu : in std_logic := '0';
-    game_started : in std_logic := '1';
     btn : in std_logic;
     clk: in std_logic;
     current_screen : in std_logic_vector(1 downto 0);
