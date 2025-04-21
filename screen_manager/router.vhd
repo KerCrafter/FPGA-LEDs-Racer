@@ -18,9 +18,9 @@ entity router is
     yellow_ready_to_play : in std_logic;
     yellow_cur_pos : in integer range 0 to max_pos-1;
   
-    menu_screen : buffer std_logic;
-    game_in_progress_screen : buffer std_logic;
-    game_finished_screen : buffer std_logic;
+    menu_screen : buffer std_logic := '0';
+    game_in_progress_screen : buffer std_logic := '1';
+    game_finished_screen : buffer std_logic := '0';
     current_screen : out std_logic_vector(1 downto 0)
   );
 end entity;
