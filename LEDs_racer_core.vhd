@@ -120,7 +120,12 @@ begin
     
       game_in_progress_screen => game_in_progress_screen_enabled,
       game_finished_screen => game_finished_screen_enabled,
-      menu_screen => menu_screen_enabled
+      menu_screen => menu_screen_enabled,
+
+      current_led => current_led --,
+      -- led_green_intensity => led_green_intensity,
+      -- led_red_intensity => led_red_intensity,
+      -- led_blue_intensity => led_blue_intensity
     );
 
   WS2812B_gameplay_program: entity work.WS2812B_gameplay_program
