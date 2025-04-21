@@ -122,42 +122,10 @@ begin
       game_finished_screen => game_finished_screen_enabled,
       menu_screen => menu_screen_enabled,
 
-      current_led => current_led --,
-      -- led_green_intensity => led_green_intensity,
-      -- led_red_intensity => led_red_intensity,
-      -- led_blue_intensity => led_blue_intensity
-    );
-
-  WS2812B_gameplay_program: entity work.WS2812B_gameplay_program
-    generic map(max_pos => max_pos)
-    port map(
-      enable => game_in_progress_screen_enabled,
-      red_pos => red_cur_pos,
-      blue_pos => blue_cur_pos,
-      green_pos => green_cur_pos,
-      yellow_pos => yellow_cur_pos,
-      
-      led_number => current_led,
-    
-      green_intensity => led_green_intensity,
-      red_intensity => led_red_intensity,
-      blue_intensity => led_blue_intensity
-    );
-    
-  game_finished_program: entity work.game_finished_program
-    generic map(max_pos => max_pos)
-    port map(
-      enable => game_finished_screen_enabled,
-      red_pos => red_cur_pos,
-      blue_pos => blue_cur_pos,
-      green_pos => green_cur_pos,
-      yellow_pos => yellow_cur_pos,
-      
-      led_number => current_led,
-    
-      green_intensity => led_green_intensity,
-      red_intensity => led_red_intensity,
-      blue_intensity => led_blue_intensity
+      current_led => current_led,
+      led_green_intensity => led_green_intensity,
+      led_red_intensity => led_red_intensity,
+      led_blue_intensity => led_blue_intensity
     );
 
 end architecture;
