@@ -17,6 +17,8 @@ entity screens is
     blue_cur_pos : in integer range 0 to max_pos-1;
     yellow_ready_to_play : in std_logic;
     yellow_cur_pos : in integer range 0 to max_pos-1;
+
+    current_screen : in std_logic_vector(1 downto 0);
   
     current_led : in integer range 0 to max_pos-1;
     led_green_intensity : out std_logic_vector(7 downto 0);
