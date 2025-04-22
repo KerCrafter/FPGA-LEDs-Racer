@@ -14,14 +14,14 @@ entity router is
 
     is_in_menu : in std_logic;
   
-    menu_screen : buffer std_logic := '0';
-    game_in_progress_screen : buffer std_logic := '1';
-    game_finished_screen : buffer std_logic := '0';
     current_screen : out std_logic_vector(1 downto 0)
   );
 end entity;
 
 architecture structural of router is
+  signal menu_screen : std_logic := '0';
+  signal game_in_progress_screen : std_logic := '1';
+  signal game_finished_screen : std_logic := '0';
 begin
   is_game_finished : entity work.is_game_finished
     generic map(max_pos => max_pos)

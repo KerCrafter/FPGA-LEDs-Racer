@@ -20,9 +20,6 @@ entity screen_manager is
 
     current_led : in integer range 0 to max_pos-1;
   
-    menu_screen : out std_logic := '0';
-    game_in_progress_screen : out std_logic := '1';
-    game_finished_screen : out std_logic := '0';
     current_screen : buffer std_logic_vector(1 downto 0);
 
     led_green_intensity : out std_logic_vector(7 downto 0);
@@ -44,9 +41,6 @@ begin
 
       is_in_menu => is_in_menu,
     
-      menu_screen => menu_screen,
-      game_in_progress_screen => game_in_progress_screen,
-      game_finished_screen => game_finished_screen,
       current_screen => current_screen
     );
 

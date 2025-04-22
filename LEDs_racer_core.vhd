@@ -38,10 +38,6 @@ architecture structural of LEDs_racer_core is
   signal blue_activity : std_logic;
   signal green_activity : std_logic;
   signal yellow_activity : std_logic;
-  
-  signal game_in_progress_screen_enabled : std_logic;
-  signal game_finished_screen_enabled : std_logic;
-  signal menu_screen_enabled : std_logic;
 
   signal current_screen : std_logic_vector(1 downto 0);
   signal is_in_menu : std_logic;
@@ -131,10 +127,6 @@ begin
 
       is_in_menu => is_in_menu,
     
-      game_in_progress_screen => game_in_progress_screen_enabled,
-      game_finished_screen => game_finished_screen_enabled,
-      menu_screen => menu_screen_enabled,
-
       current_led => current_led,
       led_green_intensity => led_green_intensity,
       led_red_intensity => led_red_intensity,
