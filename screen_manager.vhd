@@ -41,13 +41,9 @@ begin
     port map (
       clk => clk,
 
-      green_ready_to_play => green_ready_to_play,
       green_cur_pos => green_cur_pos,
-      red_ready_to_play => red_ready_to_play,
       red_cur_pos => red_cur_pos,
-      blue_ready_to_play => blue_ready_to_play,
       blue_cur_pos => blue_cur_pos,
-      yellow_ready_to_play => yellow_ready_to_play,
       yellow_cur_pos => yellow_cur_pos,
 
       is_in_menu => is_in_menu,
