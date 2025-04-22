@@ -9,8 +9,7 @@ entity ready_trigger_countdown is
     blue_ready_to_play : in std_logic;
     yellow_ready_to_play : in std_logic;
   
-    result : out std_logic;
-    D_two_players_ready : out std_logic
+    result : out std_logic
   );
 end entity;
 
@@ -26,6 +25,5 @@ architecture behaviour of ready_trigger_countdown is
   end function;
 
 begin
-  result <= '0';
-  D_two_players_ready <= '1' when (std_logic_to_integer(green_ready_to_play) + std_logic_to_integer(blue_ready_to_play) + std_logic_to_integer(red_ready_to_play) + std_logic_to_integer(yellow_ready_to_play) ) > 1 else '0'; 
+  result <= '1' when (std_logic_to_integer(green_ready_to_play) + std_logic_to_integer(blue_ready_to_play) + std_logic_to_integer(red_ready_to_play) + std_logic_to_integer(yellow_ready_to_play) ) > 1 else '0'; 
 end architecture;
