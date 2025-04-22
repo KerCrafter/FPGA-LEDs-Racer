@@ -13,7 +13,19 @@ entity menu_manager is
   );
 end entity;
 
-architecture beh of menu_manager is
+architecture structural of menu_manager is
 begin
-  is_in_menu <= '0';
+
+  is_in_menu_inst: entity work.is_in_menu
+    port map (
+      clk => clk,
+
+      green_ready_to_play => green_ready_to_play,
+      red_ready_to_play => red_ready_to_play,
+      blue_ready_to_play => blue_ready_to_play,
+      yellow_ready_to_play => yellow_ready_to_play,
+    
+      result => is_in_menu
+    );
+
 end architecture;
