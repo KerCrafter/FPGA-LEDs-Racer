@@ -7,8 +7,6 @@ entity screens is
   );
 
   port(
-    clk : in std_logic;
-
     green_ready_to_play : in std_logic;
     green_cur_pos : in integer range 0 to max_pos-1;
     red_ready_to_play : in std_logic;

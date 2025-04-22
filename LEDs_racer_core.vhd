@@ -115,8 +115,6 @@ begin
   screen_manager: entity work.screen_manager
     generic map(max_pos => max_pos)
     port map(
-      clk => clk,
-
       current_screen => current_screen,
 
       green_ready_to_play => green_ready_to_play,
