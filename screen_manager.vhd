@@ -18,6 +18,8 @@ entity screen_manager is
     yellow_ready_to_play : in std_logic;
     yellow_cur_pos : in integer range 0 to max_pos-1;
 
+    is_in_menu : in std_logic;
+
     current_led : in integer range 0 to max_pos-1;
   
     menu_screen : out std_logic := '0';
@@ -47,6 +49,8 @@ begin
       blue_cur_pos => blue_cur_pos,
       yellow_ready_to_play => yellow_ready_to_play,
       yellow_cur_pos => yellow_cur_pos,
+
+      is_in_menu => is_in_menu,
     
       menu_screen => menu_screen,
       game_in_progress_screen => game_in_progress_screen,

@@ -44,6 +44,7 @@ architecture structural of LEDs_racer_core is
   signal menu_screen_enabled : std_logic;
 
   signal current_screen : std_logic_vector(1 downto 0);
+  signal is_in_menu : std_logic;
 
 begin
   red_btn: entity work.player_button
@@ -89,6 +90,18 @@ begin
       current_screen => current_screen,
       ready_to_play => yellow_ready_to_play
     );
+
+  menu_manager: entity work.menu_manager
+    port map (
+      clk => clk,
+      green_ready_to_play => green_ready_to_play,
+      red_ready_to_play => red_ready_to_play,
+      blue_ready_to_play => blue_ready_to_play,
+      yellow_ready_to_play => yellow_ready_to_play,
+
+      is_in_menu => is_in_menu
+    );
+
   
   activity_detector: entity work.activity_detector port map(
     A => green_activity,
@@ -117,6 +130,8 @@ begin
 
       yellow_ready_to_play => yellow_ready_to_play,
       yellow_cur_pos => yellow_cur_pos,
+
+      is_in_menu => is_in_menu,
     
       game_in_progress_screen => game_in_progress_screen_enabled,
       game_finished_screen => game_finished_screen_enabled,
