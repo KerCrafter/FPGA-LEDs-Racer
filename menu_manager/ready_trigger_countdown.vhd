@@ -2,10 +2,8 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity is_in_menu is
+entity ready_trigger_countdown is
   port(
-    clk : in std_logic;
-
     green_ready_to_play : in std_logic;
     red_ready_to_play : in std_logic;
     blue_ready_to_play : in std_logic;
@@ -16,7 +14,7 @@ entity is_in_menu is
   );
 end entity;
 
-architecture behaviour of is_in_menu is
+architecture behaviour of ready_trigger_countdown is
  
   function std_logic_to_integer( s : std_logic ) return integer is
   begin
