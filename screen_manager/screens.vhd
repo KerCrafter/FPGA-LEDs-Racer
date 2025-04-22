@@ -28,9 +28,26 @@ entity screens is
 end entity;
 
 architecture structural of screens is
+  signal is_menu : std_logic;
   signal is_gameplay : std_logic;
   signal is_finished : std_logic;
 begin
+
+  menu_screen: entity work.menu_screen
+    generic map(max_pos => max_pos)
+    port map(
+      enable => is_menu,
+      green_ready_to_play => green_ready_to_play,
+      blue_ready_to_play => blue_ready_to_play,
+      red_ready_to_play => red_ready_to_play,
+      yellow_ready_to_play => yellow_ready_to_play,
+      
+      led_number => current_led,
+    
+      green_intensity => led_green_intensity,
+      red_intensity => led_red_intensity,
+      blue_intensity => led_blue_intensity
+    );
 
   WS2812B_gameplay_program: entity work.WS2812B_gameplay_program
     generic map(max_pos => max_pos)
@@ -64,6 +81,8 @@ begin
       blue_intensity => led_blue_intensity
     );
 
+
+  is_menu <= '1' when current_screen = "00" else '0';
   is_gameplay <= '1' when current_screen = "01" else '0';
   is_finished <= '1' when current_screen = "10" else '0';
 
