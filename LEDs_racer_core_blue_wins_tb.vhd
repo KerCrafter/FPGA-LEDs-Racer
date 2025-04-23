@@ -3,6 +3,9 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity LEDs_racer_core_blue_wins_tb is
+  port (
+    tb_end : out std_logic := '0'
+  );
 end entity;
 
 architecture simulation of LEDs_racer_core_blue_wins_tb is
@@ -45,7 +48,7 @@ begin
       report_message: string
     ) is
     begin
-      assert led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) report report_message;
+      assert led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) report report_message severity failure;
     end procedure;
     
     procedure BLUE_player_press_his_button_during(duration: time) is
@@ -78,7 +81,8 @@ begin
 
     assert_all_LEDs_should_be_BLUE;
 
-    wait;
+    tb_end <= '1'; wait;
+
   end process;
   
   CLK_STIM: process
