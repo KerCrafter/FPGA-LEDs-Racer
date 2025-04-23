@@ -13,7 +13,7 @@ vu.add_vhdl_builtins()
 lib = vu.add_library("lib")
 
 # Add all files ending in .vhd in current working directory to library
-lib.add_source_files("*.vhd")
+lib.add_source_files("**/*.vhd")
 
 # Run vunit function
 vu.main()

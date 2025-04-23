@@ -9,16 +9,14 @@ architecture simulation of player_button_tb is
   signal clk : std_logic := '0';
   signal btn : std_logic := '0';
   signal activity : std_logic;
-  signal on_menu : std_logic := '0';
-  signal game_started: std_logic := '0';
+  signal current_screen : std_logic_vector(1 downto 0);
   signal cur_pos : integer range 0 to 108;
   signal ready_to_play : std_logic;
 begin
 
   UUT: entity work.player_button port map (
     clk => clk,
-    on_menu => on_menu,
-    game_started => game_started,
+    current_screen => current_screen,
     btn => btn,
     activity => activity,
     cur_pos => cur_pos,
@@ -33,35 +31,37 @@ begin
   
   BTN_STIM: process
   begin
-    on_menu <= '1';
+    -- in menu
+    current_screen <= "00";
 
     btn <= '0'; wait for 50 ns;
-    btn <= '1'; wait for 50ns;
+    btn <= '1'; wait for 50 ns;
 
     btn <= '0'; wait for 50 ns;
-    btn <= '1'; wait for 50ns;
+    btn <= '1'; wait for 50 ns;
 
-    on_menu <= '0';
-    game_started <= '1';
+    -- game started
+    current_screen <= "01";
   
     btn <= '0'; wait for 50 ns;
     
-    btn <= '1'; wait for 50ns;
-    btn <= '0'; wait for 50ns;
+    btn <= '1'; wait for 50 ns;
+    btn <= '0'; wait for 50 ns;
 
-    btn <= '1'; wait for 50ns;
-    btn <= '0'; wait for 50ns;
+    btn <= '1'; wait for 50 ns;
+    btn <= '0'; wait for 50 ns;
 
-    btn <= '1'; wait for 50ns;
-    btn <= '0'; wait for 50ns;
+    btn <= '1'; wait for 50 ns;
+    btn <= '0'; wait for 50 ns;
 
-    game_started <= '0'; wait for 15ns;
+    -- game finished
+    current_screen <= "11"; wait for 15 ns;
 
-    btn <= '1'; wait for 50ns;
-    btn <= '0'; wait for 50ns;
+    btn <= '1'; wait for 50 ns;
+    btn <= '0'; wait for 50 ns;
 
-    btn <= '1'; wait for 50ns;
-    btn <= '0'; wait for 50ns;
+    btn <= '1'; wait for 50 ns;
+    btn <= '0'; wait for 50 ns;
     
     wait;
   end process;

@@ -109,26 +109,26 @@ begin
     assert_all_LEDs_should_be_GREEN;
 
     --Try move the RED player
-    RED_player_press_his_button_during(20ns);
-    RED_player_press_his_button_during(20ns);
-    RED_player_press_his_button_during(20ns);
-    RED_player_press_his_button_during(20ns);
+    RED_player_press_his_button_during(20 ns);
+    RED_player_press_his_button_during(20 ns);
+    RED_player_press_his_button_during(20 ns);
+    RED_player_press_his_button_during(20 ns);
 
     assert_all_LEDs_should_be_GREEN;
 
     --Try move the BLUE player
-    BLUE_player_press_his_button_during(20ns);
-    BLUE_player_press_his_button_during(20ns);
-    BLUE_player_press_his_button_during(20ns);
-    BLUE_player_press_his_button_during(20ns);
+    BLUE_player_press_his_button_during(20 ns);
+    BLUE_player_press_his_button_during(20 ns);
+    BLUE_player_press_his_button_during(20 ns);
+    BLUE_player_press_his_button_during(20 ns);
 
     assert_all_LEDs_should_be_GREEN;
 
     --Try move the YELLOW player
-    YELLOW_player_press_his_button_during(20ns);
-    YELLOW_player_press_his_button_during(20ns);
-    YELLOW_player_press_his_button_during(20ns);
-    YELLOW_player_press_his_button_during(20ns);
+    YELLOW_player_press_his_button_during(20 ns);
+    YELLOW_player_press_his_button_during(20 ns);
+    YELLOW_player_press_his_button_during(20 ns);
+    YELLOW_player_press_his_button_during(20 ns);
 
     assert_all_LEDs_should_be_GREEN;
 
