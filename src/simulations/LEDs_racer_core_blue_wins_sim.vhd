@@ -2,13 +2,13 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity LEDs_racer_core_blue_wins_tb is
+entity LEDs_racer_core_blue_wins_sim is
   port (
     tb_end : out std_logic := '0'
   );
 end entity;
 
-architecture simulation of LEDs_racer_core_blue_wins_tb is
+architecture simulation of LEDs_racer_core_blue_wins_sim is
   signal clk : std_logic := '0';
 
   signal red_input : std_logic := '0';

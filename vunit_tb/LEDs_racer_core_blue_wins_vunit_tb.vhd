@@ -13,12 +13,12 @@ architecture simulation of LEDs_racer_core_blue_wins_vunit_tb is
   signal tb_end : std_logic;
 begin
 
-  tb_inst : entity work.LEDs_racer_core_blue_wins_tb
+  SIM : entity work.LEDs_racer_core_blue_wins_sim
     port map(
       tb_end => tb_end
     );
   
-  main : process
+  MAIN : process
   begin   
 
     test_runner_setup(runner, runner_cfg);
