@@ -4,7 +4,8 @@ use ieee.numeric_std.all;
 
 entity LEDs_racer_core_blue_wins_sim is
   port (
-    tb_end : out std_logic := '0'
+    tb_end : out std_logic := '0';
+    tb_res : out std_logic := '1'
   );
 end entity;
 
@@ -48,6 +49,12 @@ begin
       report_message: string
     ) is
     begin
+
+      if led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) then
+      else
+        tb_res <= '0';        
+      end if;
+
       assert led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) report report_message severity failure;
     end procedure;
     
