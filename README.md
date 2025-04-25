@@ -33,7 +33,7 @@ Go to this [install guide](./docs/install.md)
 
 I concentrated mainly on implementing the WS2812B LED driver. With the help of the testbench tool, I implemented tests as I went along in order to discover the communication algorithm with the WS2812B LED serial line.
 
-the project works correctly End to End with DE0 Nano device.
+the project works correctly End to End (except **menu**) with DE0 Nano device.
 
 The next step of the development could manage the initial Menu screen, to allow players to join the game level, we just try to reproduce [this MicroPython implementation](https://github.com/KerCrafter/micropython-leds-racer).
 
