@@ -19,12 +19,13 @@ end entity;
 
 architecture beh of player_button is
   signal lock : std_logic;
+  signal cur_pos_s : integer range 0 to max_pos-1;
 begin
   process(clk)
   begin
     if rising_edge(clk) then
       if btn = '1' and btn /= lock then
-        if cur_pos /= max_pos-1 then
+        if cur_pos_s /= max_pos-1 then
           lock <= btn;
           activity <= '1';
           
@@ -33,7 +34,7 @@ begin
           end if;
 
           if current_screen = "01" then -- and ready_to_play = '1' then
-            cur_pos <= cur_pos + 1;
+            cur_pos_s <= cur_pos_s + 1;
           end if;
 
         end if;
@@ -44,5 +45,7 @@ begin
       end if;
     end if;
   end process;
+
+  cur_pos <= cur_pos_s;
   
 end architecture;
