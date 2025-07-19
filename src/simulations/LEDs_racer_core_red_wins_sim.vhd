@@ -2,10 +2,14 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity LEDs_racer_core_red_wins_tb is
+entity LEDs_racer_core_red_wins_sim is
+  port (
+    tb_end : out std_logic := '0';
+    tb_res : out std_logic := '1'
+  );
 end entity;
 
-architecture simulation of LEDs_racer_core_red_wins_tb is
+architecture simulation of LEDs_racer_core_red_wins_sim is
   signal clk : std_logic := '0';
 
   signal red_input : std_logic := '0';
@@ -46,6 +50,12 @@ begin
       report_message: string
     ) is
     begin
+
+      if led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) then
+      else
+        tb_res <= '0';        
+      end if;
+
       assert led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) report report_message;
     end procedure;
     
@@ -78,6 +88,8 @@ begin
     RED_player_press_his_button_during(20 ns); --RED player STAY in position 4
 
     assert_all_LEDs_should_be_RED;
+
+    tb_end <= '1'; wait;
 
     wait;
   end process;
