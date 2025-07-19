@@ -46,7 +46,6 @@ begin
   red_btn: entity work.player_button
     generic map(max_pos => max_pos)
     port map (
-      clk => clk,
       btn => red_input,
       cur_pos => red_cur_pos,
       activity => red_activity,
@@ -57,7 +56,6 @@ begin
   blue_btn: entity work.player_button
     generic map(max_pos => max_pos)
     port map (
-      clk => clk,
       btn => blue_input,
       cur_pos => blue_cur_pos,
       activity => blue_activity,
@@ -68,7 +66,6 @@ begin
   green_btn: entity work.player_button
     generic map(max_pos => max_pos)
     port map (
-      clk => clk,
       btn => green_input,
       cur_pos => green_cur_pos,
       activity => green_activity,
@@ -79,7 +76,6 @@ begin
   yellow_btn: entity work.player_button
     generic map(max_pos => max_pos)
     port map (
-      clk => clk,
       btn => yellow_input,
       cur_pos => yellow_cur_pos,
       activity => yellow_activity,

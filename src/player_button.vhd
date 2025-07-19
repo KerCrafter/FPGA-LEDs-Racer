@@ -9,7 +9,6 @@ entity player_button is
 
   port (
     btn : in std_logic;
-    clk: in std_logic;
     current_screen : in std_logic_vector(1 downto 0);
     cur_pos : out integer range 0 to max_pos-1;
     activity : out std_logic := '0';
