@@ -15,7 +15,6 @@ architecture simulation of player_button_tb is
 begin
 
   UUT: entity work.player_button port map (
-    clk => clk,
     current_screen => current_screen,
     btn => btn,
     activity => activity,
