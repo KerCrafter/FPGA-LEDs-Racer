@@ -1,0 +1,4 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "fpga_lib")(type "KiCad")(uri "${KIPRJMOD}/fpga_lib.kicad_sym")(options "")(descr ""))
+)
