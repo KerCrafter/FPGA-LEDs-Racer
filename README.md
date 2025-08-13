@@ -55,7 +55,6 @@ Also from game finished screen, we should implement a delay to restart game leve
 ### Identified problems
 
 - From Test Bench we identify a problem about the RED Player led seems move two positions direcly : it's described in [LEDs_racer_main_tb](./LEDs_racer_main_tb.vhd#L414) / [this doc](./docs/sim_counter_problem.md)
-- Add automaticly update frame signal top on starts.
 - Implements **ready_trigger_countdown** component (with a register), to derease 7 times until starting game
 
 ## Architecture (Top View Usage)
