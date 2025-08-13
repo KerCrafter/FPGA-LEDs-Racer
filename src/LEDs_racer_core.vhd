@@ -96,6 +96,7 @@ begin
 
   
   activity_detector: entity work.activity_detector port map(
+    clk => clk,
     A => green_activity,
     B => red_activity,
     C => blue_activity,

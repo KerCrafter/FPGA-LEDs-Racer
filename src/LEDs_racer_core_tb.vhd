@@ -6,7 +6,7 @@ entity LEDs_racer_core_tb is
 end entity;
 
 architecture simulation of LEDs_racer_core_tb is
-  signal clk : std_logic := '0';
+  signal clk : std_logic := '1';
 
   signal red_input : std_logic := '0';
   signal blue_input : std_logic := '0';
@@ -89,4 +89,22 @@ begin
   
     wait;
   end process;
+
+
+  CHECK_UPDATE_FRAME: process
+  begin
+    wait for 1ps;
+
+    assert update_frame = '0' report "Update Frame should be LOW before 1st clk top";
+
+    wait until clk = '1'; wait for 1 ps;
+    assert update_frame = '1' report "Update Frame should be HIGH after 1st clk top";
+
+    wait until clk = '0'; wait until clk = '1'; wait for 1 ps;
+    assert update_frame = '0' report "Update Frame should be LOW after 2nd clk top";
+    
+    wait;
+
+  end process;
+
 end architecture;
