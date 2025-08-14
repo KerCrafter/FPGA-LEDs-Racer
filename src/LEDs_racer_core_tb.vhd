@@ -93,7 +93,7 @@ begin
 
   CHECK_UPDATE_FRAME: process
   begin
-    wait for 1ps;
+    wait for 1 ps;
 
     assert update_frame = '0' report "Update Frame should be LOW before 1st clk top";
 

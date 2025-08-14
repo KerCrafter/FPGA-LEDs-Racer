@@ -11,8 +11,6 @@ entity LEDs_racer_main is
 
   port(
     clk : in std_logic;
-    enable : in std_logic;
-    
     green_input : in std_logic;
     red_input : in std_logic;
     blue_input : in std_logic;
@@ -74,7 +72,6 @@ begin
     port map(
       clk => clk,
       leds_line => leds_line,
-      enable => enable,
       
       program_led_number => led_proceed,
       program_red_intensity => red_intensity,

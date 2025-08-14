@@ -22,9 +22,6 @@ begin
     generic map(max_pos => 8, debounce_clk_cnt => 65536)
     port map (
       clk => clk,
-      
-      enable => '0',
-      
       green_input => green_input,
       red_input => red_input,
       blue_input => blue_input,

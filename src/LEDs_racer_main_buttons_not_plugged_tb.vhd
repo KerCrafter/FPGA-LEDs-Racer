@@ -7,7 +7,6 @@ end entity;
 
 architecture simulation of LEDs_racer_main_buttons_not_plugged_tb is
   signal clk : std_logic;
-  signal enable : std_logic := '0';
   
   signal leds_line : std_logic;
   
@@ -290,7 +289,6 @@ begin
     )
     port map (
       clk => clk,
-      enable => enable,
       
       red_input => 'Z',
       blue_input => 'Z',
@@ -307,24 +305,6 @@ begin
     clk <= '1';
     elapsed_clk_top <= elapsed_clk_top + 1; 
     wait for 10 ns;
-  end process;
-  
-  STIM: process
-  begin
-    enable <= '0'; wait for 50 ns;
-    enable <= '1'; wait for 50 ns;
-    enable <= '0';
-    wait;
-  end process;
-  
-  CHECK_ENA: process
-  begin
-    assert leds_line = '0' report "Initialy should be low";
-
-    wait until enable = '1'; wait until clk = '1'; wait for 1 ps;
-    assert leds_line = '1' report "Just after enable, leds line should be high";
-    
-    wait;
   end process;
   
   CHECK_SIG: process
