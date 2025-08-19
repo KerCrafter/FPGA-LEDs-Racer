@@ -15,3 +15,4 @@ simulation/
 *.rpt
 vunit_out/
 schematic/race_4_players/fp-info-cache
+.qsys_edit/
