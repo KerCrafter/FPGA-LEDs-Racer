@@ -309,7 +309,7 @@ begin
   
   CHECK_SIG: process
   begin
-    assert_should_maintain_LOW_state_during(3);
+    assert_should_maintain_LOW_state_during(2);
     
     -- All players are in 1st case
     

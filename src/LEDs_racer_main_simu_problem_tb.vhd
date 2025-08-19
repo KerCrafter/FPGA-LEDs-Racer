@@ -350,7 +350,7 @@ begin
   
   CHECK_SIG: process
   begin
-    assert_should_maintain_LOW_state_during(3);
+    assert_should_maintain_LOW_state_during(2);
     
     -- All players are in 1st case
     
@@ -372,10 +372,6 @@ begin
     wait until clk = '0';
     wait until clk = '1';
 
-    -- Debounce Count
-    wait until clk = '0';
-    wait until clk = '1';
-    
     -- Red go to second led
     
     assert_serial_white_led_signal_should_sent; -- first LED : Players (GREEN + BLUE + YELLOW) => White
@@ -393,10 +389,6 @@ begin
     wait until red_input = '0';
     wait until red_input = '1';
     wait until clk = '1';
-    wait until clk = '0';
-    wait until clk = '1';
-    
-    -- Debounce Count
     wait until clk = '0';
     wait until clk = '1';
     
