@@ -1,11 +1,11 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use work.test_status_pkg.all;
 
 entity LEDs_racer_core_yellow_wins_sim is
   port (
-    tb_end : out std_logic := '0';
-    tb_res : out std_logic := '1'
+    test_status : out t_TEST_STATUS := TEST_STATUS_INIT
   );
 end entity;
 
@@ -52,7 +52,7 @@ begin
 
       if led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) then
       else
-        tb_res <= '0';        
+        test_status.result_status <= false;
       end if;
 
       assert led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) report report_message;
@@ -140,9 +140,8 @@ begin
     
     assert_all_LEDs_should_be_YELLOW;
 
-    tb_end <= '1'; wait;
-    
-    wait;
+    test_status.is_finished <= true; wait;
+
   end process;
   
   CLK_STIM: process
