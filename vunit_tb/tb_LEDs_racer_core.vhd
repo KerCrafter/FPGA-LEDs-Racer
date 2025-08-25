@@ -28,18 +28,18 @@ begin
       test_status => main_test_status
     );
 
-  SIM1 : entity work.LEDs_racer_core_blue_wins_sim
+  BLUE_WINS_SIM : entity work.LEDs_racer_core_blue_wins_sim
     port map(
       test_status => blue_wins_test_status
     );
 
-  GREEN_SIM: entity work.LEDs_racer_core_green_wins_sim
+  GREEN_WINS_SIM: entity work.LEDs_racer_core_green_wins_sim
     port map( test_status => green_wins_test_status );
 
-  RED_SIM : entity work.LEDs_racer_core_red_wins_sim
+  RED_WINS_SIM : entity work.LEDs_racer_core_red_wins_sim
     port map( test_status => red_wins_test_status );
 
-  YELLOW_SIM : entity work.LEDs_racer_core_yellow_wins_sim
+  YELLOW_WINS_SIM : entity work.LEDs_racer_core_yellow_wins_sim
     port map( test_status => yellow_wins_test_status );
   
   MAIN : process
