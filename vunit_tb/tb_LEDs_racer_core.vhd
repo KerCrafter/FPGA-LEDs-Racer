@@ -18,8 +18,7 @@ end entity;
 architecture tb of tb_leds_racer_core is
   signal main_test_status : t_TEST_STATUS;
   signal blue_wins_test_status : t_TEST_STATUS;
-  signal green_wins_end : std_logic;
-  signal green_wins_res : std_logic;
+  signal green_wins_test_status : t_TEST_STATUS;
   signal red_wins_end : std_logic;
   signal red_wins_res : std_logic;
   signal yellow_wins_end : std_logic;
@@ -36,11 +35,8 @@ begin
       test_status => blue_wins_test_status
     );
 
-  SIM2 : entity work.LEDs_racer_core_green_wins_sim
-    port map(
-      tb_end => green_wins_end,
-      tb_res => green_wins_res
-    );
+  GREEN_SIM: entity work.LEDs_racer_core_green_wins_sim
+    port map( test_status => green_wins_test_status );
 
   SIM_RED : entity work.LEDs_racer_core_red_wins_sim
     port map(
@@ -74,9 +70,7 @@ begin
         declare_simulation(blue_wins_test_status);
 
       elsif run("green_wins") then
-        wait until green_wins_end = '1';
-
-        assert green_wins_res = '1' report "It fails" severity failure;
+        declare_simulation(green_wins_test_status);
 
       elsif run("red_wins") then
         wait until red_wins_end = '1';
