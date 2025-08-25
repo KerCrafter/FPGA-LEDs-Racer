@@ -55,20 +55,23 @@ begin
     );
   
   MAIN : process
+    procedure declare_simulation (
+      signal test_status : t_TEST_STATUS
+    ) is
+    begin
+        wait until test_status.is_finished;
+
+        assert test_status.result_status report "It fails" severity failure;
+    end procedure;
   begin
     test_runner_setup(runner, runner_cfg);
 
     while test_suite loop
       if run("main") then
-        wait until main_test_status.is_finished;
-
-        assert main_test_status.result_status report "It fails" severity failure;
+        declare_simulation(main_test_status);
 
       elsif run("blue_wins") then
-  
-        wait until blue_wins_test_status.is_finished;
-
-        assert blue_wins_test_status.result_status report "It fails" severity failure;
+        declare_simulation(blue_wins_test_status);
 
       elsif run("green_wins") then
         wait until green_wins_end = '1';
