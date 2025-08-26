@@ -42,14 +42,6 @@ begin
     );
   
   PLAYS_STIM: process
-    procedure red_player_press_his_button_during(duration: time) is
-    begin
-      wait for 20 ns;
-
-      red_input <= '1';
-      wait for duration;
-      red_input <= '0';
-    end procedure;
   begin
     -- First Frame
     wait for 1 ns; current_led <= 1;
@@ -78,8 +70,7 @@ begin
 
       if led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) then
       else
-        test_status.result_status <= false;
-        -- TEST_KO_FOR(test_status);
+        SIMULATION_FAIL(test_status);
       end if;
 
       assert led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) report report_message severity failure;
@@ -111,7 +102,7 @@ begin
     wait until current_led = 4; wait for 1 ps;
     assert_LED_should_lightoff("LED 4 : should be BLACK");
   
-    wait;
+    SIMULATION_END(test_status);
   end process;
 
 
@@ -127,7 +118,7 @@ begin
     wait until clk = '0'; wait until clk = '1'; wait for 1 ps;
     assert update_frame = '0' report "Update Frame should be LOW after 2nd clk top" severity failure;
     
-    test_status.is_finished <= true; wait;
+    wait;
   end process;
 
 end architecture;

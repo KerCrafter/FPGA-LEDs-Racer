@@ -2,6 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.test_status_pkg.all;
+use work.player_interactions_test_pkg.all;
 
 entity LEDs_racer_core_yellow_wins_sim is
   port (
@@ -58,42 +59,6 @@ begin
       assert led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) report report_message;
     end procedure;
     
-    procedure YELLOW_player_press_his_button_during(duration: time) is
-    begin
-      wait for 20 ns;
-    
-      yellow_input <= '1';
-      wait for duration;
-      yellow_input <= '0';
-    end procedure;
-
-    procedure GREEN_player_press_his_button_during(duration: time) is
-    begin
-      wait for 20 ns;
-    
-      green_input <= '1';
-      wait for duration;
-      green_input <= '0';
-    end procedure;
-
-    procedure RED_player_press_his_button_during(duration: time) is
-    begin
-      wait for 20 ns;
-    
-      red_input <= '1';
-      wait for duration;
-      red_input <= '0';
-    end procedure;
-
-    procedure BLUE_player_press_his_button_during(duration: time) is
-    begin
-      wait for 20 ns;
-    
-      blue_input <= '1';
-      wait for duration;
-      blue_input <= '0';
-    end procedure;
-    
     procedure assert_all_LEDs_should_be_YELLOW is
     begin
       wait for 20 ns; current_led <= 0; wait for 1 ps; assert_GRB(5, 5, 0, "LED 0 : should be YELLOW");
@@ -103,40 +68,40 @@ begin
       wait for 20 ns; current_led <= 4; wait for 1 ps; assert_GRB(5, 5, 0, "LED 4 : should be YELLOW");
     end procedure;
   begin 
-    YELLOW_player_press_his_button_during(20 ns); --YELLOW Player, UP from position 0 to 1
-    YELLOW_player_press_his_button_during(20 ns); --YELLOW Player, UP from position 1 to 2
-    YELLOW_player_press_his_button_during(20 ns); --YELLOW Player, UP from position 2 to 3
-    YELLOW_player_press_his_button_during(20 ns); --YELLOW Player, UP from position 3 to 4
+    player_press_his_button_during(20 ns, yellow_input); --YELLOW Player, UP from position 0 to 1
+    player_press_his_button_during(20 ns, yellow_input); --YELLOW Player, UP from position 1 to 2
+    player_press_his_button_during(20 ns, yellow_input); --YELLOW Player, UP from position 2 to 3
+    player_press_his_button_during(20 ns, yellow_input); --YELLOW Player, UP from position 3 to 4
     
     assert_all_LEDs_should_be_YELLOW;
 
     -- Game is END Should lock YELLOW actions
-    YELLOW_player_press_his_button_during(20 ns); --YELLOW player STAY in position 4
+    player_press_his_button_during(20 ns, yellow_input); --YELLOW player STAY in position 4
 
     assert_all_LEDs_should_be_YELLOW;
 
 
     -- try move GREEN player
-    GREEN_player_press_his_button_during(20 ns);
-    GREEN_player_press_his_button_during(20 ns);
-    GREEN_player_press_his_button_during(20 ns);
-    GREEN_player_press_his_button_during(20 ns);
+    player_press_his_button_during(20 ns, green_input);
+    player_press_his_button_during(20 ns, green_input);
+    player_press_his_button_during(20 ns, green_input);
+    player_press_his_button_during(20 ns, green_input);
     
     assert_all_LEDs_should_be_YELLOW;
 
     -- try move RED player
-    RED_player_press_his_button_during(20 ns);
-    RED_player_press_his_button_during(20 ns);
-    RED_player_press_his_button_during(20 ns);
-    RED_player_press_his_button_during(20 ns);
+    player_press_his_button_during(20 ns, red_input);
+    player_press_his_button_during(20 ns, red_input);
+    player_press_his_button_during(20 ns, red_input);
+    player_press_his_button_during(20 ns, red_input);
     
     assert_all_LEDs_should_be_YELLOW;
 
     -- try move BLUE player
-    BLUE_player_press_his_button_during(20 ns);
-    BLUE_player_press_his_button_during(20 ns);
-    BLUE_player_press_his_button_during(20 ns);
-    BLUE_player_press_his_button_during(20 ns);
+    player_press_his_button_during(20 ns, blue_input);
+    player_press_his_button_during(20 ns, blue_input);
+    player_press_his_button_during(20 ns, blue_input);
+    player_press_his_button_during(20 ns, blue_input);
     
     assert_all_LEDs_should_be_YELLOW;
 

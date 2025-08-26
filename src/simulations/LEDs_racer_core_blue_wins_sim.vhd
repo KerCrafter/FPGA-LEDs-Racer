@@ -2,6 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.test_status_pkg.all;
+use work.player_interactions_test_pkg.all;
 
 entity LEDs_racer_core_blue_wins_sim is
   port (
@@ -52,19 +53,10 @@ begin
 
       if led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) then
       else
-        test_status.result_status <= false;
+        SIMULATION_FAIL(test_status);
       end if;
 
       assert led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) report report_message;
-    end procedure;
-    
-    procedure BLUE_player_press_his_button_during(duration: time) is
-    begin
-      wait for 20 ns;
-
-      blue_input <= '1';
-      wait for duration;
-      blue_input <= '0';
     end procedure;
     
     procedure assert_all_LEDs_should_be_BLUE is
@@ -76,20 +68,19 @@ begin
       wait for 20 ns; current_led <= 4; wait for 1 ps; assert_GRB(0, 0, 10, "LED 4 : should be BLUE");
     end procedure;
   begin   
-    BLUE_player_press_his_button_during(20 ns); --BLUE Player, UP from position 0 to 1
-    BLUE_player_press_his_button_during(20 ns); --BLUE Player, UP from position 1 to 2
-    BLUE_player_press_his_button_during(20 ns); --BLUE Player, UP from position 2 to 3
-    BLUE_player_press_his_button_during(20 ns); --BLUE Player, UP from position 3 to 4
+    player_press_his_button_during(20 ns, blue_input); --BLUE Player, UP from position 0 to 1
+    player_press_his_button_during(20 ns, blue_input); --BLUE Player, UP from position 1 to 2
+    player_press_his_button_during(20 ns, blue_input); --BLUE Player, UP from position 2 to 3
+    player_press_his_button_during(20 ns, blue_input); --BLUE Player, UP from position 3 to 4
     
     assert_all_LEDs_should_be_BLUE;
     
     -- Game is END Should lock BLUE actions
-    BLUE_player_press_his_button_during(20 ns); --BLUE player STAY in position 4
+    player_press_his_button_during(20 ns, blue_input); --BLUE player STAY in position 4
 
     assert_all_LEDs_should_be_BLUE;
 
-    test_status.is_finished <= true; wait;
-
+    SIMULATION_END(test_status);
   end process;
   
   CLK_STIM: process
