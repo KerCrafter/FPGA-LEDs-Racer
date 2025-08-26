@@ -1,6 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use work.players_commands_pkg.all;
 
 entity LEDs_racer_core is
   generic (
@@ -9,11 +10,8 @@ entity LEDs_racer_core is
 
   port(
     clk : in std_logic;
-    
-    green_input : in std_logic;
-    red_input : in std_logic;
-    blue_input : in std_logic;
-    yellow_input : in std_logic;
+
+    players_commands : in t_PLAYERS_COMMANDS;
     
     current_led : in integer range 0 to max_pos-1;
     led_green_intensity : out std_logic_vector(7 downto 0);
@@ -46,7 +44,7 @@ begin
   red_btn: entity work.player_button
     generic map(max_pos => max_pos)
     port map (
-      btn => red_input,
+      btn => players_commands.red,
       cur_pos => red_cur_pos,
       activity => red_activity,
       current_screen => current_screen,
@@ -56,7 +54,7 @@ begin
   blue_btn: entity work.player_button
     generic map(max_pos => max_pos)
     port map (
-      btn => blue_input,
+      btn => players_commands.blue,
       cur_pos => blue_cur_pos,
       activity => blue_activity,
       current_screen => current_screen,
@@ -66,7 +64,7 @@ begin
   green_btn: entity work.player_button
     generic map(max_pos => max_pos)
     port map (
-      btn => green_input,
+      btn => players_commands.green,
       cur_pos => green_cur_pos,
       activity => green_activity,
       current_screen => current_screen,
@@ -76,7 +74,7 @@ begin
   yellow_btn: entity work.player_button
     generic map(max_pos => max_pos)
     port map (
-      btn => yellow_input,
+      btn => players_commands.yellow,
       cur_pos => yellow_cur_pos,
       activity => yellow_activity,
       current_screen => current_screen,

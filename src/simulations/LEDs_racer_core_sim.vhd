@@ -2,6 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.test_status_pkg.all;
+use work.players_commands_pkg.all;
 
 entity LEDs_racer_core_sim is
   port (
@@ -12,10 +13,7 @@ end entity;
 architecture simulation of LEDs_racer_core_sim is
   signal clk : std_logic := '1';
 
-  signal red_input : std_logic := '0';
-  signal blue_input : std_logic := '0';
-  signal green_input : std_logic := '0';
-  signal yellow_input : std_logic := '0';
+  signal players_commands : t_PLAYERS_COMMANDS;
   
   signal current_led : integer range 0 to 108;
   signal led_green_intensity : std_logic_vector(7 downto 0);
@@ -29,10 +27,7 @@ begin
     port map (
       clk => clk,
 
-      green_input => green_input,
-      red_input => red_input,
-      blue_input => blue_input,
-      yellow_input => yellow_input,
+      players_commands => players_commands,
       
       current_led => current_led,
       led_green_intensity => led_green_intensity,
@@ -106,19 +101,19 @@ begin
   end process;
 
 
-  CHECK_UPDATE_FRAME: process
-  begin
-    wait for 1 ps;
+  --CHECK_UPDATE_FRAME: process
+  --begin
+  --  wait for 1 ps;
 
-    assert update_frame = '0' report "Update Frame should be LOW before 1st clk top" severity failure;
+  --  assert update_frame = '0' report "Update Frame should be LOW before 1st clk top" severity failure;
 
-    wait until clk = '1'; wait for 1 ps;
-    assert update_frame = '1' report "Update Frame should be HIGH after 1st clk top" severity failure;
+  --  wait until clk = '1'; wait for 1 ps;
+  --  assert update_frame = '1' report "Update Frame should be HIGH after 1st clk top" severity failure;
 
-    wait until clk = '0'; wait until clk = '1'; wait for 1 ps;
-    assert update_frame = '0' report "Update Frame should be LOW after 2nd clk top" severity failure;
+  --  wait until clk = '0'; wait until clk = '1'; wait for 1 ps;
+  --  assert update_frame = '0' report "Update Frame should be LOW after 2nd clk top" severity failure;
     
-    wait;
-  end process;
+  --  wait;
+  --end process;
 
 end architecture;

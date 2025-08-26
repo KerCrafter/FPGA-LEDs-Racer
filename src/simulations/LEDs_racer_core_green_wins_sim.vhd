@@ -3,6 +3,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.test_status_pkg.all;
 use work.player_interactions_test_pkg.all;
+use work.players_commands_pkg.all;
 
 entity LEDs_racer_core_green_wins_sim is
   port (
@@ -13,10 +14,7 @@ end entity;
 architecture simulation of LEDs_racer_core_green_wins_sim is
   signal clk : std_logic := '0';
 
-  signal red_input : std_logic := '0';
-  signal blue_input : std_logic := '0';
-  signal green_input : std_logic := '0';
-  signal yellow_input : std_logic := '0';
+  signal players_commands : t_PLAYERS_COMMANDS := PLAYERS_COMMANDS_INIT;
   
   signal current_led : integer range 0 to 4;
   signal led_green_intensity : std_logic_vector(7 downto 0);
@@ -30,11 +28,8 @@ begin
     port map (
       clk => clk,
 
-      green_input => green_input,
-      red_input => red_input,
-      blue_input => blue_input,
-      yellow_input => yellow_input,
-      
+      players_commands => players_commands,
+
       current_led => current_led,
       led_green_intensity => led_green_intensity,
       led_red_intensity => led_red_intensity,
@@ -70,39 +65,39 @@ begin
     end procedure;
 
   begin
-    player_press_his_button_during(20 ns, green_input); --GREEN Player, UP from position 0 to 1
-    player_press_his_button_during(20 ns, green_input); --GREEN Player, UP from position 1 to 2
-    player_press_his_button_during(20 ns, green_input); --GREEN Player, UP from position 2 to 3
-    player_press_his_button_during(20 ns, green_input); --GREEN Player, UP from position 3 to 4
+    player_press_his_button_during(20 ns, players_commands.green); --GREEN Player, UP from position 0 to 1
+    player_press_his_button_during(20 ns, players_commands.green); --GREEN Player, UP from position 1 to 2
+    player_press_his_button_during(20 ns, players_commands.green); --GREEN Player, UP from position 2 to 3
+    player_press_his_button_during(20 ns, players_commands.green); --GREEN Player, UP from position 3 to 4
     
     assert_all_LEDs_should_be_GREEN;
 
     -- Game is END Should lock GREEN actions
-    player_press_his_button_during(20 ns, green_input); --GREEN player STAY in position 4
+    player_press_his_button_during(20 ns, players_commands.green); --GREEN player STAY in position 4
 
     assert_all_LEDs_should_be_GREEN;
 
     --Try move the RED player
-    player_press_his_button_during(20 ns, red_input);
-    player_press_his_button_during(20 ns, red_input);
-    player_press_his_button_during(20 ns, red_input);
-    player_press_his_button_during(20 ns, red_input);
+    player_press_his_button_during(20 ns, players_commands.red);
+    player_press_his_button_during(20 ns, players_commands.red);
+    player_press_his_button_during(20 ns, players_commands.red);
+    player_press_his_button_during(20 ns, players_commands.red);
 
     assert_all_LEDs_should_be_GREEN;
 
     --Try move the BLUE player
-    player_press_his_button_during(20 ns, blue_input);
-    player_press_his_button_during(20 ns, blue_input);
-    player_press_his_button_during(20 ns, blue_input);
-    player_press_his_button_during(20 ns, blue_input);
+    player_press_his_button_during(20 ns, players_commands.blue);
+    player_press_his_button_during(20 ns, players_commands.blue);
+    player_press_his_button_during(20 ns, players_commands.blue);
+    player_press_his_button_during(20 ns, players_commands.blue);
 
     assert_all_LEDs_should_be_GREEN;
 
     --Try move the YELLOW player
-    player_press_his_button_during(20 ns, yellow_input);
-    player_press_his_button_during(20 ns, yellow_input);
-    player_press_his_button_during(20 ns, yellow_input);
-    player_press_his_button_during(20 ns, yellow_input);
+    player_press_his_button_during(20 ns, players_commands.yellow);
+    player_press_his_button_during(20 ns, players_commands.yellow);
+    player_press_his_button_during(20 ns, players_commands.yellow);
+    player_press_his_button_during(20 ns, players_commands.yellow);
 
     assert_all_LEDs_should_be_GREEN;
 

@@ -1,6 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use work.players_commands_pkg.all;
 
 
 entity LEDs_racer_main is
@@ -28,11 +29,8 @@ architecture structural of LEDs_racer_main is
   signal red_intensity : std_logic_vector(7 downto 0);
   signal blue_intensity : std_logic_vector(7 downto 0);
   signal green_intensity : std_logic_vector(7 downto 0);
-  
-  signal red_input_debounced : std_logic;
-  signal green_input_debounced : std_logic;
-  signal blue_input_debounced : std_logic;
-  signal yellow_input_debounced : std_logic;
+
+  signal players_commands : t_PLAYERS_COMMANDS;
 begin
 
   green_debouncer: entity work.button_debouncer
@@ -40,7 +38,7 @@ begin
     port map (
       clk => clk,
       btn_in => green_input,
-      btn_debounced => green_input_debounced
+      btn_debounced => players_commands.green
     );
     
   red_debouncer: entity work.button_debouncer
@@ -48,7 +46,7 @@ begin
     port map (
       clk => clk,
       btn_in => red_input,
-      btn_debounced => red_input_debounced
+      btn_debounced => players_commands.red
     );
     
   blue_debouncer: entity work.button_debouncer
@@ -56,7 +54,7 @@ begin
     port map (
       clk => clk,
       btn_in => blue_input,
-      btn_debounced => blue_input_debounced
+      btn_debounced => players_commands.blue
     );
     
   yellow_debouncer: entity work.button_debouncer
@@ -64,7 +62,7 @@ begin
     port map (
       clk => clk,
       btn_in => yellow_input,
-      btn_debounced => yellow_input_debounced
+      btn_debounced => players_commands.yellow
     );
 
   WS2812B_driver: entity work.WS2812B_driver
@@ -86,12 +84,9 @@ begin
       clk => clk,
       
       update_frame => update_frame,
+
+      players_commands => players_commands,
       
-      green_input => green_input_debounced,
-      red_input => red_input_debounced,
-      blue_input => blue_input_debounced,
-      yellow_input => yellow_input_debounced,
-    
       current_led => led_proceed,
       led_green_intensity => green_intensity,
       led_red_intensity => red_intensity,
