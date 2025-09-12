@@ -10,6 +10,8 @@ entity menu_manager is
     blue_ready_to_play: in std_logic;
     yellow_ready_to_play: in std_logic;
 
+    opt_with_menu: in std_logic;
+
     is_in_menu: out std_logic
   );
 end entity;
@@ -28,6 +30,6 @@ begin
       result => trigger_countdown
     );
 
-  is_in_menu <= '0';
+  is_in_menu <= opt_with_menu;
 
 end architecture;
