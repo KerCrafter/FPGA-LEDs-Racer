@@ -36,17 +36,6 @@ begin
       update_frame => update_frame
     );
   
-  PLAYS_STIM: process
-  begin
-    -- First Frame
-    wait for 1 ns; current_led <= 1;
-    wait for 1 ns; current_led <= 2;
-    wait for 1 ns; current_led <= 3;
-    wait for 1 ns; current_led <= 4;
-    
-    wait;
-  end process;
-  
   CLK_STIM: process
   begin
     -- Inverse CLK every 10ns = 20ns per cycle = 50MHz
@@ -85,16 +74,16 @@ begin
     wait for 1 ps;
     assert_LED_should_be_white("LED 0 : should be WHITE");
     
-    wait until current_led = 1; wait for 1 ps;
+    current_led <= 1; wait for 1 ps;
     assert_LED_should_lightoff("LED 1 : should be BLACK");
 
-    wait until current_led = 2; wait for 1 ps;
+    current_led <= 2; wait for 1 ps;
     assert_LED_should_lightoff("LED 2 : should be BLACK");
     
-    wait until current_led = 3; wait for 1 ps;
+    current_led <= 3; wait for 1 ps;
     assert_LED_should_lightoff("LED 3 : should be BLACK");
     
-    wait until current_led = 4; wait for 1 ps;
+    current_led <= 4; wait for 1 ps;
     assert_LED_should_lightoff("LED 4 : should be BLACK");
   
     SIMULATION_END(test_status);
