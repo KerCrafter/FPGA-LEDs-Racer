@@ -19,7 +19,6 @@ entity router is
 end entity;
 
 architecture structural of router is
-  signal menu_screen : std_logic := '0';
   signal game_in_progress_screen : std_logic := '1';
   signal game_finished_screen : std_logic := '0';
 begin
@@ -47,7 +46,7 @@ begin
       result => game_in_progress_screen
     );
 
-  current_screen <= "00" when menu_screen = '1' else
+  current_screen <= "00" when is_in_menu = '1' else
                     "01" when game_in_progress_screen = '1' else
                     "10" when game_finished_screen = '1' else
                     "11";
