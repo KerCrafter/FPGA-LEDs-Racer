@@ -75,18 +75,19 @@ begin
 
     wait for 1 ps;
     assert_LED_should_lightoff("LED 0 : should be BLACK");
-    
-    -- wait until current_led = 1; wait for 1 ps;
-    --assert_LED_should_lightoff("LED 1 : should be BLACK");
 
-    --wait until current_led = 2; wait for 1 ps;
-    --assert_LED_should_lightoff("LED 2 : should be BLACK");
+        
+    current_led <= 1; wait for 1 ps;
+    assert_LED_should_lightoff("LED 1 : should be BLACK");
+
+    current_led <= 2; wait for 1 ps;
+    assert_LED_should_lightoff("LED 2 : should be BLACK");
     
-    --wait until current_led = 3; wait for 1 ps;
-    --assert_LED_should_lightoff("LED 3 : should be BLACK");
-    
-    --wait until current_led = 4; wait for 1 ps;
-    --assert_LED_should_lightoff("LED 4 : should be BLACK");
+    current_led <= 3; wait for 1 ps;
+    assert_LED_should_lightoff("LED 3 : should be BLACK");
+ 
+    current_led <= 4; wait for 1 ps;
+    assert_LED_should_lightoff("LED 4 : should be BLACK");
   
     SIMULATION_END(test_status);
   end process;
