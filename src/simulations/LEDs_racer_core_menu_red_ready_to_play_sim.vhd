@@ -68,23 +68,23 @@ begin
       assert_GRB(0, 0, 0, message);
     end procedure;
 
-    procedure assert_LED_should_be_red(message: string) is
+    procedure assert_LED_should_be_red(led_number : integer) is
     begin
-      assert_GRB(0, 5, 0, message);
+      current_led <= led_number; wait for 1 ps;
+      assert_GRB(0, 5, 0, "LED " & to_string(led_number) & " : should be RED");
     end procedure;
   begin
     player_press_his_button_during(20 ns, players_commands.red);
 
     assert_LED_should_lightoff("LED 0 : should be BLACK");
 
-    current_led <= 1; wait for 1 ps;
-    assert_LED_should_be_red("LED 1 : should be RED");
+    assert_LED_should_be_red(1);
 
-    current_led <= 2; wait for 1 ps;
-    assert_LED_should_be_red("LED 2 : should be RED");
+    assert_LED_should_be_red(2);
 
-    current_led <= 3; wait for 1 ps;
-    assert_LED_should_be_red("LED 3 : should be RED");
+    assert_LED_should_be_red(3);
+
+    assert_LED_should_be_red(4);
 
     SIMULATION_END(test_status);
   end process;

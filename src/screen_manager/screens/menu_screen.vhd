@@ -40,7 +40,7 @@ begin
   begin
     if enable = '1' then
 
-      if (led_number = 1 or led_number = 2 or led_number = 3) and (red_ready_to_play = '1') then
+      if (led_number = 1 or led_number = 2 or led_number = 3 or led_number = 4) and (red_ready_to_play = '1') then
         red_int := 5;
       else
         red_int := 0;
