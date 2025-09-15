@@ -14,7 +14,7 @@ end entity;
 architecture simulation of LEDs_racer_core_menu_red_ready_to_play_sim is
   signal clk : std_logic := '1';
 
-  signal players_commands : t_PLAYERS_COMMANDS;
+  signal players_commands : t_PLAYERS_COMMANDS := PLAYERS_COMMANDS_INIT;
   
   signal current_led : integer range 0 to 108;
   signal led_green_intensity : std_logic_vector(7 downto 0);
@@ -73,16 +73,12 @@ begin
       assert_GRB(0, 5, 0, message);
     end procedure;
   begin
-
-    wait for 100 ns;
-
     player_press_his_button_during(20 ns, players_commands.red);
 
-    wait for 20 ns;
     assert_LED_should_lightoff("LED 0 : should be BLACK");
 
-    -- current_led <= 1; wait for 1 ns;
-    -- assert_LED_should_be_red("LED 1 : should be RED");
+    current_led <= 1; wait for 1 ps;
+    assert_LED_should_be_red("LED 1 : should be RED");
 
     SIMULATION_END(test_status);
   end process;

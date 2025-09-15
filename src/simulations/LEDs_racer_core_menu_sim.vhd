@@ -13,7 +13,7 @@ end entity;
 architecture simulation of LEDs_racer_core_menu_sim is
   signal clk : std_logic := '1';
 
-  signal players_commands : t_PLAYERS_COMMANDS;
+  signal players_commands : t_PLAYERS_COMMANDS := PLAYERS_COMMANDS_INIT;
   
   signal current_led : integer range 0 to 108;
   signal led_green_intensity : std_logic_vector(7 downto 0);
@@ -76,13 +76,12 @@ begin
     wait for 1 ps;
     assert_LED_should_lightoff("LED 0 : should be BLACK");
 
-        
     current_led <= 1; wait for 1 ps;
     assert_LED_should_lightoff("LED 1 : should be BLACK");
 
     current_led <= 2; wait for 1 ps;
     assert_LED_should_lightoff("LED 2 : should be BLACK");
-    
+
     current_led <= 3; wait for 1 ps;
     assert_LED_should_lightoff("LED 3 : should be BLACK");
  
