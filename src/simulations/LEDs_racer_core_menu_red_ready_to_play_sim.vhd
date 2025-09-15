@@ -63,9 +63,10 @@ begin
       assert led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) report report_message;
     end procedure;
 
-    procedure assert_LED_should_lightoff(message: string) is
+    procedure assert_LED_should_lightoff(led_number : integer) is
     begin
-      assert_GRB(0, 0, 0, message);
+      current_led <= led_number; wait for 1 ps;
+      assert_GRB(0, 0, 0, "LED " & to_string(led_number) & " : should be RED");
     end procedure;
 
     procedure assert_LED_should_be_red(led_number : integer) is
@@ -76,7 +77,7 @@ begin
   begin
     player_press_his_button_during(20 ns, players_commands.red);
 
-    assert_LED_should_lightoff("LED 0 : should be BLACK");
+    assert_LED_should_lightoff(0);
 
     assert_LED_should_be_red(1);
 
@@ -89,6 +90,8 @@ begin
     assert_led_should_be_red(5);
 
     assert_led_should_be_red(6);
+
+    assert_LED_should_lightoff(7);
 
     SIMULATION_END(test_status);
   end process;
