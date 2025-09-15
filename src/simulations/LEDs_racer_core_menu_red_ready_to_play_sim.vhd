@@ -84,7 +84,11 @@ begin
 
     assert_LED_should_be_red(3);
 
-    assert_LED_should_be_red(4);
+    assert_led_should_be_red(4);
+    
+    assert_led_should_be_red(5);
+
+    assert_led_should_be_red(6);
 
     SIMULATION_END(test_status);
   end process;
