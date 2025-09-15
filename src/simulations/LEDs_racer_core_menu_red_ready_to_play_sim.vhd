@@ -80,6 +80,9 @@ begin
     current_led <= 1; wait for 1 ps;
     assert_LED_should_be_red("LED 1 : should be RED");
 
+    current_led <= 2; wait for 1 ps;
+    assert_LED_should_be_red("LED 2 : should be RED");
+
     SIMULATION_END(test_status);
   end process;
 
