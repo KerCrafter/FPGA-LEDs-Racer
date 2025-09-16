@@ -29,6 +29,7 @@ begin
 
     variable red_int : integer range 0 to 255;
     variable green_int : integer range 0 to 255;
+    variable blue_int : integer range 0 to 255;
 
 
     procedure set_GRB (green_intensity_i: integer range 0 to 255; red_intensity_i: integer range 0 to 255; blue_intensity_i: integer range 0 to 255) is
@@ -54,7 +55,13 @@ begin
         green_int := 0;
       end if;
 
-      set_GRB(green_int, red_int, 0);
+      if blue_ready_to_play = '1' and led_number >= 15 and led_number <= 20 then
+        blue_int := 5;
+      else
+        blue_int := 0;
+      end if;
+
+      set_GRB(green_int, red_int, blue_int);
     else
 
       green_intensity <= "ZZZZZZZZ";
