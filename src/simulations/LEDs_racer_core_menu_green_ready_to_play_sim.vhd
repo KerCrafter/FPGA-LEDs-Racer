@@ -86,7 +86,7 @@ begin
     assert_LED_should_be_green(12);
     assert_LED_should_be_green(13);
 
-    assert_LED_should_lightoff(7);
+    assert_LED_should_lightoff(14);
 
     SIMULATION_END(test_status);
   end process;
