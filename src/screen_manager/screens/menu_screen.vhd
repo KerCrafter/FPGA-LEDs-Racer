@@ -26,12 +26,6 @@ architecture beh of menu_screen is
 begin
 
   process(enable, led_number, red_ready_to_play, blue_ready_to_play, green_ready_to_play)
-
-    variable red_int : integer range 0 to 255;
-    variable green_int : integer range 0 to 255;
-    variable blue_int : integer range 0 to 255;
-
-
     procedure set_GRB (green_intensity_i: integer range 0 to 255; red_intensity_i: integer range 0 to 255; blue_intensity_i: integer range 0 to 255) is
     begin
       green_intensity <= std_logic_vector(to_unsigned(green_intensity_i, 8));
@@ -43,30 +37,16 @@ begin
     if enable = '1' then
 
       if red_ready_to_play = '1' and led_number >= 1 and led_number <= 6 then
-        red_int := 5;
+        set_GRB(0, 5, 0);
+      elsif green_ready_to_play = '1' and led_number >= 8 and led_number <= 13 then
+        set_GRB(5, 0, 0);
+      elsif blue_ready_to_play = '1' and led_number >= 15 and led_number <= 20 then
+        set_GRB(0, 0, 5);
+      elsif yellow_ready_to_play = '1' and led_number >= 22 and led_number <= 27 then
+        set_GRB(5, 5, 0);
       else
-        red_int := 0;
+        set_GRB(0, 0, 0);
       end if;
-
-
-      if green_ready_to_play = '1' and led_number >= 8 and led_number <= 13 then
-        green_int := 5;
-      else
-        green_int := 0;
-      end if;
-
-      if blue_ready_to_play = '1' and led_number >= 15 and led_number <= 20 then
-        blue_int := 5;
-      else
-        blue_int := 0;
-      end if;
-
-      if yellow_ready_to_play = '1' and led_number >= 22 and led_number <= 27 then
-        green_int := 5;
-        red_int := 5;
-      end if;
-
-      set_GRB(green_int, red_int, blue_int);
     else
 
       green_intensity <= "ZZZZZZZZ";
