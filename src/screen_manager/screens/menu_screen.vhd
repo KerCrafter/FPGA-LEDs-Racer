@@ -61,6 +61,11 @@ begin
         blue_int := 0;
       end if;
 
+      if yellow_ready_to_play = '1' and led_number >= 22 and led_number <= 27 then
+        green_int := 5;
+        red_int := 5;
+      end if;
+
       set_GRB(green_int, red_int, blue_int);
     else
 
