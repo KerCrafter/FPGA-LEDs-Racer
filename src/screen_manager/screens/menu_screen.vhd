@@ -48,7 +48,7 @@ begin
       end if;
 
 
-      if green_ready_to_play = '1' and led_number >= 8 and led_number <= 8 then
+      if green_ready_to_play = '1' and led_number >= 8 and led_number <= 13 then
         green_int := 5;
       else
         green_int := 0;
