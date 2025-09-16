@@ -66,7 +66,7 @@ begin
     procedure assert_LED_should_lightoff(led_number : integer) is
     begin
       current_led <= led_number; wait for 1 ps;
-      assert_GRB(0, 0, 0, "LED " & to_string(led_number) & " : should be RED");
+      assert_GRB(0, 0, 0, "LED " & to_string(led_number) & " : should light off");
     end procedure;
 
     procedure assert_LED_should_be_red(led_number : integer) is
