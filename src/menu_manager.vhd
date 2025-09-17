@@ -1,5 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 entity menu_manager is
   port (
@@ -12,7 +13,8 @@ entity menu_manager is
 
     opt_with_menu: in std_logic;
 
-    is_in_menu: out std_logic
+    is_in_menu: out std_logic;
+    countdown: out integer range 0 to 7
   );
 end entity;
 
@@ -31,5 +33,7 @@ begin
     );
 
   is_in_menu <= opt_with_menu;
+
+  countdown <= 7 when trigger_countdown = '1' else 0;
 
 end architecture;

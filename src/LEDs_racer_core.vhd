@@ -41,6 +41,7 @@ architecture structural of LEDs_racer_core is
 
   signal current_screen : std_logic_vector(1 downto 0);
   signal is_in_menu : std_logic;
+  signal countdown : integer range 0 to 7;
 
 begin
   red_btn: entity work.player_button
@@ -93,7 +94,8 @@ begin
 
       opt_with_menu => opt_with_menu,
 
-      is_in_menu => is_in_menu
+      is_in_menu => is_in_menu,
+      countdown => countdown
     );
 
   
@@ -125,6 +127,7 @@ begin
       yellow_cur_pos => yellow_cur_pos,
 
       is_in_menu => is_in_menu,
+      countdown => countdown,
     
       current_led => current_led,
       led_green_intensity => led_green_intensity,

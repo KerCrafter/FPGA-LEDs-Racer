@@ -1,5 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 entity screen_manager is
   generic (
@@ -17,6 +18,7 @@ entity screen_manager is
     yellow_cur_pos : in integer range 0 to max_pos-1;
 
     is_in_menu : in std_logic;
+    countdown : in integer range 0 to 7;
 
     current_led : in integer range 0 to max_pos-1;
   
@@ -55,6 +57,8 @@ begin
       blue_cur_pos => blue_cur_pos,
       yellow_ready_to_play => yellow_ready_to_play,
       yellow_cur_pos => yellow_cur_pos,
+
+      countdown => countdown,
     
       current_led => current_led,
 

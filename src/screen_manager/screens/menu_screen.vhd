@@ -13,6 +13,8 @@ entity menu_screen is
     blue_ready_to_play : in std_logic;
     green_ready_to_play : in std_logic;
     yellow_ready_to_play : in std_logic;
+
+    countdown : in integer range 0 to 7;
     
     led_number : in integer range 0 to max_pos-1;
   
@@ -36,7 +38,9 @@ begin
   begin
     if enable = '1' then
 
-      if red_ready_to_play = '1' and led_number >= 1 and led_number <= 6 then
+      if countdown = 7 and (led_number = 7 or led_number = 14) then
+        set_GRB(5, 5, 5);
+      elsif red_ready_to_play = '1' and led_number >= 1 and led_number <= 6 then
         set_GRB(0, 5, 0);
       elsif green_ready_to_play = '1' and led_number >= 8 and led_number <= 13 then
         set_GRB(5, 0, 0);

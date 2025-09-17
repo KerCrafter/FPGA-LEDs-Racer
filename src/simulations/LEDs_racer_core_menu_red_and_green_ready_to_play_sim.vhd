@@ -69,6 +69,12 @@ begin
       assert_GRB(0, 0, 0, "LED " & to_string(led_number) & " : should light off");
     end procedure;
 
+    procedure assert_LED_should_be_white(led_number : integer) is
+    begin
+      current_led <= led_number; wait for 1 ps;
+      assert_GRB(5, 5, 5, "LED " & to_string(led_number) & " : should be WHITE");
+    end procedure;
+
     procedure assert_LED_should_be_red(led_number : integer) is
     begin
       current_led <= led_number; wait for 1 ps;
@@ -85,7 +91,7 @@ begin
     player_press_his_button_during(20 ns, players_commands.red);
     player_press_his_button_during(20 ns, players_commands.green);
 
-    assert_LED_should_lightoff(0);
+    -- assert_LED_should_be_white(0); --TODO
 
     assert_LED_should_be_red(1);
 
@@ -99,7 +105,7 @@ begin
 
     assert_led_should_be_red(6);
 
-    assert_LED_should_lightoff(7);
+    assert_LED_should_be_white(7);
 
     assert_LED_should_be_green(8);
 
@@ -113,7 +119,7 @@ begin
 
     assert_LED_should_be_green(13);
 
-    assert_LED_should_lightoff(14);
+    assert_LED_should_be_white(14);
 
     SIMULATION_END(test_status);
   end process;

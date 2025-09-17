@@ -1,5 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 entity screens is
   generic (
@@ -16,6 +17,7 @@ entity screens is
     yellow_ready_to_play : in std_logic;
     yellow_cur_pos : in integer range 0 to max_pos-1;
 
+    countdown : in integer range 0 to 7;
     current_screen : in std_logic_vector(1 downto 0);
   
     current_led : in integer range 0 to max_pos-1;
@@ -39,6 +41,8 @@ begin
       blue_ready_to_play => blue_ready_to_play,
       red_ready_to_play => red_ready_to_play,
       yellow_ready_to_play => yellow_ready_to_play,
+
+      countdown => countdown,
       
       led_number => current_led,
     
