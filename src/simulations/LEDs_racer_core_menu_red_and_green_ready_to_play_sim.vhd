@@ -4,6 +4,7 @@ use ieee.numeric_std.all;
 use work.test_status_pkg.all;
 use work.players_commands_pkg.all;
 use work.player_interactions_test_pkg.all;
+use work.timer_pkg.all;
 
 entity LEDs_racer_core_menu_red_and_green_ready_to_play_sim is
   port (
@@ -22,6 +23,8 @@ architecture simulation of LEDs_racer_core_menu_red_and_green_ready_to_play_sim 
   signal led_blue_intensity : std_logic_vector(7 downto 0);
   
   signal update_frame : std_logic;
+
+  signal menu_timer : t_TIMER;
 begin
   UUT: entity work.LEDs_racer_core
     generic map(max_pos => 109)
@@ -31,6 +34,8 @@ begin
       players_commands => players_commands,
       
       opt_with_menu => '1',
+
+      menu_timer => menu_timer,
       
       current_led => current_led,
       led_green_intensity => led_green_intensity,
@@ -88,8 +93,16 @@ begin
     end procedure;
 
   begin
+    menu_timer.tick <= '0';
+
     player_press_his_button_during(20 ns, players_commands.red);
     player_press_his_button_during(20 ns, players_commands.green);
+
+    if menu_timer.enable = '0' then
+      SIMULATION_FAIL(test_status);
+    end if;
+
+    menu_timer.tick <= '1';
 
     assert_LED_should_be_white(0);
 

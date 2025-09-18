@@ -36,7 +36,16 @@ begin
 
   is_in_menu <= opt_with_menu;
 
-  countdown <= 7 when trigger_countdown = '1' else 0;
+  process(menu_timer.tick)
+  begin
+    if rising_edge(menu_timer.tick) then
+      if countdown = 0 then
+        countdown <= 7;
+      end if;
+    end if;
+
+  end process;
+
   menu_timer.enable <= trigger_countdown;
 
 end architecture;
