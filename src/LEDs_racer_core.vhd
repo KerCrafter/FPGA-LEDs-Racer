@@ -2,6 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.players_commands_pkg.all;
+use work.timer_pkg.all;
 
 entity LEDs_racer_core is
   generic (
@@ -19,8 +20,9 @@ entity LEDs_racer_core is
     led_green_intensity : out std_logic_vector(7 downto 0);
     led_red_intensity : out std_logic_vector(7 downto 0);
     led_blue_intensity : out std_logic_vector(7 downto 0);
-    update_frame : out std_logic
-    
+    update_frame : out std_logic;
+
+    menu_timer : inout t_TIMER
   );
 end entity;
 
@@ -95,7 +97,8 @@ begin
       opt_with_menu => opt_with_menu,
 
       is_in_menu => is_in_menu,
-      countdown => countdown
+      countdown => countdown,
+      menu_timer => menu_timer
     );
 
   

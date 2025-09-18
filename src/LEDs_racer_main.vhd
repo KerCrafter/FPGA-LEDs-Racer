@@ -2,6 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.players_commands_pkg.all;
+use work.timer_pkg.all;
 
 
 entity LEDs_racer_main is
@@ -31,6 +32,7 @@ architecture structural of LEDs_racer_main is
   signal green_intensity : std_logic_vector(7 downto 0);
 
   signal players_commands : t_PLAYERS_COMMANDS;
+  signal menu_timer : t_TIMER;
 begin
 
   green_debouncer: entity work.button_debouncer
@@ -77,6 +79,11 @@ begin
       program_green_intensity => green_intensity,
       update_frame => update_frame
     );
+
+  menu_timer_c: entity work.timer
+    port map(
+      timer_interface => menu_timer
+    );
     
   LEDs_racer_core: entity work.LEDs_racer_core
     generic map(max_pos => max_pos)
@@ -86,6 +93,7 @@ begin
       update_frame => update_frame,
 
       players_commands => players_commands,
+      menu_timer => menu_timer,
       
       current_led => led_proceed,
       led_green_intensity => green_intensity,
