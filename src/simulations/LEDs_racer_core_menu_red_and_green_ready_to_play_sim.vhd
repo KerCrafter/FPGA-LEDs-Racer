@@ -123,7 +123,58 @@ begin
 
     assert_LED_should_be_white(21);
 
+    --Ring 2
     assert_LED_should_be_white(28);
+
+    assert_LED_should_be_white(34);
+
+    assert_LED_should_be_white(40);
+
+    assert_LED_should_be_white(46);
+
+    -- Ring 3
+
+    assert_LED_should_be_white(52);
+
+    assert_LED_should_be_white(57);
+
+    assert_LED_should_be_white(62);
+
+    assert_LED_should_be_white(67);
+
+    -- Ring 4
+
+    assert_LED_should_be_white(72);
+
+    assert_LED_should_be_white(76);
+
+    assert_LED_should_be_white(80);
+
+    assert_LED_should_be_white(84);
+
+    -- Ring 5
+
+    assert_LED_should_be_white(88);
+
+    assert_LED_should_be_white(91);
+
+    assert_LED_should_be_white(94);
+
+    assert_LED_should_be_white(97);
+
+    -- Ring 6
+
+    assert_LED_should_be_white(100);
+
+    assert_LED_should_be_white(102);
+
+    assert_LED_should_be_white(104);
+
+    assert_LED_should_be_white(106);
+
+    -- Ring 7
+    assert_LED_should_be_white(108);
+
 
     SIMULATION_END(test_status);
   end process;

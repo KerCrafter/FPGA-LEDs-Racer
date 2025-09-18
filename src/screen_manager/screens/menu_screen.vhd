@@ -37,14 +37,24 @@ begin
     
     variable countdown_ring_1 : boolean;
     variable countdown_ring_2 : boolean;
+    variable countdown_ring_3 : boolean;
+    variable countdown_ring_4 : boolean;
+    variable countdown_ring_5 : boolean;
+    variable countdown_ring_6 : boolean;
+    variable countdown_ring_7 : boolean;
 
   begin
     if enable = '1' then
 
       countdown_ring_1 := led_number = 0 or led_number = 7 or led_number = 14 or led_number = 21;
-      countdown_ring_2 := led_number = 28;
+      countdown_ring_2 := led_number = 28 or led_number = 34 or led_number = 40 or led_number = 46;
+      countdown_ring_3 := led_number = 52 or led_number = 57 or led_number = 62 or led_number = 67;
+      countdown_ring_4 := led_number = 72 or led_number = 76 or led_number = 80 or led_number = 84;
+      countdown_ring_5 := led_number = 88 or led_number = 91 or led_number = 94 or led_number = 97;
+      countdown_ring_6 := led_number = 100 or led_number = 102 or led_number = 104 or led_number = 106;
+      countdown_ring_7 := led_number = 108;
 
-      if countdown = 7 and (countdown_ring_1 or countdown_ring_2) then
+      if countdown = 7 and (countdown_ring_1 or countdown_ring_2 or countdown_ring_3 or countdown_ring_4 or countdown_ring_5 or countdown_ring_6 or countdown_ring_7) then
         set_GRB(5, 5, 5);
       elsif red_ready_to_play = '1' and led_number >= 1 and led_number <= 6 then
         set_GRB(0, 5, 0);
