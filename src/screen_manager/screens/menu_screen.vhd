@@ -38,7 +38,7 @@ begin
   begin
     if enable = '1' then
 
-      if countdown = 7 and (led_number = 0 or led_number = 7 or led_number = 14) then
+      if countdown = 7 and (led_number = 0 or led_number = 7 or led_number = 14 or led_number = 21) then
         set_GRB(5, 5, 5);
       elsif red_ready_to_play = '1' and led_number >= 1 and led_number <= 6 then
         set_GRB(0, 5, 0);

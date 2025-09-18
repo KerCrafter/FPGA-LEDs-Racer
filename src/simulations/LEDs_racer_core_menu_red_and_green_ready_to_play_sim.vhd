@@ -121,6 +121,8 @@ begin
 
     assert_LED_should_be_white(14);
 
+    assert_LED_should_be_white(21);
+
     SIMULATION_END(test_status);
   end process;
 
