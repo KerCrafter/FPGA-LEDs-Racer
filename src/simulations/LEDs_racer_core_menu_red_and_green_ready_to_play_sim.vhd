@@ -91,7 +91,7 @@ begin
     player_press_his_button_during(20 ns, players_commands.red);
     player_press_his_button_during(20 ns, players_commands.green);
 
-    -- assert_LED_should_be_white(0); --TODO
+    assert_LED_should_be_white(0);
 
     assert_LED_should_be_red(1);
 
