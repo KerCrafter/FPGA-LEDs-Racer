@@ -15,7 +15,7 @@ entity menu_manager is
     opt_with_menu: in std_logic;
 
     is_in_menu: out std_logic;
-    countdown: out integer range 0 to 7;
+    countdown: buffer integer range 0 to 7;
     menu_timer: inout t_TIMER
   );
 end entity;
@@ -41,6 +41,8 @@ begin
     if rising_edge(menu_timer.tick) then
       if countdown = 0 then
         countdown <= 7;
+      elsif countdown = 7 then
+        countdown <= 6;
       end if;
     end if;
 
