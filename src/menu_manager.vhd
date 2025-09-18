@@ -41,8 +41,8 @@ begin
     if rising_edge(menu_timer.tick) then
       if countdown = 0 then
         countdown <= 7;
-      elsif countdown = 7 then
-        countdown <= 6;
+      else
+        countdown <= countdown - 1;
       end if;
     end if;
 
