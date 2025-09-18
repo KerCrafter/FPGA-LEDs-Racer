@@ -34,11 +34,17 @@ begin
       red_intensity <= std_logic_vector(to_unsigned(red_intensity_i, 8));
       blue_intensity <= std_logic_vector(to_unsigned(blue_intensity_i, 8));
     end procedure;
+    
+    variable countdown_ring_1 : boolean;
+    variable countdown_ring_2 : boolean;
 
   begin
     if enable = '1' then
 
-      if countdown = 7 and (led_number = 0 or led_number = 7 or led_number = 14 or led_number = 21 or led_number = 28) then
+      countdown_ring_1 := led_number = 0 or led_number = 7 or led_number = 14 or led_number = 21;
+      countdown_ring_2 := led_number = 28;
+
+      if countdown = 7 and (countdown_ring_1 or countdown_ring_2) then
         set_GRB(5, 5, 5);
       elsif red_ready_to_play = '1' and led_number >= 1 and led_number <= 6 then
         set_GRB(0, 5, 0);
