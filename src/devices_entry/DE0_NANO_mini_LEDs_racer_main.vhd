@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity DE0_NANO_LEDs_racer_main is
+entity DE0_NANO_mini_LEDs_racer_main is
   port(
     clk : in std_logic;
     
@@ -15,11 +15,11 @@ entity DE0_NANO_LEDs_racer_main is
   );
 end entity;
 
-architecture structural of DE0_NANO_LEDs_racer_main is
+architecture structural of DE0_NANO_mini_LEDs_racer_main is
 begin
 
   LEDs_racer_main: entity work.LEDs_racer_main
-    generic map(max_pos => 108, debounce_clk_cnt => 65536)
+    generic map(max_pos => 8, debounce_clk_cnt => 65536)
     port map (
       clk => clk,
       green_input => green_input,
