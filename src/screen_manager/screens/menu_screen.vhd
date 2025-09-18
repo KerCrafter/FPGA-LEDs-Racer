@@ -54,13 +54,19 @@ begin
       countdown_ring_6 := led_number = 100 or led_number = 102 or led_number = 104 or led_number = 106;
       countdown_ring_7 := led_number = 108;
 
-      if countdown = 7 and (countdown_ring_1 or countdown_ring_2 or countdown_ring_3 or countdown_ring_4 or countdown_ring_5 or countdown_ring_6 or countdown_ring_7) then
+      if countdown_ring_1 and countdown >= 7 then
         set_GRB(5, 5, 5);
-      elsif countdown = 6 and (countdown_ring_2 or countdown_ring_3 or countdown_ring_4 or countdown_ring_5 or countdown_ring_6 or countdown_ring_7) then
+      elsif countdown_ring_2 and countdown >= 6 then
         set_GRB(5, 5, 5);
-      elsif countdown = 5 and (countdown_ring_3 or countdown_ring_4 or countdown_ring_5 or countdown_ring_6 or countdown_ring_7) then
+      elsif countdown_ring_3 and countdown >= 5 then
         set_GRB(5, 5, 5);
-      elsif countdown = 4 and (countdown_ring_4 or countdown_ring_5 or countdown_ring_6 or countdown_ring_7) then
+      elsif countdown_ring_4 and countdown >= 4 then
+        set_GRB(5, 5, 5);
+      elsif countdown_ring_5 and countdown >= 3 then
+        set_GRB(5, 5, 5);
+      elsif countdown_ring_6 and countdown >= 2 then
+        set_GRB(5, 5, 5);
+      elsif countdown_ring_7 and countdown >= 1 then
         set_GRB(5, 5, 5);
       elsif red_ready_to_play = '1' and led_number >= 1 and led_number <= 6 then
         set_GRB(0, 5, 0);
