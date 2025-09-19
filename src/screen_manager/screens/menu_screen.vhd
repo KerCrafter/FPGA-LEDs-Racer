@@ -62,7 +62,7 @@ begin
         set_GRB(5, 5, 5);
       elsif countdown_ring_4 and countdown >= 4 then
         set_GRB(5, 5, 5);
-      elsif countdown_ring_5 then
+      elsif countdown_ring_5 and countdown >= 3 then
         set_GRB(5, 5, 5);
       elsif countdown_ring_6 then
         set_GRB(5, 5, 5);
