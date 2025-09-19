@@ -22,6 +22,7 @@ end entity;
 
 architecture structural of menu_manager is
   signal trigger_countdown : std_logic;
+  signal countdown_finished : std_logic := '0';
 begin
 
   ready_trigger_countdown: entity work.ready_trigger_countdown
@@ -34,13 +35,13 @@ begin
       result => trigger_countdown
     );
 
-  is_in_menu <= opt_with_menu;
-
   process(menu_timer.tick)
   begin
     if rising_edge(menu_timer.tick) then
       if countdown = 0 then
         countdown <= 7;
+      elsif countdown = 1 then
+        countdown_finished <= '1';
       else
         countdown <= countdown - 1;
       end if;
@@ -48,6 +49,7 @@ begin
 
   end process;
 
+  is_in_menu <= '1' when opt_with_menu and not countdown_finished else '0';
   menu_timer.enable <= trigger_countdown;
 
 end architecture;

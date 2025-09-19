@@ -33,6 +33,7 @@ architecture tb of tb_leds_racer_core is
   signal menu_2_players_ready_countdown_3_ts : t_TEST_STATUS;
   signal menu_2_players_ready_countdown_2_ts : t_TEST_STATUS;
   signal menu_2_players_ready_countdown_1_ts : t_TEST_STATUS;
+  signal menu_2_players_ready_countdown_final_ts : t_TEST_STATUS;
 begin
 
   MAIN_SIM: entity work.LEDs_racer_core_sim
@@ -85,6 +86,9 @@ begin
 
   MENU_2_PLAYERS_READY_COUNTDOWN_1_SIM : entity work.LEDs_racer_core_menu_2_players_ready_countdown_1_sim
     port map( test_status => menu_2_players_ready_countdown_1_ts );
+
+  MENU_2_PLAYERS_READY_COUNTDOWN_FINAL_SIM : entity work.LEDs_racer_core_menu_2_players_ready_countdown_final_sim
+    port map( test_status => menu_2_players_ready_countdown_final_ts );
   
   RUN_TESTS : process
   begin
@@ -142,6 +146,9 @@ begin
 
       elsif run("menu_2_players_ready_countdown_1") then
         declare_simulation(menu_2_players_ready_countdown_1_ts);
+
+      elsif run("menu_2_players_ready_countdown_final") then
+        declare_simulation(menu_2_players_ready_countdown_final_ts);
 
       end if;
 
