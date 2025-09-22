@@ -5,6 +5,7 @@ use work.test_status_pkg.all;
 use work.player_interactions_test_pkg.all;
 use work.players_commands_pkg.all;
 use work.sut_pkg.all;
+use work.assertions_pkg.all;
 
 entity LEDs_racer_core_blue_wins_sim is
   port (
@@ -21,24 +22,6 @@ begin
     );
   
   PLAYS_STIM: process
-    procedure assert_GRB(
-      signal s: in LEDs_racer_core_sut_interface;
-      signal ts: out t_TEST_STATUS;
-      led_green_intensity_i: integer range 0 to 255;
-      led_red_intensity_i: integer range 0 to 255;
-      led_blue_intensity_i: integer range 0 to 255;
-      report_message: string
-    ) is
-    begin
-
-      if s.led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and s.led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and s.led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) then
-      else
-        SIMULATION_FAIL(ts);
-      end if;
-
-      assert s.led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and s.led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and s.led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) report report_message severity failure;
-    end procedure;
-    
     procedure assert_all_LEDs_should_be_BLUE is
     begin
       for led_number in 0 to 108 loop
