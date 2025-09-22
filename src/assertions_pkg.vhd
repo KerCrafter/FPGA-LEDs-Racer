@@ -15,6 +15,13 @@ package assertions_pkg is
     report_message: string
   );
 
+  procedure assert_all_LEDs_should_be_BLUE(
+    signal sut: in LEDs_racer_core_sut_interface;
+    signal current_led: out integer range 0 to 108;
+    signal test_status: out t_TEST_STATUS
+  );
+
+
 end package;
 
 package body assertions_pkg is
@@ -34,7 +41,20 @@ package body assertions_pkg is
       SIMULATION_FAIL(test_status);
     end if;
 
-    assert sut.led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and sut.led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and sut.led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) report report_message severity failure;
+    assert sut.led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and sut.led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and sut.led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) report report_message;
+
+  end procedure;
+
+  procedure assert_all_LEDs_should_be_BLUE(
+    signal sut: in LEDs_racer_core_sut_interface;
+    signal current_led: out integer range 0 to 108;
+    signal test_status: out t_TEST_STATUS
+  ) is
+  begin
+
+    for led_number in 0 to 108 loop
+      wait for 20 ns; current_led <= led_number; wait for 1 ps; assert_GRB(sut, test_status, 0, 0, 10, "LED " & to_string(led_number) & ": should be BLUE");
+    end loop;
 
   end procedure;
 
