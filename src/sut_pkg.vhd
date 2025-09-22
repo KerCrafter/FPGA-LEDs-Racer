@@ -1,0 +1,25 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use work.players_commands_pkg.all;
+use work.timer_pkg.all;
+
+package sut_pkg is
+
+  type LEDs_racer_core_SUT_interface is record
+    clk : std_logic;
+
+    players_commands : t_PLAYERS_COMMANDS;
+
+    opt_with_menu : std_logic;
+    
+    current_led : integer range 0 to 108;
+    led_green_intensity : std_logic_vector(7 downto 0);
+    led_red_intensity : std_logic_vector(7 downto 0);
+    led_blue_intensity : std_logic_vector(7 downto 0);
+    update_frame : std_logic;
+
+    menu_timer : t_TIMER;
+  end record;
+
+end package;
