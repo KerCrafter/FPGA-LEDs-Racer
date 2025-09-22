@@ -39,11 +39,9 @@ begin
     
     procedure assert_all_LEDs_should_be_BLUE is
     begin
-      wait for 20 ns; SUT.current_led <= 0; wait for 1 ps; assert_GRB(0, 0, 10, "LED 0 : should be BLUE");
-      wait for 20 ns; SUT.current_led <= 1; wait for 1 ps; assert_GRB(0, 0, 10, "LED 1 : should be BLUE");
-      wait for 20 ns; SUT.current_led <= 2; wait for 1 ps; assert_GRB(0, 0, 10, "LED 2 : should be BLUE");
-      wait for 20 ns; SUT.current_led <= 3; wait for 1 ps; assert_GRB(0, 0, 10, "LED 3 : should be BLUE");
-      wait for 20 ns; SUT.current_led <= 4; wait for 1 ps; assert_GRB(0, 0, 10, "LED 4 : should be BLUE");
+      for led_number in 0 to 108 loop
+        wait for 20 ns; SUT.current_led <= led_number; wait for 1 ps; assert_GRB(0, 0, 10, "LED " & to_string(led_number) & ": should be BLUE");
+      end loop;
     end procedure;
   begin
 
