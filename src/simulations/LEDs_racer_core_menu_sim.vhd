@@ -13,30 +13,7 @@ entity LEDs_racer_core_menu_sim is
 end entity;
 
 architecture simulation of LEDs_racer_core_menu_sim is
-  signal SUT : LEDs_racer_core_sut_interface := (
-    clk => '0',
-
-    players_commands => (
-      red => '0',
-      green => '0',
-      blue => '0',
-      yellow => '0'
-    ),
-
-    opt_with_menu => '1',
-    
-    current_led => 0,
-    led_green_intensity => "00000000",
-    led_red_intensity => "00000000",
-
-    led_blue_intensity => "00000000",
-    update_frame => '0',
-
-    menu_timer => (
-      enable => '0',
-      tick => '0'
-    )
-  );
+  signal SUT : LEDs_racer_core_sut_interface;
 begin
   UUT: entity work.LEDs_racer_core_SUT
     port map (
