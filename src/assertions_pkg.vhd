@@ -27,6 +27,12 @@ package assertions_pkg is
     signal test_status: out t_TEST_STATUS
   );
 
+  procedure assert_all_LEDs_should_be_GREEN(
+    signal sut: in LEDs_racer_core_sut_interface;
+    signal current_led: out integer range 0 to 108;
+    signal test_status: out t_TEST_STATUS
+  );
+
 
 end package;
 
@@ -73,6 +79,19 @@ package body assertions_pkg is
 
     for led_number in 0 to 108 loop
       wait for 20 ns; current_led <= led_number; wait for 1 ps; assert_GRB(sut, test_status, 0, 10, 0, "LED " & to_string(led_number) & ": should be RED");
+    end loop;
+
+  end procedure;
+
+  procedure assert_all_LEDs_should_be_GREEN(
+    signal sut: in LEDs_racer_core_sut_interface;
+    signal current_led: out integer range 0 to 108;
+    signal test_status: out t_TEST_STATUS
+  ) is
+  begin
+
+    for led_number in 0 to 108 loop
+      wait for 20 ns; current_led <= led_number; wait for 1 ps; assert_GRB(sut, test_status, 10, 0, 0, "LED " & to_string(led_number) & ": should be GREEN");
     end loop;
 
   end procedure;
