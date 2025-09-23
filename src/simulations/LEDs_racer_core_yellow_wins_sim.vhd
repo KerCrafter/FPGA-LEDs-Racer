@@ -13,7 +13,7 @@ entity LEDs_racer_core_yellow_wins_sim is
 end entity;
 
 architecture simulation of LEDs_racer_core_yellow_wins_sim is
-  signal SUT : LEDs_racer_core_sut_interface;
+  signal SUT : LEDs_racer_core_sut_interface := SUT_INIT;
 begin
   UUT: entity work.LEDs_racer_core_SUT
     port map (
