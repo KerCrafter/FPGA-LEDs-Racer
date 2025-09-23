@@ -22,4 +22,19 @@ package sut_pkg is
     menu_timer : t_TIMER;
   end record;
 
+  constant SUT_INIT : LEDs_racer_core_SUT_interface := (
+    clk => '0',
+    players_commands => PLAYERS_COMMANDS_INIT,
+    opt_with_menu => '0',
+    current_led => 0,
+    led_green_intensity => "00000000",
+    led_red_intensity => "00000000",
+    led_blue_intensity => "00000000",
+    update_frame => '0',
+    menu_timer => (
+      enable => '0',
+      tick => '0'
+    )
+  );
+
 end package;
