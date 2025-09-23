@@ -17,7 +17,7 @@ package body player_interactions_test_pkg is
     signal player_input : out std_logic
   ) is
   begin
-    wait for 20 ns;
+    wait for 1 ps;
 
     player_input <= '1';
     wait for duration;
