@@ -66,7 +66,7 @@ begin
         set_GRB(5, 5, 5);
       elsif countdown_ring_6 and countdown >= 2 then
         set_GRB(5, 5, 5);
-      elsif countdown_ring_7 then
+      elsif countdown_ring_7 and countdown >= 1 then
         set_GRB(5, 5, 5);
       elsif red_ready_to_play = '1' and led_number >= 1 and led_number <= 6 then
         set_GRB(0, 5, 0);
