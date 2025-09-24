@@ -31,12 +31,7 @@ begin
 
     assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 7);
 
-    assert_LED_should_be_green(SUT, SUT.current_led, test_status, 8);
-    assert_LED_should_be_green(SUT, SUT.current_led, test_status, 9);
-    assert_LED_should_be_green(SUT, SUT.current_led, test_status, 10);
-    assert_LED_should_be_green(SUT, SUT.current_led, test_status, 11);
-    assert_LED_should_be_green(SUT, SUT.current_led, test_status, 12);
-    assert_LED_should_be_green(SUT, SUT.current_led, test_status, 13);
+    assert_LED_should_be_green_for_range(SUT, SUT.current_led, test_status, 8, 13);
 
     assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 14);
 
