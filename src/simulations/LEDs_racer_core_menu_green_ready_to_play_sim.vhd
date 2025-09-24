@@ -31,7 +31,13 @@ begin
 
     assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 7);
 
-    assert_LED_should_be_green_for_range(SUT, SUT.current_led, test_status, 8, 13);
+    assert_LED_should_be_green_for_range(
+      from_led => 8,
+      to_led => 13,
+      sut => SUT,
+      current_led_sig => SUT.current_led,
+      test_status => test_status
+    );
 
     assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 14);
 
