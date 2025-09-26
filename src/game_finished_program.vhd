@@ -66,7 +66,7 @@ begin
     
     procedure set_LED_blue is
     begin
-      set_GRB(0, 0, 10);
+      set_GRB(0, 0, 5);
     end procedure;
 
     procedure set_LED_yellow is
