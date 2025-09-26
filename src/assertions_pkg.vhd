@@ -119,6 +119,14 @@ package assertions_pkg is
     signal test_status: out t_TEST_STATUS
   );
 
+  procedure assert_LED_should_lightoff_for_range(
+    from_led: integer range 0 to 108;
+    to_led: integer range 0 to 108;
+    signal sut: in LEDs_racer_core_sut_interface;
+    signal current_led_sig: out integer range 0 to 108;
+    signal test_status: out t_TEST_STATUS
+  );
+
 end package;
 
 package body assertions_pkg is
@@ -316,6 +324,19 @@ package body assertions_pkg is
   begin
     for led_number in from_led to to_led loop
       assert_LED_should_be_yellow(SUT, current_led_sig, test_status, led_number);
+    end loop;
+  end procedure;
+
+  procedure assert_LED_should_lightoff_for_range(
+    from_led: integer range 0 to 108;
+    to_led: integer range 0 to 108;
+    signal sut: in LEDs_racer_core_sut_interface;
+    signal current_led_sig: out integer range 0 to 108;
+    signal test_status: out t_TEST_STATUS
+  ) is
+  begin
+    for led_number in from_led to to_led loop
+      assert_LED_should_lightoff(SUT, current_led_sig, test_status, led_number);
     end loop;
   end procedure;
 
