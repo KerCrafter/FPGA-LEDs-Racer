@@ -59,6 +59,13 @@ package assertions_pkg is
     led_number: integer range 0 to 108
   );
 
+  procedure assert_LED_should_be_blue(
+    signal sut: in LEDs_racer_core_sut_interface;
+    signal current_led: out integer range 0 to 108;
+    signal test_status: out t_TEST_STATUS;
+    led_number: integer range 0 to 108
+  );
+
   procedure assert_LED_should_be_white(
     signal sut: in LEDs_racer_core_sut_interface;
     signal current_led: out integer range 0 to 108;
@@ -82,6 +89,14 @@ package assertions_pkg is
   );
 
   procedure assert_LED_should_be_red_for_range(
+    from_led: integer range 0 to 108;
+    to_led: integer range 0 to 108;
+    signal sut: in LEDs_racer_core_sut_interface;
+    signal current_led_sig: out integer range 0 to 108;
+    signal test_status: out t_TEST_STATUS
+  );
+
+  procedure assert_LED_should_be_blue_for_range(
     from_led: integer range 0 to 108;
     to_led: integer range 0 to 108;
     signal sut: in LEDs_racer_core_sut_interface;
@@ -217,6 +232,15 @@ package body assertions_pkg is
     wait for 20 ns; current_led <= led_number; wait for 1 ps; assert_GRB(sut, test_status, 5, 0, 0, "LED " & to_string(led_number) & ": should be GREEN");
   end procedure;
 
+  procedure assert_LED_should_be_blue(
+    signal sut: in LEDs_racer_core_sut_interface;
+    signal current_led: out integer range 0 to 108;
+    signal test_status: out t_TEST_STATUS;
+    led_number: integer range 0 to 108
+  ) is
+  begin
+    wait for 20 ns; current_led <= led_number; wait for 1 ps; assert_GRB(sut, test_status, 0, 0, 5, "LED " & to_string(led_number) & ": should be BLUE");
+  end procedure;
 
   procedure assert_LED_should_be_green_for_range(
     from_led: integer range 0 to 108;
@@ -241,6 +265,19 @@ package body assertions_pkg is
   begin
     for led_number in from_led to to_led loop
       assert_LED_should_be_red(SUT, current_led_sig, test_status, led_number);
+    end loop;
+  end procedure;
+
+  procedure assert_LED_should_be_blue_for_range(
+    from_led: integer range 0 to 108;
+    to_led: integer range 0 to 108;
+    signal sut: in LEDs_racer_core_sut_interface;
+    signal current_led_sig: out integer range 0 to 108;
+    signal test_status: out t_TEST_STATUS
+  ) is
+  begin
+    for led_number in from_led to to_led loop
+      assert_LED_should_be_blue(SUT, current_led_sig, test_status, led_number);
     end loop;
   end procedure;
 
