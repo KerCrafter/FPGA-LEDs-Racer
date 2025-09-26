@@ -5,6 +5,8 @@ use work.test_status_pkg.all;
 use work.players_commands_pkg.all;
 use work.player_interactions_test_pkg.all;
 use work.timer_pkg.all;
+use work.sut_pkg.all;
+use work.assertions_pkg.all;
 
 entity LEDs_racer_core_menu_2_players_ready_countdown_3_sim is
   port (
@@ -13,198 +15,131 @@ entity LEDs_racer_core_menu_2_players_ready_countdown_3_sim is
 end entity;
 
 architecture simulation of LEDs_racer_core_menu_2_players_ready_countdown_3_sim is
-  signal clk : std_logic := '1';
-
-  signal players_commands : t_PLAYERS_COMMANDS := PLAYERS_COMMANDS_INIT;
-  
-  signal current_led : integer range 0 to 108;
-  signal led_green_intensity : std_logic_vector(7 downto 0);
-  signal led_red_intensity : std_logic_vector(7 downto 0);
-  signal led_blue_intensity : std_logic_vector(7 downto 0);
-  
-  signal update_frame : std_logic;
-
-  signal menu_timer : t_TIMER;
+  signal SUT : LEDs_racer_core_sut_interface := SUT_INIT;
 begin
-  UUT: entity work.LEDs_racer_core
-    generic map(max_pos => 109)
+  UUT: entity work.LEDs_racer_core_SUT
     port map (
-      clk => clk,
-
-      players_commands => players_commands,
-      
-      opt_with_menu => '1',
-
-      menu_timer => menu_timer,
-      
-      current_led => current_led,
-      led_green_intensity => led_green_intensity,
-      led_red_intensity => led_red_intensity,
-      led_blue_intensity => led_blue_intensity,
-      update_frame => update_frame
+      sut_interface => SUT
     );
   
-  CLK_STIM: process
+  SIMULATION: process
   begin
-    -- Inverse CLK every 10ns = 20ns per cycle = 50MHz
-    clk <= not clk; wait for 10 ns;
-  end process;
-  
-  CHECK_SIG: process
+    SUT.opt_with_menu <= '1';
 
-    procedure assert_GRB(
-      led_green_intensity_i: integer range 0 to 255;
-      led_red_intensity_i: integer range 0 to 255;
-      led_blue_intensity_i: integer range 0 to 255;
-      report_message: string
-    ) is
-    begin
+    wait for 1 ps; 
 
-      if led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) then
-      else
-        SIMULATION_FAIL(test_status);
-      end if;
+    SUT.menu_timer.tick <= '0';
 
-      assert led_green_intensity = std_logic_vector(to_unsigned(led_green_intensity_i, 8)) and led_red_intensity = std_logic_vector(to_unsigned(led_red_intensity_i, 8)) and led_blue_intensity = std_logic_vector(to_unsigned(led_blue_intensity_i, 8)) report report_message;
-    end procedure;
+    player_press_his_button_during(20 ns, SUT.players_commands.red);
+    player_press_his_button_during(20 ns, SUT.players_commands.green);
 
-    procedure assert_LED_should_lightoff(led_number : integer) is
-    begin
-      current_led <= led_number; wait for 1 ps;
-      assert_GRB(0, 0, 0, "LED " & to_string(led_number) & " : should light off");
-    end procedure;
-
-    procedure assert_LED_should_be_white(led_number : integer) is
-    begin
-      current_led <= led_number; wait for 1 ps;
-      assert_GRB(5, 5, 5, "LED " & to_string(led_number) & " : should be WHITE");
-    end procedure;
-
-    procedure assert_LED_should_be_red(led_number : integer) is
-    begin
-      current_led <= led_number; wait for 1 ps;
-      assert_GRB(0, 5, 0, "LED " & to_string(led_number) & " : should be RED");
-    end procedure;
-
-    procedure assert_LED_should_be_green(led_number : integer) is
-    begin
-      current_led <= led_number; wait for 1 ps;
-      assert_GRB(5, 0, 0, "LED " & to_string(led_number) & " : should be GREEN");
-    end procedure;
-
-  begin
-    menu_timer.tick <= '0';
-
-    player_press_his_button_during(20 ns, players_commands.red);
-    player_press_his_button_during(20 ns, players_commands.green);
-
-    if menu_timer.enable = '0' then
+    if SUT.menu_timer.enable = '0' then
       SIMULATION_FAIL(test_status);
     end if;
 
-    menu_timer.tick <= '1'; wait for 1 ps;
+    SUT.menu_timer.tick <= '1'; wait for 1 ps;
 
     -- Simulate after second timer tick
-    menu_timer.tick <= '0'; wait for 1 ps;
-    menu_timer.tick <= '1'; wait for 1 ps;
+    SUT.menu_timer.tick <= '0'; wait for 1 ps;
+    SUT.menu_timer.tick <= '1'; wait for 1 ps;
 
     -- Simulate after 3rd timer tick
-    menu_timer.tick <= '0'; wait for 1 ps;
-    menu_timer.tick <= '1'; wait for 1 ps;
+    SUT.menu_timer.tick <= '0'; wait for 1 ps;
+    SUT.menu_timer.tick <= '1'; wait for 1 ps;
 
     -- Simulate after 4th timer tick
-    menu_timer.tick <= '0'; wait for 1 ps;
-    menu_timer.tick <= '1'; wait for 1 ps;
+    SUT.menu_timer.tick <= '0'; wait for 1 ps;
+    SUT.menu_timer.tick <= '1'; wait for 1 ps;
 
     -- Simulate after 5th timer tick
-    menu_timer.tick <= '0'; wait for 1 ps;
-    menu_timer.tick <= '1'; wait for 1 ps;
+    SUT.menu_timer.tick <= '0'; wait for 1 ps;
+    SUT.menu_timer.tick <= '1'; wait for 1 ps;
 
-    menu_timer.tick <= '0'; wait for 1 ps;
+    SUT.menu_timer.tick <= '0'; wait for 1 ps;
 
-    assert_LED_should_lightoff(0);
+    assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 0);
 
-    assert_LED_should_be_red(1);
+    assert_LED_should_be_red(SUT, SUT.current_led, test_status, 1);
 
-    assert_LED_should_be_red(2);
+    assert_LED_should_be_red(SUT, SUT.current_led, test_status, 2);
 
-    assert_LED_should_be_red(3);
+    assert_LED_should_be_red(SUT, SUT.current_led, test_status, 3);
 
-    assert_led_should_be_red(4);
+    assert_led_should_be_red(SUT, SUT.current_led, test_status, 4);
     
-    assert_led_should_be_red(5);
+    assert_led_should_be_red(SUT, SUT.current_led, test_status, 5);
 
-    assert_led_should_be_red(6);
+    assert_led_should_be_red(SUT, SUT.current_led, test_status, 6);
 
-    assert_LED_should_lightoff(7);
+    assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 7);
 
-    assert_LED_should_be_green(8);
+    assert_LED_should_be_green(SUT, SUT.current_led, test_status, 8);
 
-    assert_LED_should_be_green(9);
+    assert_LED_should_be_green(SUT, SUT.current_led, test_status, 9);
 
-    assert_LED_should_be_green(10);
+    assert_LED_should_be_green(SUT, SUT.current_led, test_status, 10);
 
-    assert_LED_should_be_green(11);
+    assert_LED_should_be_green(SUT, SUT.current_led, test_status, 11);
     
-    assert_LED_should_be_green(12);
+    assert_LED_should_be_green(SUT, SUT.current_led, test_status, 12);
 
-    assert_LED_should_be_green(13);
+    assert_LED_should_be_green(SUT, SUT.current_led, test_status, 13);
 
-    assert_LED_should_lightoff(14);
+    assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 14);
 
-    assert_LED_should_lightoff(21);
+    assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 21);
 
     --Ring 2
-    assert_LED_should_lightoff(28);
+    assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 28);
 
-    assert_LED_should_lightoff(34);
+    assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 34);
 
-    assert_LED_should_lightoff(40);
+    assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 40);
 
-    assert_LED_should_lightoff(46);
+    assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 46);
 
     -- Ring 3
 
-    assert_LED_should_lightoff(52);
+    assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 52);
 
-    assert_LED_should_lightoff(57);
+    assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 57);
 
-    assert_LED_should_lightoff(62);
+    assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 62);
 
-    assert_LED_should_lightoff(67);
+    assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 67);
 
     -- Ring 4
 
-    assert_LED_should_lightoff(72);
+    assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 72);
 
-    assert_LED_should_lightoff(76);
+    assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 76);
 
-    assert_LED_should_lightoff(80);
+    assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 80);
 
-    assert_LED_should_lightoff(84);
+    assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 84);
 
     -- Ring 5
 
-    assert_LED_should_be_white(88);
+    assert_LED_should_be_white(SUT, SUT.current_led, test_status, 88);
 
-    assert_LED_should_be_white(91);
+    assert_LED_should_be_white(SUT, SUT.current_led, test_status, 91);
 
-    assert_LED_should_be_white(94);
+    assert_LED_should_be_white(SUT, SUT.current_led, test_status, 94);
 
-    assert_LED_should_be_white(97);
+    assert_LED_should_be_white(SUT, SUT.current_led, test_status, 97);
 
     -- Ring 6
 
-    assert_LED_should_be_white(100);
+    assert_LED_should_be_white(SUT, SUT.current_led, test_status, 100);
 
-    assert_LED_should_be_white(102);
+    assert_LED_should_be_white(SUT, SUT.current_led, test_status, 102);
 
-    assert_LED_should_be_white(104);
+    assert_LED_should_be_white(SUT, SUT.current_led, test_status, 104);
 
-    assert_LED_should_be_white(106);
+    assert_LED_should_be_white(SUT, SUT.current_led, test_status, 106);
 
     -- Ring 7
-    assert_LED_should_be_white(108);
+    assert_LED_should_be_white(SUT, SUT.current_led, test_status, 108);
 
 
     SIMULATION_END(test_status);
