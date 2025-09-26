@@ -31,17 +31,13 @@ begin
 
     assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 0);
 
-    assert_LED_should_be_red(SUT, SUT.current_led, test_status, 1);
-
-    assert_LED_should_be_red(SUT, SUT.current_led, test_status, 2);
-
-    assert_LED_should_be_red(SUT, SUT.current_led, test_status, 3);
-
-    assert_led_should_be_red(SUT, SUT.current_led, test_status, 4);
-    
-    assert_led_should_be_red(SUT, SUT.current_led, test_status, 5);
-
-    assert_led_should_be_red(SUT, SUT.current_led, test_status, 6);
+    assert_LED_should_be_red_for_range(
+      from_led => 1,
+      to_led => 6,
+      sut => SUT,
+      current_led_sig => SUT.current_led,
+      test_status => test_status
+    );
 
     assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 7);
 
