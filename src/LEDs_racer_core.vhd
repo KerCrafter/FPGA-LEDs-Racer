@@ -20,9 +20,7 @@ entity LEDs_racer_core is
     led_green_intensity : out std_logic_vector(7 downto 0);
     led_red_intensity : out std_logic_vector(7 downto 0);
     led_blue_intensity : out std_logic_vector(7 downto 0);
-    update_frame : out std_logic;
-
-    menu_timer : inout t_TIMER
+    update_frame : out std_logic
   );
 end entity;
 
@@ -97,8 +95,7 @@ begin
       opt_with_menu => opt_with_menu,
 
       is_in_menu => is_in_menu,
-      countdown => countdown,
-      menu_timer => menu_timer
+      countdown => countdown
     );
 
   

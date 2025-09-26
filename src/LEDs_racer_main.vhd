@@ -80,11 +80,6 @@ begin
       update_frame => update_frame
     );
 
-  menu_timer_c: entity work.timer
-    port map(
-      timer_interface => menu_timer
-    );
-    
   LEDs_racer_core: entity work.LEDs_racer_core
     generic map(max_pos => max_pos)
     port map(
@@ -93,7 +88,6 @@ begin
       update_frame => update_frame,
 
       players_commands => players_commands,
-      menu_timer => menu_timer,
       
       current_led => led_proceed,
       led_green_intensity => green_intensity,

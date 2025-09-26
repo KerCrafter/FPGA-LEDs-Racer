@@ -25,9 +25,7 @@ begin
       led_green_intensity => sut_interface.led_green_intensity,
       led_red_intensity => sut_interface. led_red_intensity,
       led_blue_intensity => sut_interface.led_blue_intensity,
-      update_frame => sut_interface.update_frame,
-
-      menu_timer => sut_interface.menu_timer
+      update_frame => sut_interface.update_frame
     );
 
 end architecture;

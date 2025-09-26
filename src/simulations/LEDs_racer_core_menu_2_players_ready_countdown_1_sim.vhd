@@ -28,42 +28,43 @@ begin
 
     wait for 1 ps; 
 
-    SUT.menu_timer.tick <= '0';
-
     player_press_his_button_during(20 ns, SUT.players_commands.red);
     player_press_his_button_during(20 ns, SUT.players_commands.green);
 
-    if SUT.menu_timer.enable = '0' then
-      SIMULATION_FAIL(test_status);
-    end if;
+    generate_clk_edges(
+      count => 1,
+      clk => SUT.clk
+    );
 
-    SUT.menu_timer.tick <= '1'; wait for 1 ps;
+    generate_clk_edges(
+      count => 50000000,
+      clk => SUT.clk
+    );
 
-    -- Simulate after second timer tick
-    SUT.menu_timer.tick <= '0'; wait for 1 ps;
-    SUT.menu_timer.tick <= '1'; wait for 1 ps;
+    generate_clk_edges(
+      count => 50000000,
+      clk => SUT.clk
+    );
 
-    -- Simulate after 3rd timer tick
-    SUT.menu_timer.tick <= '0'; wait for 1 ps;
-    SUT.menu_timer.tick <= '1'; wait for 1 ps;
+    generate_clk_edges(
+      count => 50000000,
+      clk => SUT.clk
+    );
 
-    -- Simulate after 4th timer tick
-    SUT.menu_timer.tick <= '0'; wait for 1 ps;
-    SUT.menu_timer.tick <= '1'; wait for 1 ps;
+    generate_clk_edges(
+      count => 50000000,
+      clk => SUT.clk
+    );
 
-    -- Simulate after 5th timer tick
-    SUT.menu_timer.tick <= '0'; wait for 1 ps;
-    SUT.menu_timer.tick <= '1'; wait for 1 ps;
+    generate_clk_edges(
+      count => 50000000,
+      clk => SUT.clk
+    );
 
-    -- Simulate after 6th timer tick
-    SUT.menu_timer.tick <= '0'; wait for 1 ps;
-    SUT.menu_timer.tick <= '1'; wait for 1 ps;
-
-    -- Simulate after 7th timer tick
-    SUT.menu_timer.tick <= '0'; wait for 1 ps;
-    SUT.menu_timer.tick <= '1'; wait for 1 ps;
-
-    SUT.menu_timer.tick <= '0'; wait for 1 ps;
+    generate_clk_edges(
+      count => 50000000,
+      clk => SUT.clk
+    );
 
     assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 0);
 

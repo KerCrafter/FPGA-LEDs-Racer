@@ -15,14 +15,15 @@ entity menu_manager is
     opt_with_menu: in std_logic;
 
     is_in_menu: out std_logic;
-    countdown: buffer integer range 0 to 7;
-    menu_timer: inout t_TIMER
+    countdown: buffer integer range 0 to 7
   );
 end entity;
 
 architecture structural of menu_manager is
   signal trigger_countdown : std_logic;
   signal countdown_finished : std_logic := '0';
+
+  signal menu_timer_tick : std_logic;
 begin
 
   ready_trigger_countdown: entity work.ready_trigger_countdown
@@ -35,9 +36,16 @@ begin
       result => trigger_countdown
     );
 
-  process(menu_timer.tick)
+  menu_timer: entity work.timer
+    port map(
+      clk => clk,
+      enable => trigger_countdown,
+      tick => menu_timer_tick
+    );
+
+  process(menu_timer_tick)
   begin
-    if rising_edge(menu_timer.tick) then
+    if rising_edge(menu_timer_tick) then
       if countdown = 0 then
         countdown <= 7;
       elsif countdown = 1 then
@@ -50,6 +58,5 @@ begin
   end process;
 
   is_in_menu <= '1' when opt_with_menu and not countdown_finished else '0';
-  menu_timer.enable <= trigger_countdown;
 
 end architecture;

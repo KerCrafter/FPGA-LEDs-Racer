@@ -28,16 +28,13 @@ begin
 
     wait for 1 ps; 
 
-    SUT.menu_timer.tick <= '0';
-
     player_press_his_button_during(20 ns, SUT.players_commands.red);
     player_press_his_button_during(20 ns, SUT.players_commands.green);
 
-    if SUT.menu_timer.enable = '0' then
-      SIMULATION_FAIL(test_status);
-    end if;
-
-    SUT.menu_timer.tick <= '1';
+    generate_clk_edges(
+      count => 1,
+      clk => SUT.clk
+    );
 
     assert_LED_should_be_white(SUT, SUT.current_led, test_status, 0);
 
