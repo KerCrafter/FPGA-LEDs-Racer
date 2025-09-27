@@ -6,7 +6,8 @@ use work.timer_pkg.all;
 
 entity LEDs_racer_core is
   generic (
-    max_pos : integer := 16
+    max_pos : integer := 16;
+    MENU_TIMER_CLK_COUNT : integer := 50000000
   );
 
   port(
@@ -85,6 +86,9 @@ begin
     );
 
   menu_manager: entity work.menu_manager
+    generic map(
+      MENU_TIMER_CLK_COUNT => MENU_TIMER_CLK_COUNT
+    )
     port map (
       clk => clk,
       green_ready_to_play => green_ready_to_play,

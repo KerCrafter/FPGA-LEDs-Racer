@@ -4,6 +4,9 @@ use ieee.numeric_std.all;
 use work.timer_pkg.all;
 
 entity menu_manager is
+  generic (
+    MENU_TIMER_CLK_COUNT : integer
+  );
   port (
     clk: in std_logic;
 
@@ -37,6 +40,9 @@ begin
     );
 
   menu_timer: entity work.timer
+    generic map(
+      CLK_COUNT => MENU_TIMER_CLK_COUNT
+    )
     port map(
       clk => clk,
       enable => trigger_countdown,

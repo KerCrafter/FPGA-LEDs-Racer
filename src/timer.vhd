@@ -2,6 +2,9 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 entity timer is
+  generic (
+    CLK_COUNT : integer
+  );
   port (
     clk : in std_logic;
     enable : in std_logic;
@@ -10,7 +13,7 @@ entity timer is
 end entity;
 
 architecture beh of timer is
-  signal cnt : integer range 0 to 49999999;
+  signal cnt : integer range 0 to CLK_COUNT - 1;
 begin
 
   process(clk)
@@ -20,7 +23,7 @@ begin
 
       if enable = '1' and cnt = 0 then
         cnt <= 1;
-      elsif enable = '1' and cnt = 49999999 then
+      elsif enable = '1' and cnt = CLK_COUNT - 1 then
         cnt <= 0;
       elsif enable = '1' then
         cnt <= cnt + 1;

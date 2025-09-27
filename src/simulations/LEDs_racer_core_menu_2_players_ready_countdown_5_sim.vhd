@@ -37,12 +37,12 @@ begin
     );
 
     generate_clk_edges(
-      count => 50000000,
+      count => 5,
       clk => SUT.clk
     );
 
     generate_clk_edges(
-      count => 50000000,
+      count => 5,
       clk => SUT.clk
     );
 

@@ -13,7 +13,10 @@ architecture structural of LEDs_racer_core_SUT is
 begin
 
   SUT: entity work.LEDs_racer_core
-    generic map(max_pos => 109)
+    generic map(
+      max_pos => 109,
+      MENU_TIMER_CLK_COUNT => 5
+    )
     port map (
       clk => sut_interface.clk,
 
