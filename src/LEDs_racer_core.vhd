@@ -2,7 +2,6 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.players_commands_pkg.all;
-use work.timer_pkg.all;
 
 entity LEDs_racer_core is
   generic (

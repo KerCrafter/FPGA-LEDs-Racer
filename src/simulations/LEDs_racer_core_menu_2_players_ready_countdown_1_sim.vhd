@@ -4,7 +4,6 @@ use ieee.numeric_std.all;
 use work.test_status_pkg.all;
 use work.players_commands_pkg.all;
 use work.player_interactions_test_pkg.all;
-use work.timer_pkg.all;
 use work.sut_pkg.all;
 use work.assertions_pkg.all;
 

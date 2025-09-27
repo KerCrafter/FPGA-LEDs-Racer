@@ -2,8 +2,6 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.players_commands_pkg.all;
-use work.timer_pkg.all;
-
 
 entity LEDs_racer_main is
   generic (
@@ -32,7 +30,6 @@ architecture structural of LEDs_racer_main is
   signal green_intensity : std_logic_vector(7 downto 0);
 
   signal players_commands : t_PLAYERS_COMMANDS;
-  signal menu_timer : t_TIMER;
 begin
 
   green_debouncer: entity work.button_debouncer
