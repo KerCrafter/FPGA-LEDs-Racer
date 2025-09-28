@@ -34,7 +34,7 @@ architecture tb of tb_leds_racer_core is
   signal menu_2_players_ready_countdown_2_ts : t_TEST_STATUS;
   signal menu_2_players_ready_countdown_1_ts : t_TEST_STATUS;
   signal menu_2_players_ready_countdown_final_ts : t_TEST_STATUS;
-  signal menu_1_player_ready_should_trigger_update_frame_ts : t_TEST_STATUS;
+  signal menu_red_player_ready_should_trigger_update_frame_ts : t_TEST_STATUS;
 begin
 
   MAIN_SIM: entity work.LEDs_racer_core_sim
@@ -91,8 +91,8 @@ begin
   MENU_2_PLAYERS_READY_COUNTDOWN_FINAL_SIM : entity work.LEDs_racer_core_menu_2_players_ready_countdown_final_sim
     port map( test_status => menu_2_players_ready_countdown_final_ts );
 
-  MENU_1_PLAYER_READY_SHOULD_TRIGGER_UPDATE_FRAME_SIM : entity work.LEDs_racer_core_menu_1_player_ready_should_trigger_update_frame_sim
-    port map( test_status => menu_1_player_ready_should_trigger_update_frame_ts );
+  MENU_RED_PLAYER_READY_SHOULD_TRIGGER_UPDATE_FRAME_SIM : entity work.LEDs_racer_core_menu_red_player_ready_should_trigger_update_frame_sim
+    port map( test_status => menu_red_player_ready_should_trigger_update_frame_ts );
 
   
   RUN_TESTS : process
@@ -155,8 +155,8 @@ begin
       elsif run("menu_2_players_ready_countdown_final") then
         declare_simulation(menu_2_players_ready_countdown_final_ts);
 
-      elsif run("menu_1_player_ready_should_trigger_update_frame") then
-        declare_simulation(menu_1_player_ready_should_trigger_update_frame_ts);
+      elsif run("menu_red_player_ready_should_trigger_update_frame") then
+        declare_simulation(menu_red_player_ready_should_trigger_update_frame_ts);
 
       end if;
 

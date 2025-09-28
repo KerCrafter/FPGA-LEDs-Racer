@@ -7,13 +7,13 @@ use work.player_interactions_test_pkg.all;
 use work.sut_pkg.all;
 use work.assertions_pkg.all;
 
-entity LEDs_racer_core_menu_1_player_ready_should_trigger_update_frame_sim is
+entity LEDs_racer_core_menu_red_player_ready_should_trigger_update_frame_sim is
   port (
     test_status : out t_TEST_STATUS := TEST_STATUS_INIT
   );
 end entity;
 
-architecture simulation of LEDs_racer_core_menu_1_player_ready_should_trigger_update_frame_sim is
+architecture simulation of LEDs_racer_core_menu_red_player_ready_should_trigger_update_frame_sim is
   signal SUT : LEDs_racer_core_sut_interface := SUT_INIT;
 begin
   UUT: entity work.LEDs_racer_core_SUT
