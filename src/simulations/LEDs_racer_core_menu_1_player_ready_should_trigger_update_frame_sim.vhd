@@ -22,36 +22,6 @@ begin
     );
   
   SIMULATION: process
-    procedure assert_update_frame_HIGH_only_during_1_clk_edge(
-      signal SUT : in LEDs_racer_core_sut_interface;
-      signal clk : out std_logic;
-      signal test_status : out t_TEST_STATUS
-    ) is
-    begin
-
-      generate_clk_edges(
-        count => 1,
-        clk => clk
-      );
-
-      if SUT.update_frame = '0' then
-        SIMULATION_FAIL(test_status);
-      end if;
-
-      assert SUT.update_frame = '1' report "update frame should be HIGH";
-
-      generate_clk_edges(
-        count => 1,
-        clk => clk
-      );
-
-      if SUT.update_frame = '1' then
-        SIMULATION_FAIL(test_status);
-      end if;
-
-      assert SUT.update_frame = '0' report "update frame should be LOW";
-
-    end procedure;
   begin
     SUT.opt_with_menu <= '1';
 

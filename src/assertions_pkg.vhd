@@ -3,6 +3,7 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.test_status_pkg.all;
 use work.sut_pkg.all;
+use work.player_interactions_test_pkg.all;
 
 package assertions_pkg is
 
@@ -125,6 +126,12 @@ package assertions_pkg is
     signal sut: in LEDs_racer_core_sut_interface;
     signal current_led_sig: out integer range 0 to 108;
     signal test_status: out t_TEST_STATUS
+  );
+
+  procedure assert_update_frame_HIGH_only_during_1_clk_edge(
+    signal SUT : in LEDs_racer_core_sut_interface;
+    signal clk : out std_logic;
+    signal test_status : out t_TEST_STATUS
   );
 
 end package;
@@ -348,6 +355,37 @@ package body assertions_pkg is
       current_led_sig => current_led,
       test_status => test_status
     );
+  end procedure;
+
+  procedure assert_update_frame_HIGH_only_during_1_clk_edge(
+    signal SUT : in LEDs_racer_core_sut_interface;
+    signal clk : out std_logic;
+    signal test_status : out t_TEST_STATUS
+  ) is
+  begin
+
+    generate_clk_edges(
+      count => 1,
+      clk => clk
+    );
+
+    if SUT.update_frame = '0' then
+      SIMULATION_FAIL(test_status);
+    end if;
+
+    assert SUT.update_frame = '1' report "update frame should be HIGH";
+
+    generate_clk_edges(
+      count => 1,
+      clk => clk
+    );
+
+    if SUT.update_frame = '1' then
+      SIMULATION_FAIL(test_status);
+    end if;
+
+    assert SUT.update_frame = '0' report "update frame should be LOW";
+
   end procedure;
 
 end package body;
