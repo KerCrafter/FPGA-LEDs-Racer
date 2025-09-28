@@ -36,6 +36,7 @@ architecture tb of tb_leds_racer_core is
   signal menu_2_players_ready_countdown_final_ts : t_TEST_STATUS;
   signal menu_red_player_ready_should_trigger_update_frame_ts : t_TEST_STATUS;
   signal menu_green_player_ready_should_trigger_update_frame_ts : t_TEST_STATUS;
+  signal menu_blue_player_ready_should_trigger_update_frame_ts : t_TEST_STATUS;
 begin
 
   MAIN_SIM: entity work.LEDs_racer_core_sim
@@ -97,6 +98,9 @@ begin
 
   MENU_GREEN_PLAYER_READY_SHOULD_TRIGGER_UPDATE_FRAME_SIM : entity work.LEDs_racer_core_menu_green_player_ready_should_trigger_update_frame_sim
     port map( test_status => menu_green_player_ready_should_trigger_update_frame_ts );
+
+  MENU_BLUE_PLAYER_READY_SHOULD_TRIGGER_UPDATE_FRAME_SIM : entity work.LEDs_racer_core_menu_blue_player_ready_should_trigger_update_frame_sim
+    port map( test_status => menu_blue_player_ready_should_trigger_update_frame_ts );
 
   
   RUN_TESTS : process
@@ -164,6 +168,9 @@ begin
 
       elsif run("menu_green_player_ready_should_trigger_update_frame") then
         declare_simulation(menu_green_player_ready_should_trigger_update_frame_ts);
+
+      elsif run("menu_blue_player_ready_should_trigger_update_frame") then
+        declare_simulation(menu_blue_player_ready_should_trigger_update_frame_ts);
 
       end if;
 
