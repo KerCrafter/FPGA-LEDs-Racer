@@ -62,6 +62,6 @@ begin
 
   end process;
 
-  is_in_menu <= '1' when opt_with_menu and not countdown_finished else '0';
+  is_in_menu <= '1' when opt_with_menu = '1' and countdown_finished = '0' else '0';
 
 end architecture;
