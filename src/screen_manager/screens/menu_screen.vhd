@@ -44,47 +44,42 @@ begin
     variable countdown_ring_7 : boolean;
 
   begin
-    if enable = '1' then
+    countdown_ring_1 := led_number = 0 or led_number = 7 or led_number = 14 or led_number = 21;
+    countdown_ring_2 := led_number = 28 or led_number = 34 or led_number = 40 or led_number = 46;
+    countdown_ring_3 := led_number = 52 or led_number = 57 or led_number = 62 or led_number = 67;
+    countdown_ring_4 := led_number = 72 or led_number = 76 or led_number = 80 or led_number = 84;
+    countdown_ring_5 := led_number = 88 or led_number = 91 or led_number = 94 or led_number = 97;
+    countdown_ring_6 := led_number = 100 or led_number = 102 or led_number = 104 or led_number = 106;
+    countdown_ring_7 := led_number = 108;
 
-      countdown_ring_1 := led_number = 0 or led_number = 7 or led_number = 14 or led_number = 21;
-      countdown_ring_2 := led_number = 28 or led_number = 34 or led_number = 40 or led_number = 46;
-      countdown_ring_3 := led_number = 52 or led_number = 57 or led_number = 62 or led_number = 67;
-      countdown_ring_4 := led_number = 72 or led_number = 76 or led_number = 80 or led_number = 84;
-      countdown_ring_5 := led_number = 88 or led_number = 91 or led_number = 94 or led_number = 97;
-      countdown_ring_6 := led_number = 100 or led_number = 102 or led_number = 104 or led_number = 106;
-      countdown_ring_7 := led_number = 108;
-
-      if countdown_ring_1 and countdown >= 7 then
-        set_GRB(5, 5, 5);
-      elsif countdown_ring_2 and countdown >= 6 then
-        set_GRB(5, 5, 5);
-      elsif countdown_ring_3 and countdown >= 5 then
-        set_GRB(5, 5, 5);
-      elsif countdown_ring_4 and countdown >= 4 then
-        set_GRB(5, 5, 5);
-      elsif countdown_ring_5 and countdown >= 3 then
-        set_GRB(5, 5, 5);
-      elsif countdown_ring_6 and countdown >= 2 then
-        set_GRB(5, 5, 5);
-      elsif countdown_ring_7 and countdown >= 1 then
-        set_GRB(5, 5, 5);
-      elsif red_ready_to_play = '1' and led_number >= 1 and led_number <= 6 then
-        set_GRB(0, 5, 0);
-      elsif green_ready_to_play = '1' and led_number >= 8 and led_number <= 13 then
-        set_GRB(5, 0, 0);
-      elsif blue_ready_to_play = '1' and led_number >= 15 and led_number <= 20 then
-        set_GRB(0, 0, 5);
-      elsif yellow_ready_to_play = '1' and led_number >= 22 and led_number <= 27 then
-        set_GRB(5, 5, 0);
-      else
-        set_GRB(0, 0, 0);
-      end if;
-    else
-
+    if enable = '0' then
       green_intensity <= "ZZZZZZZZ";
       red_intensity <= "ZZZZZZZZ";
       blue_intensity <= "ZZZZZZZZ";
-
+    elsif countdown_ring_1 and countdown >= 7 then
+      set_GRB(5, 5, 5);
+    elsif countdown_ring_2 and countdown >= 6 then
+      set_GRB(5, 5, 5);
+    elsif countdown_ring_3 and countdown >= 5 then
+      set_GRB(5, 5, 5);
+    elsif countdown_ring_4 and countdown >= 4 then
+      set_GRB(5, 5, 5);
+    elsif countdown_ring_5 and countdown >= 3 then
+      set_GRB(5, 5, 5);
+    elsif countdown_ring_6 and countdown >= 2 then
+      set_GRB(5, 5, 5);
+    elsif countdown_ring_7 and countdown >= 1 then
+      set_GRB(5, 5, 5);
+    elsif red_ready_to_play = '1' and led_number >= 1 and led_number <= 6 then
+      set_GRB(0, 5, 0);
+    elsif green_ready_to_play = '1' and led_number >= 8 and led_number <= 13 then
+      set_GRB(5, 0, 0);
+    elsif blue_ready_to_play = '1' and led_number >= 15 and led_number <= 20 then
+      set_GRB(0, 0, 5);
+    elsif yellow_ready_to_play = '1' and led_number >= 22 and led_number <= 27 then
+      set_GRB(5, 5, 0);
+    else
+      set_GRB(0, 0, 0);
     end if;
 
   end process;
