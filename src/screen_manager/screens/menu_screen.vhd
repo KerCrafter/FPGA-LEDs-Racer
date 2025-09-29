@@ -27,7 +27,7 @@ end entity;
 architecture beh of menu_screen is
 begin
 
-  process(enable, led_number, red_ready_to_play, blue_ready_to_play, green_ready_to_play, green_ready_to_play, countdown)
+  process(enable, led_number, red_ready_to_play, blue_ready_to_play, green_ready_to_play, yellow_ready_to_play, countdown)
     procedure set_GRB (green_intensity_i: integer range 0 to 255; red_intensity_i: integer range 0 to 255; blue_intensity_i: integer range 0 to 255) is
     begin
       green_intensity <= std_logic_vector(to_unsigned(green_intensity_i, 8));
