@@ -27,6 +27,7 @@ architecture tb of tb_leds_racer_core is
   signal menu_blue_ready_to_play_ts : t_TEST_STATUS;
   signal menu_yellow_ready_to_play_ts : t_TEST_STATUS;
   signal menu_red_and_green_ready_to_play_ts : t_TEST_STATUS;
+  signal menu_red_and_yellow_ready_to_play_ts : t_TEST_STATUS;
   signal menu_2_players_ready_countdown_6_ts : t_TEST_STATUS;
   signal menu_2_players_ready_countdown_5_ts : t_TEST_STATUS;
   signal menu_2_players_ready_countdown_4_ts : t_TEST_STATUS;
@@ -72,6 +73,9 @@ begin
 
   MENU_RED_AND_GREEN_READY_TO_PLAY_SIM : entity work.LEDs_racer_core_menu_red_and_green_ready_to_play_sim
     port map( test_status => menu_red_and_green_ready_to_play_ts );
+
+  MENU_RED_AND_YELLOW_READY_TO_PLAY_SIM : entity work.LEDs_racer_core_menu_red_and_yellow_ready_to_play_sim
+    port map( test_status => menu_red_and_yellow_ready_to_play_ts );
 
   MENU_2_PLAYERS_READY_COUNTDOWN_6_SIM : entity work.LEDs_racer_core_menu_2_players_ready_countdown_6_sim
     port map( test_status => menu_2_players_ready_countdown_6_ts );
@@ -144,6 +148,9 @@ begin
 
       elsif run("menu_red_and_green_ready_to_play") then
         declare_simulation(menu_red_and_green_ready_to_play_ts);
+
+      elsif run("menu_red_and_yellow_ready_to_play") then
+        declare_simulation(menu_red_and_yellow_ready_to_play_ts);
 
       elsif run("menu_2_players_ready_countdown_6") then
         declare_simulation(menu_2_players_ready_countdown_6_ts);
