@@ -24,19 +24,8 @@ end entity;
 
 
 architecture beh of game_finished_program is
-
-  function bool_to_logic(b: boolean) return std_logic is
-  begin
-     if (b) then
-        return '1';
-     else
-        return '0';
-     end if;
-  end function bool_to_logic;
 begin
   process(enable, led_number, red_pos, blue_pos, green_pos, yellow_pos)
-    variable players_into_the_led : std_logic_vector(3 downto 0);
-    
     procedure set_GRB (green_intensity_i: integer range 0 to 255; red_intensity_i: integer range 0 to 255; blue_intensity_i: integer range 0 to 255) is
     begin
       green_intensity <= std_logic_vector(to_unsigned(green_intensity_i, 8));
