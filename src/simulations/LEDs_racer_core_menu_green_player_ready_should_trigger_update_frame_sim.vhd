@@ -35,6 +35,19 @@ begin
       test_status => test_status
     );
 
+    generate_clk_edges(
+      count => 1,
+      clk => SUT.clk
+    );
+
+    if SUT.update_frame = '1' then
+      SIMULATION_FAIL(test_status);
+    end if;
+
+    assert SUT.update_frame = '0' report "Update frame should be LOW";
+
+    wait for 1 ps;
+
     SUT.players_commands.green <= '0';
 
     generate_clk_edges(

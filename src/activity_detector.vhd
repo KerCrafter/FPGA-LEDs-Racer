@@ -19,8 +19,11 @@ architecture beha of activity_detector is
   signal boot_end : std_logic := '0';
 
   signal a_prc : std_logic := '0';
+  signal a_lock : std_logic := '0';
   signal b_prc : std_logic := '0';
+  signal b_lock : std_logic := '0';
   signal c_prc : std_logic := '0';
+  signal c_lock : std_logic := '0';
   signal d_prc : std_logic := '0';
   signal d_lock : std_logic := '0';
 begin
@@ -39,26 +42,41 @@ begin
 
       if b_prc = '0' and B = '1' then
         b_prc <= '1';
+        b_lock <= '1';
       end if;
 
-      if b_prc = '1' then
+      if b_lock = '1' then
         b_prc <= '0';
+      end if;
+
+      if b_lock = '1' and B = '0' then
+        b_lock <= '0';
       end if;
 
       if c_prc = '0' and C = '1' then
         c_prc <= '1';
+        c_lock <= '1';
       end if;
 
-      if c_prc = '1' then
+      if c_lock = '1' then
         c_prc <= '0';
+      end if;
+
+      if c_lock = '1' and C = '0' then
+        c_lock <= '0';
       end if;
 
       if a_prc = '0' and A = '1' then
         a_prc <= '1';
+        a_lock <= '1';
       end if;
 
-      if a_prc = '1' then
+      if a_lock = '1' then
         a_prc <= '0';
+      end if;
+
+      if a_lock = '1' and A = '0' then
+        a_lock <= '0';
       end if;
 
       if d_prc = '0' and D = '1' then
