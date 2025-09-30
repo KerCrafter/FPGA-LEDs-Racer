@@ -289,7 +289,7 @@ begin
   UUT: entity work.LEDs_racer_main
     generic map(
       max_pos => 15,
-      debounce_clk_cnt => 1
+      DEBOUNCE_CLK_CNT => 1
     )
     port map (
       clk => clk,

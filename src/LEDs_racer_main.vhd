@@ -6,7 +6,7 @@ use work.players_commands_pkg.all;
 entity LEDs_racer_main is
   generic (
     max_pos : integer := 109;
-    debounce_clk_cnt : integer := 65536
+    DEBOUNCE_CLK_CNT : integer := 65536
   );
 
   port(
@@ -33,7 +33,7 @@ architecture structural of LEDs_racer_main is
 begin
 
   green_debouncer: entity work.button_debouncer
-    generic map(debounce_clk_cnt => debounce_clk_cnt)
+    generic map(DEBOUNCE_CLK_CNT => DEBOUNCE_CLK_CNT)
     port map (
       clk => clk,
       btn_in => green_input,
@@ -41,7 +41,7 @@ begin
     );
     
   red_debouncer: entity work.button_debouncer
-    generic map(debounce_clk_cnt => debounce_clk_cnt)
+    generic map(DEBOUNCE_CLK_CNT => DEBOUNCE_CLK_CNT)
     port map (
       clk => clk,
       btn_in => red_input,
@@ -49,7 +49,7 @@ begin
     );
     
   blue_debouncer: entity work.button_debouncer
-    generic map(debounce_clk_cnt => debounce_clk_cnt)
+    generic map(DEBOUNCE_CLK_CNT => DEBOUNCE_CLK_CNT)
     port map (
       clk => clk,
       btn_in => blue_input,
@@ -57,7 +57,7 @@ begin
     );
     
   yellow_debouncer: entity work.button_debouncer
-    generic map(debounce_clk_cnt => debounce_clk_cnt)
+    generic map(DEBOUNCE_CLK_CNT => DEBOUNCE_CLK_CNT)
     port map (
       clk => clk,
       btn_in => yellow_input,
