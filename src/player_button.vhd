@@ -12,7 +12,7 @@ entity player_button is
     current_screen : in std_logic_vector(1 downto 0);
     cur_pos : out integer range 0 to max_pos-1;
     activity : out std_logic := '0';
-    ready_to_play : buffer std_logic := '0'
+    ready_to_play : out std_logic := '0'
   );
 end entity;
 
