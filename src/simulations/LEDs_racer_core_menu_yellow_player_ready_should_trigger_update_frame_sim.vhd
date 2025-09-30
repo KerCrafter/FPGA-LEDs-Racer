@@ -27,13 +27,30 @@ begin
 
     wait for 1 ps; 
 
-    player_press_his_button_during(20 ns, SUT.players_commands.yellow);
+    SUT.players_commands.yellow <= '1';
 
     assert_update_frame_HIGH_only_during_1_clk_edge(
       SUT => SUT,
       clk => SUT.clk,
       test_status => test_status
     );
+
+    SUT.players_commands.yellow <= '0';
+
+    generate_clk_edges(
+      count => 1,
+      clk => SUT.clk
+    );
+
+    SUT.players_commands.yellow <= '1';
+
+    assert_update_frame_HIGH_only_during_1_clk_edge(
+      SUT => SUT,
+      clk => SUT.clk,
+      test_status => test_status
+    );
+
+    SUT.players_commands.yellow <= '0';
 
     SIMULATION_END(test_status);
   end process;
