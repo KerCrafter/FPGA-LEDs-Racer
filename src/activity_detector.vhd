@@ -17,6 +17,8 @@ end entity;
 architecture beha of activity_detector is
   signal boot_activity : std_logic := '0';
   signal boot_end : std_logic := '0';
+
+  signal b_prc : std_logic := '0';
 begin
 
   process(clk)
@@ -30,9 +32,18 @@ begin
       if boot_end = '1' then
         boot_activity <= '0';
       end if;
+
+      if b_prc = '0' and B = '1' then
+        b_prc <= '1';
+      end if;
+
+      if b_prc = '1' then
+        b_prc <= '0';
+      end if;
+
     end if;
   end process;
 
-  R <= A or B or C or D or boot_activity;
+  R <= A or b_prc or C or D or boot_activity;
 
 end architecture;
