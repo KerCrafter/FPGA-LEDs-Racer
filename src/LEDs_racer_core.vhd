@@ -14,7 +14,7 @@ entity LEDs_racer_core is
 
     players_commands : in t_PLAYERS_COMMANDS;
 
-    opt_with_menu : in std_logic := '0';
+    opt_with_menu : in std_logic := '1';
     
     current_led : in integer range 0 to max_pos-1;
     led_green_intensity : out std_logic_vector(7 downto 0);
