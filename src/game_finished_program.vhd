@@ -8,7 +8,6 @@ entity game_finished_program is
   );
 
   port (
-    enable : in std_logic;
     red_pos : in integer range 0 to max_pos-1;
     blue_pos : in integer range 0 to max_pos-1;
     green_pos : in integer range 0 to max_pos-1;
@@ -25,7 +24,7 @@ end entity;
 
 architecture beh of game_finished_program is
 begin
-  process(enable, led_number, red_pos, blue_pos, green_pos, yellow_pos)
+  process(led_number, red_pos, blue_pos, green_pos, yellow_pos)
     procedure set_GRB (green_intensity_i: integer range 0 to 255; red_intensity_i: integer range 0 to 255; blue_intensity_i: integer range 0 to 255) is
     begin
       green_intensity <= std_logic_vector(to_unsigned(green_intensity_i, 8));
@@ -63,9 +62,7 @@ begin
       set_GRB(5, 5, 0);
     end procedure;
   begin
-    if enable = '0' then
-      set_LED_off;
-    elsif green_pos = max_pos-1 then
+    if green_pos = max_pos-1 then
       set_LED_green;
     elsif red_pos = max_pos-1 then
       set_LED_red;

@@ -149,7 +149,6 @@ begin
   game_finished_program: entity work.game_finished_program
     generic map(max_pos => max_pos)
     port map(
-      enable => '1',
       red_pos => red_cur_pos,
       blue_pos => blue_cur_pos,
       green_pos => green_cur_pos,
