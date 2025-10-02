@@ -6,9 +6,9 @@ entity pipe_tri_bus is
   port(
     enable : in std_logic;
 
-    i_led_green_intensity : in std_logic_vector(7 downto 0);
-    i_led_red_intensity : in std_logic_vector(7 downto 0);
-    i_led_blue_intensity : in std_logic_vector(7 downto 0);
+    i_led_green_intensity : in std_logic_vector(7 downto 0) := "00000000";
+    i_led_red_intensity : in std_logic_vector(7 downto 0) := "00000000";
+    i_led_blue_intensity : in std_logic_vector(7 downto 0) := "00000000";
 
     d_led_green_intensity : in std_logic_vector(7 downto 0);
     d_led_red_intensity : in std_logic_vector(7 downto 0);
@@ -60,6 +60,26 @@ architecture structural of screens is
   signal is_menu : std_logic;
   signal is_gameplay : std_logic;
   signal is_finished : std_logic;
+
+  signal menu_led_green_intensity : std_logic_vector(7 downto 0);
+  signal menu_led_red_intensity : std_logic_vector(7 downto 0);
+  signal menu_led_blue_intensity : std_logic_vector(7 downto 0);
+
+  signal gp_led_green_intensity : std_logic_vector(7 downto 0);
+  signal gp_led_red_intensity : std_logic_vector(7 downto 0);
+  signal gp_led_blue_intensity : std_logic_vector(7 downto 0);
+
+  signal end_led_green_intensity : std_logic_vector(7 downto 0);
+  signal end_led_red_intensity : std_logic_vector(7 downto 0);
+  signal end_led_blue_intensity : std_logic_vector(7 downto 0);
+
+  signal j1_led_green_intensity : std_logic_vector(7 downto 0);
+  signal j1_led_red_intensity : std_logic_vector(7 downto 0);
+  signal j1_led_blue_intensity : std_logic_vector(7 downto 0);
+
+  signal j2_led_green_intensity : std_logic_vector(7 downto 0);
+  signal j2_led_red_intensity : std_logic_vector(7 downto 0);
+  signal j2_led_blue_intensity : std_logic_vector(7 downto 0);
 begin
 
   menu_screen: entity work.menu_screen
@@ -75,9 +95,22 @@ begin
       
       led_number => current_led,
     
-      green_intensity => led_green_intensity,
-      red_intensity => led_red_intensity,
-      blue_intensity => led_blue_intensity
+      green_intensity => menu_led_green_intensity,
+      red_intensity => menu_led_red_intensity,
+      blue_intensity => menu_led_blue_intensity
+    );
+
+  menu_screen_p: entity work.pipe_tri_bus
+    port map(
+      enable => is_menu,
+
+      d_led_green_intensity => menu_led_green_intensity,
+      d_led_red_intensity => menu_led_red_intensity,
+      d_led_blue_intensity => menu_led_blue_intensity,
+
+      o_led_green_intensity => j1_led_green_intensity,
+      o_led_red_intensity => j1_led_red_intensity,
+      o_led_blue_intensity => j1_led_blue_intensity
     );
 
   WS2812B_gameplay_program: entity work.WS2812B_gameplay_program
@@ -91,9 +124,26 @@ begin
       
       led_number => current_led,
     
-      green_intensity => led_green_intensity,
-      red_intensity => led_red_intensity,
-      blue_intensity => led_blue_intensity
+      green_intensity => gp_led_green_intensity,
+      red_intensity => gp_led_red_intensity,
+      blue_intensity => gp_led_blue_intensity
+    );
+
+  WS2812B_gameplay_program_p: entity work.pipe_tri_bus
+    port map(
+      enable => is_gameplay,
+
+      d_led_green_intensity => gp_led_green_intensity,
+      d_led_red_intensity => gp_led_red_intensity,
+      d_led_blue_intensity => gp_led_blue_intensity,
+
+      i_led_green_intensity => j1_led_green_intensity,
+      i_led_red_intensity => j1_led_red_intensity,
+      i_led_blue_intensity => j1_led_blue_intensity,
+
+      o_led_green_intensity => j2_led_green_intensity,
+      o_led_red_intensity => j2_led_red_intensity,
+      o_led_blue_intensity => j2_led_blue_intensity
     );
     
   game_finished_program: entity work.game_finished_program
@@ -107,11 +157,27 @@ begin
       
       led_number => current_led,
     
-      green_intensity => led_green_intensity,
-      red_intensity => led_red_intensity,
-      blue_intensity => led_blue_intensity
+      green_intensity => end_led_green_intensity,
+      red_intensity => end_led_red_intensity,
+      blue_intensity => end_led_blue_intensity
     );
 
+  game_finished_program_p: entity work.pipe_tri_bus
+    port map(
+      enable => is_finished,
+
+      d_led_green_intensity => end_led_green_intensity,
+      d_led_red_intensity => end_led_red_intensity,
+      d_led_blue_intensity => end_led_blue_intensity,
+
+      i_led_green_intensity => j2_led_green_intensity,
+      i_led_red_intensity => j2_led_red_intensity,
+      i_led_blue_intensity => j2_led_blue_intensity,
+
+      o_led_green_intensity => led_green_intensity,
+      o_led_red_intensity => led_red_intensity,
+      o_led_blue_intensity => led_blue_intensity
+    );
 
   is_menu <= '1' when current_screen = "00" else '0';
   is_gameplay <= '1' when current_screen = "01" else '0';
