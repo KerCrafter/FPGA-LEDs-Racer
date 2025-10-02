@@ -64,9 +64,7 @@ begin
     end procedure;
   begin
     if enable = '0' then
-      green_intensity <= "ZZZZZZZZ";
-      red_intensity <= "ZZZZZZZZ";
-      blue_intensity <= "ZZZZZZZZ";
+      set_LED_off;
     elsif green_pos = max_pos-1 then
       set_LED_green;
     elsif red_pos = max_pos-1 then
@@ -75,6 +73,8 @@ begin
       set_LED_blue;
     elsif yellow_pos = max_pos-1 then
       set_LED_yellow;
+    else
+      set_LED_off;
     end if;
   end process;
 
