@@ -85,7 +85,7 @@ begin
   menu_screen: entity work.menu_screen
     generic map(max_pos => max_pos)
     port map(
-      enable => is_menu,
+      enable => '1',
       green_ready_to_play => green_ready_to_play,
       blue_ready_to_play => blue_ready_to_play,
       red_ready_to_play => red_ready_to_play,
@@ -116,7 +116,7 @@ begin
   WS2812B_gameplay_program: entity work.WS2812B_gameplay_program
     generic map(max_pos => max_pos)
     port map(
-      enable => is_gameplay,
+      enable => '1',
       red_pos => red_cur_pos,
       blue_pos => blue_cur_pos,
       green_pos => green_cur_pos,
@@ -149,7 +149,7 @@ begin
   game_finished_program: entity work.game_finished_program
     generic map(max_pos => max_pos)
     port map(
-      enable => is_finished,
+      enable => '1',
       red_pos => red_cur_pos,
       blue_pos => blue_cur_pos,
       green_pos => green_cur_pos,
