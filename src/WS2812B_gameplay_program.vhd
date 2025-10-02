@@ -100,9 +100,7 @@ begin
         end case;
 
     else
-      green_intensity <= "ZZZZZZZZ";
-      red_intensity <= "ZZZZZZZZ";
-      blue_intensity <= "ZZZZZZZZ";
+      set_LED_off;
     end if;
   end process;
 
