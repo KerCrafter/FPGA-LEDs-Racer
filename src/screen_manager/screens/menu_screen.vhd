@@ -8,7 +8,6 @@ entity menu_screen is
   );
 
   port (
-    enable : in std_logic;
     red_ready_to_play : in std_logic;
     blue_ready_to_play : in std_logic;
     green_ready_to_play : in std_logic;
@@ -27,7 +26,7 @@ end entity;
 architecture beh of menu_screen is
 begin
 
-  process(enable, led_number, red_ready_to_play, blue_ready_to_play, green_ready_to_play, yellow_ready_to_play, countdown)
+  process(led_number, red_ready_to_play, blue_ready_to_play, green_ready_to_play, yellow_ready_to_play, countdown)
     procedure set_GRB (green_intensity_i: integer range 0 to 255; red_intensity_i: integer range 0 to 255; blue_intensity_i: integer range 0 to 255) is
     begin
       green_intensity <= std_logic_vector(to_unsigned(green_intensity_i, 8));
@@ -52,9 +51,7 @@ begin
     countdown_ring_6 := led_number = 100 or led_number = 102 or led_number = 104 or led_number = 106;
     countdown_ring_7 := led_number = 108;
 
-    if enable = '0' then
-      set_GRB(0, 0, 0);
-    elsif countdown_ring_1 and countdown >= 7 then
+    if countdown_ring_1 and countdown >= 7 then
       set_GRB(5, 5, 5);
     elsif countdown_ring_2 and countdown >= 6 then
       set_GRB(5, 5, 5);

@@ -85,7 +85,6 @@ begin
   menu_screen: entity work.menu_screen
     generic map(max_pos => max_pos)
     port map(
-      enable => '1',
       green_ready_to_play => green_ready_to_play,
       blue_ready_to_play => blue_ready_to_play,
       red_ready_to_play => red_ready_to_play,
