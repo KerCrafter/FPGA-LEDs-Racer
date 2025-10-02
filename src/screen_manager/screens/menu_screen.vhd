@@ -53,9 +53,7 @@ begin
     countdown_ring_7 := led_number = 108;
 
     if enable = '0' then
-      green_intensity <= "ZZZZZZZZ";
-      red_intensity <= "ZZZZZZZZ";
-      blue_intensity <= "ZZZZZZZZ";
+      set_GRB(0, 0, 0);
     elsif countdown_ring_1 and countdown >= 7 then
       set_GRB(5, 5, 5);
     elsif countdown_ring_2 and countdown >= 6 then
