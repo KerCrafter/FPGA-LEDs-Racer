@@ -56,6 +56,8 @@ begin
   menu_screen: entity work.menu_screen
     generic map(max_pos => max_pos)
     port map(
+      enable => is_menu,
+
       green_ready_to_play => green_ready_to_play,
       blue_ready_to_play => blue_ready_to_play,
       red_ready_to_play => red_ready_to_play,
@@ -65,22 +67,9 @@ begin
       
       led_number => current_led,
     
-      green_intensity => menu_led_green_intensity,
-      red_intensity => menu_led_red_intensity,
-      blue_intensity => menu_led_blue_intensity
-    );
-
-  menu_screen_p: entity work.pipe_tri_bus
-    port map(
-      enable => is_menu,
-
-      d_led_green_intensity => menu_led_green_intensity,
-      d_led_red_intensity => menu_led_red_intensity,
-      d_led_blue_intensity => menu_led_blue_intensity,
-
-      o_led_green_intensity => j1_led_green_intensity,
-      o_led_red_intensity => j1_led_red_intensity,
-      o_led_blue_intensity => j1_led_blue_intensity
+      o_green_intensity => j1_led_green_intensity,
+      o_red_intensity => j1_led_red_intensity,
+      o_blue_intensity => j1_led_blue_intensity
     );
 
   WS2812B_gameplay_program: entity work.WS2812B_gameplay_program
