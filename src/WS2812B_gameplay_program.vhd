@@ -8,7 +8,6 @@ entity WS2812B_gameplay_program is
   );
 
   port (
-    enable : in std_logic;
     red_pos : in integer range 0 to max_pos-1;
     blue_pos : in integer range 0 to max_pos-1;
     green_pos : in integer range 0 to max_pos-1;
@@ -34,7 +33,7 @@ architecture beh of WS2812B_gameplay_program is
      end if;
   end function bool_to_logic;
 begin
-  process(enable, led_number, red_pos, blue_pos, green_pos, yellow_pos)
+  process(led_number, red_pos, blue_pos, green_pos, yellow_pos)
     variable players_into_the_led : std_logic_vector(3 downto 0);
     
     procedure set_GRB (green_intensity_i: integer range 0 to 255; red_intensity_i: integer range 0 to 255; blue_intensity_i: integer range 0 to 255) is
@@ -74,34 +73,28 @@ begin
       set_GRB(5, 5, 0);
     end procedure;
   begin
-  
-    if enable = '1' then
+    players_into_the_led := bool_to_logic(green_pos = led_number) & bool_to_logic(red_pos = led_number) & bool_to_logic(blue_pos = led_number) & bool_to_logic(yellow_pos = led_number);
 
-        players_into_the_led := bool_to_logic(green_pos = led_number) & bool_to_logic(red_pos = led_number) & bool_to_logic(blue_pos = led_number) & bool_to_logic(yellow_pos = led_number);
+    case players_into_the_led is
+      when "0000" =>
+        set_LED_off;
+        
+      when "1000" =>
+        set_LED_green;
+        
+      when "0100" =>
+        set_LED_red;
+        
+      when "0010" =>
+        set_LED_blue;
+        
+      when "0001" =>
+        set_LED_yellow;
 
-        case players_into_the_led is
-          when "0000" =>
-            set_LED_off;
-            
-          when "1000" =>
-            set_LED_green;
-            
-          when "0100" =>
-            set_LED_red;
-            
-          when "0010" =>
-            set_LED_blue;
-            
-          when "0001" =>
-            set_LED_yellow;
+      when others =>
+        set_LED_white;
+    end case;
 
-          when others =>
-            set_LED_white;
-        end case;
-
-    else
-      set_LED_off;
-    end if;
   end process;
 
 end architecture;
