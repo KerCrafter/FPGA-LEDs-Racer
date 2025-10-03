@@ -8,6 +8,7 @@ entity activity_detector is
     B : in std_logic;
     C : in std_logic;
     D : in std_logic;
+    E : in std_logic;
     
     R : out std_logic
   );
@@ -95,6 +96,6 @@ begin
     end if;
   end process;
 
-  R <= a_prc or b_prc or c_prc or d_prc or boot_activity;
+  R <= E or a_prc or b_prc or c_prc or d_prc or boot_activity;
 
 end architecture;

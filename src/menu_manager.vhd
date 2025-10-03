@@ -17,7 +17,8 @@ entity menu_manager is
     opt_with_menu: in std_logic;
 
     is_in_menu: out std_logic;
-    countdown: buffer integer range 0 to 7
+    countdown: buffer integer range 0 to 7;
+    activity: out std_logic
   );
 end entity;
 
@@ -63,5 +64,6 @@ begin
   end process;
 
   is_in_menu <= '1' when opt_with_menu = '1' and countdown_finished = '0' else '0';
+  activity <= menu_timer_tick;
 
 end architecture;

@@ -38,6 +38,7 @@ architecture structural of LEDs_racer_core is
   signal blue_activity : std_logic;
   signal green_activity : std_logic;
   signal yellow_activity : std_logic;
+  signal menu_activity : std_logic;
 
   signal current_screen : std_logic_vector(1 downto 0);
   signal is_in_menu : std_logic;
@@ -98,7 +99,8 @@ begin
       opt_with_menu => opt_with_menu,
 
       is_in_menu => is_in_menu,
-      countdown => countdown
+      countdown => countdown,
+      activity => menu_activity
     );
 
   
@@ -108,6 +110,7 @@ begin
     B => red_activity,
     C => blue_activity,
     D => yellow_activity,
+    E => menu_activity,
     
     R => update_frame
   );
