@@ -30,11 +30,6 @@ begin
     player_press_his_button_during(20 ns, SUT.players_commands.red);
     player_press_his_button_during(20 ns, SUT.players_commands.green);
 
-    generate_clk_edges(
-      count => 1,
-      clk => SUT.clk
-    );
-
     assert_LED_should_be_white(SUT, SUT.current_led, test_status, 0);
 
     assert_LED_should_be_red_for_range(
