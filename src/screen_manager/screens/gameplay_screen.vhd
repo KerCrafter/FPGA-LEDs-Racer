@@ -17,9 +17,9 @@ entity gameplay_screen is
     
     led_number : in integer range 0 to max_pos-1;
 
-    i_red_intensity : out std_logic_vector(7 downto 0);
-    i_blue_intensity : out std_logic_vector(7 downto 0);
-    i_green_intensity : out std_logic_vector(7 downto 0);
+    i_red_intensity : in std_logic_vector(7 downto 0);
+    i_blue_intensity : in std_logic_vector(7 downto 0);
+    i_green_intensity : in std_logic_vector(7 downto 0);
   
     o_red_intensity : out std_logic_vector(7 downto 0);
     o_blue_intensity : out std_logic_vector(7 downto 0);
