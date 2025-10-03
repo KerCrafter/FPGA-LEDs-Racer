@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity game_finished_program is
+entity end_screen is
   generic (
     max_pos : integer := 109
   );
@@ -28,7 +28,7 @@ entity game_finished_program is
 end entity;
 
 
-architecture beh of game_finished_program is
+architecture beh of end_screen is
     signal red_intensity : std_logic_vector(7 downto 0);
     signal blue_intensity : std_logic_vector(7 downto 0);
     signal green_intensity : std_logic_vector(7 downto 0);

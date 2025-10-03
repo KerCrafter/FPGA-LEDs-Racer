@@ -89,7 +89,7 @@ begin
       o_blue_intensity => j2_led_blue_intensity
     );
     
-  game_finished_program: entity work.game_finished_program
+  end_screen: entity work.end_screen
     generic map(max_pos => max_pos)
     port map(
       enable => is_finished,
