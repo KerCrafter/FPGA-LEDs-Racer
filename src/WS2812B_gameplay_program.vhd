@@ -8,21 +8,30 @@ entity WS2812B_gameplay_program is
   );
 
   port (
+    enable : in std_logic;
+
     red_pos : in integer range 0 to max_pos-1;
     blue_pos : in integer range 0 to max_pos-1;
     green_pos : in integer range 0 to max_pos-1;
     yellow_pos : in integer range 0 to max_pos-1;
     
     led_number : in integer range 0 to max_pos-1;
+
+    i_red_intensity : out std_logic_vector(7 downto 0);
+    i_blue_intensity : out std_logic_vector(7 downto 0);
+    i_green_intensity : out std_logic_vector(7 downto 0);
   
-    red_intensity : out std_logic_vector(7 downto 0);
-    blue_intensity : out std_logic_vector(7 downto 0);
-    green_intensity : out std_logic_vector(7 downto 0)
+    o_red_intensity : out std_logic_vector(7 downto 0);
+    o_blue_intensity : out std_logic_vector(7 downto 0);
+    o_green_intensity : out std_logic_vector(7 downto 0)
   );
 end entity;
 
 
 architecture beh of WS2812B_gameplay_program is
+  signal red_intensity : std_logic_vector(7 downto 0);
+  signal blue_intensity : std_logic_vector(7 downto 0);
+  signal green_intensity : std_logic_vector(7 downto 0);
 
   function bool_to_logic(b: boolean) return std_logic is
   begin
@@ -33,6 +42,24 @@ architecture beh of WS2812B_gameplay_program is
      end if;
   end function bool_to_logic;
 begin
+
+  pipe_tri_bus: entity work.pipe_tri_bus
+    port map(
+      enable => enable,
+
+      i_led_red_intensity => i_red_intensity,
+      i_led_blue_intensity => i_blue_intensity,
+      i_led_green_intensity => i_green_intensity,
+
+      d_led_green_intensity => green_intensity,
+      d_led_red_intensity => red_intensity,
+      d_led_blue_intensity => blue_intensity,
+
+      o_led_green_intensity => o_green_intensity,
+      o_led_red_intensity => o_red_intensity,
+      o_led_blue_intensity => o_blue_intensity
+    );
+
   process(led_number, red_pos, blue_pos, green_pos, yellow_pos)
     variable players_into_the_led : std_logic_vector(3 downto 0);
     

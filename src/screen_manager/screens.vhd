@@ -71,33 +71,22 @@ begin
   WS2812B_gameplay_program: entity work.WS2812B_gameplay_program
     generic map(max_pos => max_pos)
     port map(
+      enable => is_gameplay,
+
       red_pos => red_cur_pos,
       blue_pos => blue_cur_pos,
       green_pos => green_cur_pos,
       yellow_pos => yellow_cur_pos,
       
       led_number => current_led,
+
+      i_green_intensity => j1_led_green_intensity,
+      i_red_intensity => j1_led_red_intensity,
+      i_blue_intensity => j1_led_blue_intensity,
     
-      green_intensity => gp_led_green_intensity,
-      red_intensity => gp_led_red_intensity,
-      blue_intensity => gp_led_blue_intensity
-    );
-
-  WS2812B_gameplay_program_p: entity work.pipe_tri_bus
-    port map(
-      enable => is_gameplay,
-
-      d_led_green_intensity => gp_led_green_intensity,
-      d_led_red_intensity => gp_led_red_intensity,
-      d_led_blue_intensity => gp_led_blue_intensity,
-
-      i_led_green_intensity => j1_led_green_intensity,
-      i_led_red_intensity => j1_led_red_intensity,
-      i_led_blue_intensity => j1_led_blue_intensity,
-
-      o_led_green_intensity => j2_led_green_intensity,
-      o_led_red_intensity => j2_led_red_intensity,
-      o_led_blue_intensity => j2_led_blue_intensity
+      o_green_intensity => j2_led_green_intensity,
+      o_red_intensity => j2_led_red_intensity,
+      o_blue_intensity => j2_led_blue_intensity
     );
     
   game_finished_program: entity work.game_finished_program
