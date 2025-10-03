@@ -68,7 +68,7 @@ begin
       o_blue_intensity => j1_led_blue_intensity
     );
 
-  WS2812B_gameplay_program: entity work.WS2812B_gameplay_program
+  gameplay_screen: entity work.gameplay_screen
     generic map(max_pos => max_pos)
     port map(
       enable => is_gameplay,
