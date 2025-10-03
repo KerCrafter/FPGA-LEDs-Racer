@@ -92,33 +92,22 @@ begin
   game_finished_program: entity work.game_finished_program
     generic map(max_pos => max_pos)
     port map(
+      enable => is_finished,
+
       red_pos => red_cur_pos,
       blue_pos => blue_cur_pos,
       green_pos => green_cur_pos,
       yellow_pos => yellow_cur_pos,
       
       led_number => current_led,
+
+      i_green_intensity => j2_led_green_intensity,
+      i_red_intensity => j2_led_red_intensity,
+      i_blue_intensity => j2_led_blue_intensity,
     
-      green_intensity => end_led_green_intensity,
-      red_intensity => end_led_red_intensity,
-      blue_intensity => end_led_blue_intensity
-    );
-
-  game_finished_program_p: entity work.pipe_tri_bus
-    port map(
-      enable => is_finished,
-
-      d_led_green_intensity => end_led_green_intensity,
-      d_led_red_intensity => end_led_red_intensity,
-      d_led_blue_intensity => end_led_blue_intensity,
-
-      i_led_green_intensity => j2_led_green_intensity,
-      i_led_red_intensity => j2_led_red_intensity,
-      i_led_blue_intensity => j2_led_blue_intensity,
-
-      o_led_green_intensity => led_green_intensity,
-      o_led_red_intensity => led_red_intensity,
-      o_led_blue_intensity => led_blue_intensity
+      o_green_intensity => led_green_intensity,
+      o_red_intensity => led_red_intensity,
+      o_blue_intensity => led_blue_intensity
     );
 
   is_menu <= '1' when current_screen = "00" else '0';
