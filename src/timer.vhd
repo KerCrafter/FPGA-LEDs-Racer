@@ -35,6 +35,6 @@ begin
 
   end process;
 
-  tick <= '1' when enable = '1' and cnt = 0 else '0';
+  tick <= '1' when enable = '1' and cnt = 1 else '0';
 
 end architecture;

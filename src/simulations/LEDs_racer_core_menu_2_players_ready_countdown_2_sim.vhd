@@ -31,6 +31,11 @@ begin
     player_press_his_button_during(20 ns, SUT.players_commands.green);
 
     generate_clk_edges(
+      count => 1,
+      clk => SUT.clk
+    );
+
+    generate_clk_edges(
       count => 5,
       clk => SUT.clk
     );
