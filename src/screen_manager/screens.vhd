@@ -32,10 +32,6 @@ architecture structural of screens is
   signal is_gameplay : std_logic;
   signal is_finished : std_logic;
 
-  signal menu_led_green_intensity : std_logic_vector(7 downto 0);
-  signal menu_led_red_intensity : std_logic_vector(7 downto 0);
-  signal menu_led_blue_intensity : std_logic_vector(7 downto 0);
-
   signal gp_led_green_intensity : std_logic_vector(7 downto 0);
   signal gp_led_red_intensity : std_logic_vector(7 downto 0);
   signal gp_led_blue_intensity : std_logic_vector(7 downto 0);
