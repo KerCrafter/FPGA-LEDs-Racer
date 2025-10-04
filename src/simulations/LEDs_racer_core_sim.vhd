@@ -24,51 +24,11 @@ begin
   SIMULATION: process
   begin
 
-    SUT.opt_with_menu <= '1';
-
-    wait for 1 ps; 
-
-    player_press_his_button_during(20 ns, SUT.players_commands.red);
-    player_press_his_button_during(20 ns, SUT.players_commands.green);
-
-    generate_clk_edges(
-      count => 1,
-      clk => SUT.clk
-    );
-
-    generate_clk_edges(
-      count => 5,
-      clk => SUT.clk
-    );
-
-    generate_clk_edges(
-      count => 5,
-      clk => SUT.clk
-    );
-
-    generate_clk_edges(
-      count => 5,
-      clk => SUT.clk
-    );
-
-    generate_clk_edges(
-      count => 5,
-      clk => SUT.clk
-    );
-
-    generate_clk_edges(
-      count => 5,
-      clk => SUT.clk
-    );
-
-    generate_clk_edges(
-      count => 5,
-      clk => SUT.clk
-    );
-
-    generate_clk_edges(
-      count => 5,
-      clk => SUT.clk
+    wait_until_gameplay_start_for_2_players(
+      player1 => SUT.players_commands.red,
+      player2 => SUT.players_commands.green,
+      clk => SUT.clk,
+      opt_with_menu => SUT.opt_with_menu
     );
 
     assert_LED_should_be_white(SUT, SUT.current_led, test_status, 0);
