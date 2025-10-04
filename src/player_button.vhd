@@ -26,7 +26,7 @@ begin
         ready_to_play <= '1';
       end if;
 
-      if current_screen = "01" then -- and ready_to_play = '1' then
+      if current_screen = "01" and ready_to_play = '1' then
         cur_pos_s <= cur_pos_s + 1;
       end if;
     end if;
