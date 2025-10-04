@@ -5,6 +5,7 @@ use work.test_status_pkg.all;
 use work.players_commands_pkg.all;
 use work.sut_pkg.all;
 use work.assertions_pkg.all;
+use work.player_interactions_test_pkg.all;
 
 entity LEDs_racer_core_sim is
   port (
@@ -23,7 +24,53 @@ begin
   SIMULATION: process
   begin
 
-    wait for 1 ps;
+    SUT.opt_with_menu <= '1';
+
+    wait for 1 ps; 
+
+    player_press_his_button_during(20 ns, SUT.players_commands.red);
+    player_press_his_button_during(20 ns, SUT.players_commands.green);
+
+    generate_clk_edges(
+      count => 1,
+      clk => SUT.clk
+    );
+
+    generate_clk_edges(
+      count => 5,
+      clk => SUT.clk
+    );
+
+    generate_clk_edges(
+      count => 5,
+      clk => SUT.clk
+    );
+
+    generate_clk_edges(
+      count => 5,
+      clk => SUT.clk
+    );
+
+    generate_clk_edges(
+      count => 5,
+      clk => SUT.clk
+    );
+
+    generate_clk_edges(
+      count => 5,
+      clk => SUT.clk
+    );
+
+    generate_clk_edges(
+      count => 5,
+      clk => SUT.clk
+    );
+
+    generate_clk_edges(
+      count => 5,
+      clk => SUT.clk
+    );
+
     assert_LED_should_be_white(SUT, SUT.current_led, test_status, 0);
     
     assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 1);
