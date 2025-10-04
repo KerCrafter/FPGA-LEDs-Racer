@@ -22,6 +22,14 @@ begin
   
   SIMULATION: process
   begin 
+
+    wait_until_gameplay_start_for_2_players(
+      player1 => SUT.players_commands.green,
+      player2 => SUT.players_commands.yellow,
+      clk => SUT.clk,
+      opt_with_menu => SUT.opt_with_menu
+    );
+
     for k in 1 to 109 loop
       player_press_his_button_during(20 ns, SUT.players_commands.yellow);
     end loop;
@@ -37,20 +45,6 @@ begin
     -- try move GREEN player
     for k in 1 to 109 loop
       player_press_his_button_during(20 ns, SUT.players_commands.green);
-    end loop;
-    
-    assert_all_LEDs_should_be_YELLOW(SUT, SUT.current_led, test_status);
-
-    -- try move RED player
-    for k in 1 to 109 loop
-      player_press_his_button_during(20 ns, SUT.players_commands.red);
-    end loop;
-    
-    assert_all_LEDs_should_be_YELLOW(SUT, SUT.current_led, test_status);
-
-    -- try move BLUE player
-    for k in 1 to 109 loop
-      player_press_his_button_during(20 ns, SUT.players_commands.blue);
     end loop;
     
     assert_all_LEDs_should_be_YELLOW(SUT, SUT.current_led, test_status);
