@@ -9,8 +9,6 @@ package sut_pkg is
     clk : std_logic;
 
     players_commands : t_PLAYERS_COMMANDS;
-
-    opt_with_menu : std_logic;
     
     current_led : integer range 0 to 108;
     led_green_intensity : std_logic_vector(7 downto 0);
@@ -22,7 +20,6 @@ package sut_pkg is
   constant SUT_INIT : LEDs_racer_core_SUT_interface := (
     clk => '0',
     players_commands => PLAYERS_COMMANDS_INIT,
-    opt_with_menu => '0',
     current_led => 0,
     led_green_intensity => "00000000",
     led_red_intensity => "00000000",

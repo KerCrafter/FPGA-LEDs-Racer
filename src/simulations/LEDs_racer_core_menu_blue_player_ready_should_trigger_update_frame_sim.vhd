@@ -23,10 +23,6 @@ begin
   
   SIMULATION: process
   begin
-    SUT.opt_with_menu <= '1';
-
-    wait for 1 ps; 
-
     SUT.players_commands.blue <= '1';
 
     assert_update_frame_HIGH_only_during_1_clk_edge(

@@ -17,8 +17,7 @@ package player_interactions_test_pkg is
   procedure wait_until_gameplay_start_for_2_players(
     signal player1 : out std_logic;
     signal player2 : out std_logic;
-    signal clk : out std_logic;
-    signal opt_with_menu : out std_logic
+    signal clk : out std_logic
   );
 
 end package;
@@ -52,8 +51,7 @@ package body player_interactions_test_pkg is
   procedure wait_until_gameplay_start_for_2_players(
     signal player1 : out std_logic;
     signal player2 : out std_logic;
-    signal clk : out std_logic;
-    signal opt_with_menu : out std_logic
+    signal clk : out std_logic
   ) is
   begin
     player_press_his_button_during(20 ns, player1);

@@ -26,8 +26,7 @@ begin
     wait_until_gameplay_start_for_2_players(
       player1 => SUT.players_commands.red,
       player2 => SUT.players_commands.green,
-      clk => SUT.clk,
-      opt_with_menu => SUT.opt_with_menu
+      clk => SUT.clk
     );
 
     for k in 1 to 109 loop

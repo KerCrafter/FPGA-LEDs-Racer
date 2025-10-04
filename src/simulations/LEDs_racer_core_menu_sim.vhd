@@ -22,10 +22,6 @@ begin
   
   SIMULATION: process
   begin
-    SUT.opt_with_menu <= '1';
-
-    wait for 20 ns; 
-
     assert_all_LEDs_should_lightoff(SUT, SUT.current_led, test_status);
   
     SIMULATION_END(test_status);
