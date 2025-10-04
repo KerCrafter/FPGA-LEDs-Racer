@@ -21,8 +21,6 @@ begin
       clk => sut_interface.clk,
 
       players_commands => sut_interface.players_commands,
-
-      opt_with_menu => sut_interface.opt_with_menu,
     
       current_led => sut_interface.current_led,
       led_green_intensity => sut_interface.led_green_intensity,

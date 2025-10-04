@@ -56,11 +56,6 @@ package body player_interactions_test_pkg is
     signal opt_with_menu : out std_logic
   ) is
   begin
-
-    opt_with_menu <= '1';
-
-    wait for 1 ps; 
-
     player_press_his_button_during(20 ns, player1);
     player_press_his_button_during(20 ns, player2);
 

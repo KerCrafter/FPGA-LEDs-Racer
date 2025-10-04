@@ -13,8 +13,6 @@ entity LEDs_racer_core is
     clk : in std_logic;
 
     players_commands : in t_PLAYERS_COMMANDS;
-
-    opt_with_menu : in std_logic := '1';
     
     current_led : in integer range 0 to max_pos-1;
     led_green_intensity : out std_logic_vector(7 downto 0);
@@ -95,8 +93,6 @@ begin
       red_ready_to_play => red_ready_to_play,
       blue_ready_to_play => blue_ready_to_play,
       yellow_ready_to_play => yellow_ready_to_play,
-
-      opt_with_menu => opt_with_menu,
 
       is_in_menu => is_in_menu,
       countdown => countdown,
