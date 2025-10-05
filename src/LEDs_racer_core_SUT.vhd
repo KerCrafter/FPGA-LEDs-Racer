@@ -15,7 +15,8 @@ begin
   SUT: entity work.LEDs_racer_core
     generic map(
       max_pos => 109,
-      MENU_TIMER_CLK_COUNT => 5
+      MENU_TIMER_CLK_COUNT => 5,
+      END_TIMER_CLK_COUNT => 15
     )
     port map (
       clk => sut_interface.clk,

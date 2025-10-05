@@ -6,7 +6,8 @@ use work.players_commands_pkg.all;
 entity LEDs_racer_core is
   generic (
     max_pos : integer := 16;
-    MENU_TIMER_CLK_COUNT : integer := 50000000
+    MENU_TIMER_CLK_COUNT : integer := 50000000; -- with 50Mhz = 1 second
+    END_TIMER_CLK_COUNT : integer := 750000000 -- with 50Mhz = 15 seconds
   );
 
   port(
@@ -109,7 +110,7 @@ begin
 
   end_timer: entity work.timer
     generic map(
-      CLK_COUNT => 15
+      CLK_COUNT => END_TIMER_CLK_COUNT
     )
     port map(
       clk => clk,
