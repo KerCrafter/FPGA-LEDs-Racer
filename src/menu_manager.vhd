@@ -14,6 +14,8 @@ entity menu_manager is
     blue_ready_to_play: in std_logic;
     yellow_ready_to_play: in std_logic;
 
+    reset: in std_logic;
+
     is_in_menu: out std_logic;
     countdown: buffer integer range 0 to 7;
     activity: out std_logic
@@ -47,8 +49,13 @@ begin
       tick => menu_timer_tick
     );
 
-  process(menu_timer_tick)
+  process(menu_timer_tick, reset)
   begin
+    if rising_edge(reset) then
+      countdown <= 0;
+      countdown_finished <= '0';
+    end if;
+
     if rising_edge(menu_timer_tick) then
       if countdown = 0 then
         countdown <= 7;

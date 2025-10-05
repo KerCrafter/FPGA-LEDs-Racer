@@ -19,7 +19,8 @@ begin
     btn => btn,
     activity => activity,
     cur_pos => cur_pos,
-    ready_to_play => ready_to_play
+    ready_to_play => ready_to_play,
+    reset => '0'
   );
 
   CLK_STIM: process

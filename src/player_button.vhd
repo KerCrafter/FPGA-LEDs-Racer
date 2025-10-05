@@ -10,6 +10,7 @@ entity player_button is
   port (
     btn : in std_logic;
     current_screen : in std_logic_vector(1 downto 0);
+    reset : in std_logic;
     cur_pos : out integer range 0 to max_pos-1;
     activity : out std_logic := '0';
     ready_to_play : out std_logic := '0'
@@ -19,8 +20,15 @@ end entity;
 architecture beh of player_button is
   signal cur_pos_s : integer range 0 to max_pos-1;
 begin
-  process(btn)
+
+  process(btn, reset)
   begin
+
+    if rising_edge(reset) then
+      cur_pos_s <= 0;
+      ready_to_play <= '0';
+    end if;
+
     if rising_edge(btn) then
       if current_screen = "00" then
         ready_to_play <= '1';

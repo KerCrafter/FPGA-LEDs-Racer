@@ -42,6 +42,8 @@ architecture structural of LEDs_racer_core is
   signal is_in_menu : std_logic;
   signal countdown : integer range 0 to 7;
 
+  signal end_timer_enable : std_logic;
+  signal reset_all : std_logic;
 begin
   red_btn: entity work.player_button
     generic map(max_pos => max_pos)
@@ -50,7 +52,8 @@ begin
       cur_pos => red_cur_pos,
       activity => red_activity,
       current_screen => current_screen,
-      ready_to_play => red_ready_to_play
+      ready_to_play => red_ready_to_play,
+      reset => reset_all
     );
   
   blue_btn: entity work.player_button
@@ -60,7 +63,8 @@ begin
       cur_pos => blue_cur_pos,
       activity => blue_activity,
       current_screen => current_screen,
-      ready_to_play => blue_ready_to_play
+      ready_to_play => blue_ready_to_play,
+      reset => reset_all
     );
   
   green_btn: entity work.player_button
@@ -70,7 +74,8 @@ begin
       cur_pos => green_cur_pos,
       activity => green_activity,
       current_screen => current_screen,
-      ready_to_play => green_ready_to_play
+      ready_to_play => green_ready_to_play,
+      reset => reset_all
     );
   
   yellow_btn: entity work.player_button
@@ -80,7 +85,8 @@ begin
       cur_pos => yellow_cur_pos,
       activity => yellow_activity,
       current_screen => current_screen,
-      ready_to_play => yellow_ready_to_play
+      ready_to_play => yellow_ready_to_play,
+      reset => reset_all
     );
 
   menu_manager: entity work.menu_manager
@@ -94,11 +100,22 @@ begin
       blue_ready_to_play => blue_ready_to_play,
       yellow_ready_to_play => yellow_ready_to_play,
 
+      reset => reset_all,
+
       is_in_menu => is_in_menu,
       countdown => countdown,
       activity => menu_activity
     );
 
+  end_timer: entity work.timer
+    generic map(
+      CLK_COUNT => 15
+    )
+    port map(
+      clk => clk,
+      enable => end_timer_enable,
+      tick => reset_all
+    );
   
   activity_detector: entity work.activity_detector port map(
     clk => clk,
@@ -136,5 +153,7 @@ begin
       led_red_intensity => led_red_intensity,
       led_blue_intensity => led_blue_intensity
     );
+
+  end_timer_enable <= '1' when current_screen = "10" else '0';
 
 end architecture;

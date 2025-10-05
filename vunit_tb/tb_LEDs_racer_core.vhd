@@ -41,6 +41,7 @@ architecture tb of tb_leds_racer_core is
   signal menu_yellow_player_ready_should_trigger_update_frame_ts : t_TEST_STATUS;
   signal menu_2_players_ready_after_eq_1sec_should_trigger_update_frame_ts : t_TEST_STATUS;
   signal only_ready_players_able_to_play_ts : t_TEST_STATUS;
+  signal game_end_after_timer_should_reinit_game_ts : t_TEST_STATUS;
 begin
 
   MAIN_SIM: entity work.LEDs_racer_core_sim
@@ -117,6 +118,9 @@ begin
 
   ONLY_READY_PLAYERS_ABLE_TO_PLAY_SIM : entity work.LEDs_racer_core_only_ready_players_able_to_play_sim
     port map( test_status => only_ready_players_able_to_play_ts );
+
+  GAME_END_AFTER_TIMER_SHOULD_REINIT_GAME : entity work.LEDs_racer_core_game_end_after_timer_should_reinit_game_sim
+    port map( test_status => game_end_after_timer_should_reinit_game_ts );
   
   RUN_TESTS : process
   begin
@@ -198,6 +202,9 @@ begin
 
       elsif run("only_ready_players_able_to_play") then
         declare_simulation(only_ready_players_able_to_play_ts);
+
+      elsif run("game_end_after_timer_should_reinit_game") then
+        declare_simulation(game_end_after_timer_should_reinit_game_ts);
 
       end if;
 
