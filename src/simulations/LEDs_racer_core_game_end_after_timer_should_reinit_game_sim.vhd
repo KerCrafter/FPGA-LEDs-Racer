@@ -30,7 +30,7 @@ begin
     );
 
     for k in 1 to 109 loop
-      player_press_his_button_during(20 ns, SUT.players_commands.green);
+      player_press_his_button_during(20 ns, SUT.clk, SUT.players_commands.green);
     end loop;
 
     generate_clk_edges(

@@ -3,7 +3,8 @@ use ieee.std_logic_1164.all;
 
 entity timer is
   generic (
-    CLK_COUNT : integer
+    CLK_COUNT : integer;
+    FIRST_TICK_AFTER_DELAY : boolean := false
   );
   port (
     clk : in std_logic;
@@ -35,6 +36,6 @@ begin
 
   end process;
 
-  tick <= '1' when enable = '1' and cnt = 1 else '0';
+  tick <= '1' when (FIRST_TICK_AFTER_DELAY = false and enable = '1' and cnt = 1) or (FIRST_TICK_AFTER_DELAY = true and enable = '1' and cnt = CLK_COUNT - 1) else '0';
 
 end architecture;

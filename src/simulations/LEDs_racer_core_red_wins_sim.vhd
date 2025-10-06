@@ -30,13 +30,13 @@ begin
     );
 
     for k in 1 to 109 loop
-      player_press_his_button_during(20 ns, SUT.players_commands.red);
+      player_press_his_button_during(20 ns, SUT.clk, SUT.players_commands.red);
     end loop;
     
     assert_all_LEDs_should_be_RED(SUT, SUT.current_led, test_status);
 
     -- Game is END Should lock RED actions
-    player_press_his_button_during(20 ns, SUT.players_commands.red); --RED player STAY in position 109
+    player_press_his_button_during(20 ns, SUT.clk, SUT.players_commands.red); --RED player STAY in position 109
 
     assert_all_LEDs_should_be_RED(SUT, SUT.current_led, test_status);
 

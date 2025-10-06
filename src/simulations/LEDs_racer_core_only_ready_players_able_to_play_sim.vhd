@@ -29,7 +29,7 @@ begin
       clk => SUT.clk
     );
 
-    player_press_his_button_during(20 ns, SUT.players_commands.blue);
+    player_press_his_button_during(20 ns, SUT.clk, SUT.players_commands.blue);
 
     assert_LED_should_be_white(SUT, SUT.current_led, test_status, 0);
     assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 1);

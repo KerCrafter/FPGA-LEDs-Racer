@@ -23,11 +23,12 @@ begin
   
   SIMULATION: process
   begin
-    player_press_his_button_during(20 ns, SUT.players_commands.red);
-    player_press_his_button_during(20 ns, SUT.players_commands.yellow);
+    player_press_his_button_during(20 ns, SUT.clk, SUT.players_commands.red);
+    player_press_his_button_during(20 ns, SUT.clk, SUT.players_commands.yellow);
 
+    --wait time
     generate_clk_edges(
-      count => 1,
+      count => 2,
       clk => SUT.clk
     );
 

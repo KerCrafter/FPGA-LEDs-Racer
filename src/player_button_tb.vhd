@@ -16,6 +16,7 @@ begin
 
   UUT: entity work.player_button port map (
     current_screen => current_screen,
+    clk => clk,
     btn => btn,
     activity => activity,
     cur_pos => cur_pos,

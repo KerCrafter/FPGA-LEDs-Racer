@@ -27,6 +27,9 @@ architecture structural of menu_manager is
   signal countdown_finished : std_logic := '0';
 
   signal menu_timer_tick : std_logic;
+
+  type state_t is (WAIT_INTERACT, WHEN_RESET, WHEN_TIMER_TICK);
+  signal state : state_t := WAIT_INTERACT;
 begin
 
   ready_trigger_countdown: entity work.ready_trigger_countdown
@@ -49,23 +52,37 @@ begin
       tick => menu_timer_tick
     );
 
-  process(menu_timer_tick, reset)
+  process(clk)
   begin
-    if rising_edge(reset) then
-      countdown <= 0;
-      countdown_finished <= '0';
-    end if;
+    if rising_edge(clk) then
+      case state is
+        when WAIT_INTERACT =>
+          if menu_timer_tick = '1' then
+            state <= WHEN_TIMER_TICK;
+          end if;
 
-    if rising_edge(menu_timer_tick) then
-      if countdown = 0 then
-        countdown <= 7;
-      elsif countdown = 1 then
-        countdown_finished <= '1';
-      else
-        countdown <= countdown - 1;
-      end if;
-    end if;
+          if reset = '1' then
+            state <= WHEN_RESET;
+          end if;
 
+        when WHEN_TIMER_TICK =>
+          state <= WAIT_INTERACT;
+
+          if countdown = 0 then
+            countdown <= 7;
+          elsif countdown = 1 then
+            countdown_finished <= '1';
+          else
+            countdown <= countdown - 1;
+          end if;
+
+        when WHEN_RESET =>
+          state <= WAIT_INTERACT;
+
+          countdown <= 0;
+          countdown_finished <= '0';
+      end case;
+    end if;
   end process;
 
   is_in_menu <= '1' when countdown_finished = '0' else '0';

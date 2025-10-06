@@ -9,7 +9,8 @@ entity activity_detector is
     C : in std_logic;
     D : in std_logic;
     E : in std_logic;
-    
+    F : in std_logic;
+
     R : out std_logic
   );
 end entity;
@@ -29,6 +30,8 @@ architecture beha of activity_detector is
   signal d_lock : std_logic := '0';
   signal e_prc : std_logic := '0';
   signal e_lock : std_logic := '0';
+  signal f_prc : std_logic := '0';
+  signal f_lock : std_logic := '0';
 begin
 
   process(clk)
@@ -107,9 +110,22 @@ begin
       if e_lock = '1' and E = '0' then
         e_lock <= '0';
       end if;
+
+      if f_prc = '0' and F = '1' then
+        f_prc <= '1';
+        f_lock <= '1';
+      end if;
+
+      if f_lock = '1' then
+        f_prc <= '0';
+      end if;
+
+      if f_lock = '1' and F = '0' then
+        f_lock <= '0';
+      end if;
     end if;
   end process;
 
-  R <= a_prc or b_prc or c_prc or d_prc or e_prc or boot_activity;
+  R <= a_prc or b_prc or c_prc or d_prc or e_prc or f_prc or boot_activity;
 
 end architecture;
