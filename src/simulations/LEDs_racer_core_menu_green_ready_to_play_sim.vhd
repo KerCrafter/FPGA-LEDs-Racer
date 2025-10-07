@@ -51,6 +51,14 @@ begin
       test_status => test_status
     );
 
+    assert_LED_should_be_green_for_range(
+      from_led => 77,
+      to_led => 79,
+      sut => SUT,
+      current_led_sig => SUT.current_led,
+      test_status => test_status
+    );
+
     assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 14);
 
     SIMULATION_END(test_status);
