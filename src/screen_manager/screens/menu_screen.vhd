@@ -91,7 +91,7 @@ begin
       set_GRB(5, 5, 5);
     elsif countdown_ring_7 and countdown >= 1 then
       set_GRB(5, 5, 5);
-    elsif red_ready_to_play = '1' and ((led_number >= 1 and led_number <= 6) or (led_number >= 29 and led_number <= 33)) then
+    elsif red_ready_to_play = '1' and ((led_number >= 1 and led_number <= 6) or (led_number >= 29 and led_number <= 33) or (led_number >= 53 and led_number <= 56)) then
       set_GRB(0, 5, 0);
     elsif green_ready_to_play = '1' and led_number >= 8 and led_number <= 13 then
       set_GRB(5, 0, 0);
