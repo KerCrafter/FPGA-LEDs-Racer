@@ -93,7 +93,7 @@ begin
       set_GRB(5, 5, 5);
     elsif red_ready_to_play = '1' and ((led_number >= 1 and led_number <= 6) or (led_number >= 29 and led_number <= 33) or (led_number >= 53 and led_number <= 56) or (led_number >= 73 and led_number <= 75) or (led_number >= 89 and led_number <= 90) or led_number = 101) then
       set_GRB(0, 5, 0);
-    elsif green_ready_to_play = '1' and ((led_number >= 8 and led_number <= 13) or (led_number >= 35 and led_number <= 39) or (led_number >= 58 and led_number <= 61) or (led_number >= 77 and led_number <= 79) or (led_number >= 95 and led_number <= 96)) then
+    elsif green_ready_to_play = '1' and ((led_number >= 8 and led_number <= 13) or (led_number >= 35 and led_number <= 39) or (led_number >= 58 and led_number <= 61) or (led_number >= 77 and led_number <= 79) or (led_number >= 95 and led_number <= 96) or led_number = 105) then
       set_GRB(5, 0, 0);
     elsif blue_ready_to_play = '1' and led_number >= 15 and led_number <= 20 then
       set_GRB(0, 0, 5);

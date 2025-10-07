@@ -67,6 +67,8 @@ begin
       test_status => test_status
     );
 
+    assert_LED_should_be_green(SUT, SUT.current_led, test_status, 105);
+
     assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 14);
 
     SIMULATION_END(test_status);
