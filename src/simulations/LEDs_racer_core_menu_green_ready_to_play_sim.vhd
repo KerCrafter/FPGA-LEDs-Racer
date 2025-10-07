@@ -60,14 +60,14 @@ begin
     );
 
     assert_LED_should_be_green_for_range(
-      from_led => 95,
-      to_led => 96,
+      from_led => 92,
+      to_led => 93,
       sut => SUT,
       current_led_sig => SUT.current_led,
       test_status => test_status
     );
 
-    assert_LED_should_be_green(SUT, SUT.current_led, test_status, 105);
+    assert_LED_should_be_green(SUT, SUT.current_led, test_status, 103);
 
     assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 14);
 

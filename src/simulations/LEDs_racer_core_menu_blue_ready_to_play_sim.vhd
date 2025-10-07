@@ -35,6 +35,40 @@ begin
       test_status => test_status
     );
 
+    assert_LED_should_be_blue_for_range(
+      from_led => 41,
+      to_led => 45,
+      sut => SUT,
+      current_led_sig => SUT.current_led,
+      test_status => test_status
+    );
+
+    assert_LED_should_be_blue_for_range(
+      from_led => 63,
+      to_led => 66,
+      sut => SUT,
+      current_led_sig => SUT.current_led,
+      test_status => test_status
+    );
+
+    assert_LED_should_be_blue_for_range(
+      from_led => 81,
+      to_led => 83,
+      sut => SUT,
+      current_led_sig => SUT.current_led,
+      test_status => test_status
+    );
+
+    assert_LED_should_be_blue_for_range(
+      from_led => 95,
+      to_led => 96,
+      sut => SUT,
+      current_led_sig => SUT.current_led,
+      test_status => test_status
+    );
+
+    assert_LED_should_be_blue(SUT, SUT.current_led, test_status, 105);
+
     assert_LED_should_lightoff(SUT, SUT.current_led, test_status, 21);
 
     SIMULATION_END(test_status);
