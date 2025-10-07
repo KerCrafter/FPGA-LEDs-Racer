@@ -29,33 +29,21 @@ Go to this [install guide](./docs/install.md)
 
 
 ## Actual State
-**288** Logic Element (LE) - **145** Registers
+**549** Logic Element (LE) - **232** Registers
 
 I concentrated mainly on implementing the WS2812B LED driver. With the help of the testbench tool, I implemented tests as I went along in order to discover the communication algorithm with the WS2812B LED serial line.
 
-the project works correctly End to End (except **menu**) with DE0 Nano device.
-
-The next step of the development could manage the initial Menu screen, to allow players to join the game level, we just try to reproduce [this MicroPython implementation](https://github.com/KerCrafter/micropython-leds-racer).
-
-The end of game level isn't totally implemented, at this stage it seems Player can continue to up to next position, even after the game level is finished: Need to lock others players.
-
-Also from game finished screen, we should implement a delay to restart game level.
-
-### Todo priority
-
-- Menu
-- [Electronic Experimentation] Reduce number of CLK edges required to debounce button, it could be interesting to test with a capacitor.
-
+the project works correctly End to End with DE0 Nano device.
 
 ### Todo options
 
 - Music
 - Random traps
+- [Electronic Experimentation] Reduce number of CLK edges required to debounce button, it could be interesting to test with a capacitor.
 
 ### Identified problems
 
 - From Test Bench we identify a problem about the RED Player led seems move two positions direcly : it's described in [LEDs_racer_main_tb](./LEDs_racer_main_tb.vhd#L414) / [this doc](./docs/sim_counter_problem.md)
-- Implements **ready_trigger_countdown** component (with a register), to derease 7 times until starting game
 
 ## Architecture (Top View Usage)
 
@@ -64,7 +52,6 @@ Also from game finished screen, we should implement a delay to restart game leve
 |  pin input   | input description  |   output description             |  pin output                    |
 |  :---   |  :--- | ---:                         |  ---:                    |
 |  **clk**  |  50 Mhz clock input signal  |  WS2812B transmission  |  **leds_line**  |
-|  **enable**  |  High state to start  | |  |
 |  **red_input**  |  Player Red input (connected to Red button) or Grounded  |    |  |
 |  **green_input**  |  Player Green input (connected to Green button) or Grounded  |    |  |
 |  **blue_input**  |  Player Blue input (connected to Blue button) or Grounded  |    |  |
