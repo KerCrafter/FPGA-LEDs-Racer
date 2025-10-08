@@ -71,24 +71,60 @@ architecture beha of activity_detector is
   signal boot_activity : std_logic := '0';
   signal boot_end : std_logic := '0';
 
-  signal a_prc : std_logic := '0';
-  signal b_prc : std_logic := '0';
-  signal b_lock : std_logic := '0';
-  signal c_prc : std_logic := '0';
-  signal c_lock : std_logic := '0';
-  signal d_prc : std_logic := '0';
-  signal d_lock : std_logic := '0';
-  signal e_prc : std_logic := '0';
-  signal e_lock : std_logic := '0';
-  signal f_prc : std_logic := '0';
-  signal f_lock : std_logic := '0';
+  signal activity_signals : std_logic := '0';
+
+  signal pipe1 : std_logic; 
+  signal pipe2 : std_logic; 
+  signal pipe3 : std_logic; 
+  signal pipe4 : std_logic; 
+  signal pipe5 : std_logic; 
 begin
 
   A_PIPE_PULSE : entity work.pipe_pulse_generator
     port map(
       clk => clk,
-      pipe_out => a_prc,
+      pipe_out => pipe1,
       s => A
+    );
+
+  B_PIPE_PULSE : entity work.pipe_pulse_generator
+    port map(
+      clk => clk,
+      pipe_in => pipe1,
+      pipe_out => pipe2,
+      s => B
+    );
+
+  C_PIPE_PULSE : entity work.pipe_pulse_generator
+    port map(
+      clk => clk,
+      pipe_in => pipe2,
+      pipe_out => pipe3,
+      s => C
+    );
+
+  D_PIPE_PULSE : entity work.pipe_pulse_generator
+    port map(
+      clk => clk,
+      pipe_in => pipe3,
+      pipe_out => pipe4,
+      s => D
+    );
+
+  E_PIPE_PULSE : entity work.pipe_pulse_generator
+    port map(
+      clk => clk,
+      pipe_in => pipe4,
+      pipe_out => pipe5,
+      s => E
+    );
+
+  F_PIPE_PULSE : entity work.pipe_pulse_generator
+    port map(
+      clk => clk,
+      pipe_in => pipe5,
+      pipe_out => activity_signals,
+      s => F
     );
 
   process(clk)
@@ -102,74 +138,9 @@ begin
       if boot_end = '1' then
         boot_activity <= '0';
       end if;
-
-      if b_prc = '0' and B = '1' then
-        b_prc <= '1';
-        b_lock <= '1';
-      end if;
-
-      if b_lock = '1' then
-        b_prc <= '0';
-      end if;
-
-      if b_lock = '1' and B = '0' then
-        b_lock <= '0';
-      end if;
-
-      if c_prc = '0' and C = '1' then
-        c_prc <= '1';
-        c_lock <= '1';
-      end if;
-
-      if c_lock = '1' then
-        c_prc <= '0';
-      end if;
-
-      if c_lock = '1' and C = '0' then
-        c_lock <= '0';
-      end if;
-
-      if d_prc = '0' and D = '1' then
-        d_prc <= '1';
-        d_lock <= '1';
-      end if;
-
-      if d_lock = '1' then
-        d_prc <= '0';
-      end if;
-
-      if d_lock = '1' and D = '0' then
-        d_lock <= '0';
-      end if;
-
-      if e_prc = '0' and E = '1' then
-        e_prc <= '1';
-        e_lock <= '1';
-      end if;
-
-      if e_lock = '1' then
-        e_prc <= '0';
-      end if;
-
-      if e_lock = '1' and E = '0' then
-        e_lock <= '0';
-      end if;
-
-      if f_prc = '0' and F = '1' then
-        f_prc <= '1';
-        f_lock <= '1';
-      end if;
-
-      if f_lock = '1' then
-        f_prc <= '0';
-      end if;
-
-      if f_lock = '1' and F = '0' then
-        f_lock <= '0';
-      end if;
     end if;
   end process;
 
-  R <= a_prc or b_prc or c_prc or d_prc or e_prc or f_prc or boot_activity;
+  R <= activity_signals or boot_activity;
 
 end architecture;
