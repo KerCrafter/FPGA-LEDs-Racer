@@ -1,6 +1,57 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
+entity pipe_pulse_generator is
+  port (
+    clk : in std_logic;
+    s : in std_logic;
+    pipe_in : in std_logic := '0';
+    pipe_out : out std_logic
+  );
+end entity;
+
+architecture beha of pipe_pulse_generator is
+  type t_state is (WAIT_UP, PULSE, WAIT_DOWN);
+  signal state : t_state := WAIT_UP;
+
+  signal sig_pulse : std_logic;
+begin
+
+  process(clk)
+  begin
+
+    if rising_edge(clk) then 
+
+      case state is
+        when WAIT_UP =>
+          if s = '1' then
+            state <= PULSE;
+            sig_pulse <= '1';
+          end if;
+
+        when PULSE =>
+          state <= WAIT_DOWN;
+          sig_pulse <= '0';
+
+        when WAIT_DOWN =>
+          sig_pulse <= '0';
+
+          if s = '0' then
+            state <= WAIT_UP;
+          end if;
+      end case;
+    end if;
+
+  end process;
+
+  pipe_out <= pipe_in or sig_pulse;
+
+end architecture;
+
+
+library ieee;
+use ieee.std_logic_1164.all;
+
 entity activity_detector is
   port(
     clk : in std_logic;
@@ -21,7 +72,6 @@ architecture beha of activity_detector is
   signal boot_end : std_logic := '0';
 
   signal a_prc : std_logic := '0';
-  signal a_lock : std_logic := '0';
   signal b_prc : std_logic := '0';
   signal b_lock : std_logic := '0';
   signal c_prc : std_logic := '0';
@@ -33,6 +83,13 @@ architecture beha of activity_detector is
   signal f_prc : std_logic := '0';
   signal f_lock : std_logic := '0';
 begin
+
+  A_PIPE_PULSE : entity work.pipe_pulse_generator
+    port map(
+      clk => clk,
+      pipe_out => a_prc,
+      s => A
+    );
 
   process(clk)
   begin
@@ -70,19 +127,6 @@ begin
 
       if c_lock = '1' and C = '0' then
         c_lock <= '0';
-      end if;
-
-      if a_prc = '0' and A = '1' then
-        a_prc <= '1';
-        a_lock <= '1';
-      end if;
-
-      if a_lock = '1' then
-        a_prc <= '0';
-      end if;
-
-      if a_lock = '1' and A = '0' then
-        a_lock <= '0';
       end if;
 
       if d_prc = '0' and D = '1' then
