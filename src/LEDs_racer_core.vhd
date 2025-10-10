@@ -3,48 +3,44 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use work.players_commands_pkg.all;
 
-entity LEDs_racer_core is
+entity domain_unit is
   generic (
     max_pos : integer := 16;
-    MENU_TIMER_CLK_COUNT : integer := 50000000; -- with 50Mhz = 1 second
-    END_TIMER_CLK_COUNT : integer := 750000000 -- with 50Mhz = 15 seconds
+    MENU_TIMER_CLK_COUNT : integer;
+    END_TIMER_CLK_COUNT : integer
   );
 
   port(
     clk : in std_logic;
 
     players_commands : in t_PLAYERS_COMMANDS;
-    
-    current_led : in integer range 0 to max_pos-1;
-    led_green_intensity : out std_logic_vector(7 downto 0);
-    led_red_intensity : out std_logic_vector(7 downto 0);
-    led_blue_intensity : out std_logic_vector(7 downto 0);
-    update_frame : out std_logic
+
+    current_screen : in std_logic_vector(1 downto 0);
+
+    red_ready_to_play : buffer std_logic;
+    red_cur_pos : out integer range 0 to max_pos-1;
+    blue_ready_to_play : buffer std_logic;
+    blue_cur_pos : out integer range 0 to max_pos-1;
+    green_ready_to_play : buffer std_logic;
+    green_cur_pos : out integer range 0 to max_pos-1;
+    yellow_ready_to_play : buffer std_logic;
+    yellow_cur_pos : out integer range 0 to max_pos-1;
+  
+    red_activity : out std_logic;
+    blue_activity : out std_logic;
+    green_activity : out std_logic;
+    yellow_activity : out std_logic;
+    menu_activity : out std_logic;
+
+    is_in_menu : out std_logic;
+    countdown : out integer range 0 to 7;
+    reset_all : buffer std_logic
   );
 end entity;
 
-architecture structural of LEDs_racer_core is
-  signal red_ready_to_play : std_logic;
-  signal red_cur_pos : integer range 0 to max_pos-1;
-  signal blue_ready_to_play : std_logic;
-  signal blue_cur_pos : integer range 0 to max_pos-1;
-  signal green_ready_to_play : std_logic;
-  signal green_cur_pos : integer range 0 to max_pos-1;
-  signal yellow_ready_to_play : std_logic;
-  signal yellow_cur_pos : integer range 0 to max_pos-1;
-  
-  signal red_activity : std_logic;
-  signal blue_activity : std_logic;
-  signal green_activity : std_logic;
-  signal yellow_activity : std_logic;
-  signal menu_activity : std_logic;
-
-  signal current_screen : std_logic_vector(1 downto 0);
-  signal is_in_menu : std_logic;
-  signal countdown : integer range 0 to 7;
-
-  signal reset_all : std_logic;
+architecture structural of domain_unit is
 begin
+
   red_btn: entity work.player_button
     generic map(max_pos => max_pos)
     port map (
@@ -110,6 +106,96 @@ begin
       countdown => countdown,
       activity => menu_activity
     );
+
+  end_game_logics : entity work.end_game_logics
+    generic map(END_TIMER_CLK_COUNT => END_TIMER_CLK_COUNT)
+    port map(
+      clk => clk,
+      current_screen => current_screen,
+      trigger_reset_all => reset_all
+    );
+
+end architecture;
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use work.players_commands_pkg.all;
+
+entity LEDs_racer_core is
+  generic (
+    max_pos : integer := 16;
+    MENU_TIMER_CLK_COUNT : integer := 50000000; -- with 50Mhz = 1 second
+    END_TIMER_CLK_COUNT : integer := 750000000 -- with 50Mhz = 15 seconds
+  );
+
+  port(
+    clk : in std_logic;
+
+    players_commands : in t_PLAYERS_COMMANDS;
+    
+    current_led : in integer range 0 to max_pos-1;
+    led_green_intensity : out std_logic_vector(7 downto 0);
+    led_red_intensity : out std_logic_vector(7 downto 0);
+    led_blue_intensity : out std_logic_vector(7 downto 0);
+    update_frame : out std_logic
+  );
+end entity;
+
+architecture structural of LEDs_racer_core is
+  signal red_ready_to_play : std_logic;
+  signal red_cur_pos : integer range 0 to max_pos-1;
+  signal blue_ready_to_play : std_logic;
+  signal blue_cur_pos : integer range 0 to max_pos-1;
+  signal green_ready_to_play : std_logic;
+  signal green_cur_pos : integer range 0 to max_pos-1;
+  signal yellow_ready_to_play : std_logic;
+  signal yellow_cur_pos : integer range 0 to max_pos-1;
+  
+  signal red_activity : std_logic;
+  signal blue_activity : std_logic;
+  signal green_activity : std_logic;
+  signal yellow_activity : std_logic;
+  signal menu_activity : std_logic;
+
+  signal current_screen : std_logic_vector(1 downto 0);
+  signal is_in_menu : std_logic;
+  signal countdown : integer range 0 to 7;
+
+  signal reset_all : std_logic;
+begin
+  domain_unit: entity work.domain_unit
+    generic map(
+      max_pos => max_pos,
+      MENU_TIMER_CLK_COUNT => MENU_TIMER_CLK_COUNT,
+      END_TIMER_CLK_COUNT => END_TIMER_CLK_COUNT 
+    )
+    port map (
+      clk => clk,
+
+      players_commands => players_commands,
+
+      current_screen => current_screen,
+
+      red_ready_to_play => red_ready_to_play,
+      red_cur_pos => red_cur_pos,
+      blue_ready_to_play => blue_ready_to_play,
+      blue_cur_pos => blue_cur_pos,
+      green_ready_to_play => green_ready_to_play,
+      green_cur_pos => green_cur_pos,
+      yellow_ready_to_play => yellow_ready_to_play,
+      yellow_cur_pos => yellow_cur_pos,
+    
+      red_activity => red_activity,
+      blue_activity => blue_activity,
+      green_activity => green_activity,
+      yellow_activity => yellow_activity,
+      menu_activity => menu_activity,
+
+      is_in_menu => is_in_menu,
+      countdown => countdown,
+      reset_all => reset_all
+    );
   
   activity_detector: entity work.activity_detector port map(
     clk => clk,
@@ -147,14 +233,6 @@ begin
       led_green_intensity => led_green_intensity,
       led_red_intensity => led_red_intensity,
       led_blue_intensity => led_blue_intensity
-    );
-
-  end_game_logics : entity work.end_game_logics
-    generic map(END_TIMER_CLK_COUNT => END_TIMER_CLK_COUNT)
-    port map(
-      clk => clk,
-      current_screen => current_screen,
-      trigger_reset_all => reset_all
     );
 
 end architecture;
