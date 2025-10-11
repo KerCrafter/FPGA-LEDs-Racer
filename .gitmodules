@@ -4,3 +4,6 @@
 [submodule "src/WS2812B-driver"]
 	path = src/WS2812B-driver
 	url = git@github.com:KerCrafter/WS2812B-driver.git
+[submodule "src/pipe-pulse-generator"]
+	path = src/pipe-pulse-generator
+	url = git@github.com:KerCrafter/pipe-pulse-generator.git
