@@ -13,3 +13,6 @@
 [submodule "src/timer"]
 	path = src/timer
 	url = git@github.com:KerCrafter/timer.git
+[submodule "tests/vunit-runner"]
+	path = tests/vunit-runner
+	url = git@github.com:KerCrafter/vunit-runner.git
