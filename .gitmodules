@@ -7,3 +7,9 @@
 [submodule "src/pipe-pulse-generator"]
 	path = src/pipe-pulse-generator
 	url = git@github.com:KerCrafter/pipe-pulse-generator.git
+[submodule "timer"]
+	path = src/timer
+	url = git@github.com:KerCrafter/timer.git
+[submodule "src/timer"]
+	path = src/timer
+	url = git@github.com:KerCrafter/timer.git
