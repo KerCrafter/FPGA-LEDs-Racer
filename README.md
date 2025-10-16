@@ -27,6 +27,11 @@ I'm putting here the software I use for development to date. It's possible that 
 
 Go to this [install guide](./docs/install.md)
 
+### Run Unit TestBenches
+
+Require **Docker Client** installed and just run :
+
+`./run_tests.sh`
 
 ## Actual State
 **549** Logic Element (LE) - **232** Registers
