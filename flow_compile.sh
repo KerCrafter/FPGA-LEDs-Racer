@@ -1,1 +1,1 @@
-sudo docker run -w /mnt/c/Users/clemk/Documents/Projects/FPGA/FPGA-LEDs-Racer -v /mnt/c/Users/clemk/Documents/Projects/FPGA/FPGA-LEDs-Racer:/mnt/c/Users/clemk/Documents/Projects/FPGA/FPGA-LEDs-Racer --rm -it quartus24.1 /24.1std/quartus/bin/quartus_sh --flow compile LEDs-racer.qpf -c DE0_NANO_LEDs_racer_main
+sudo docker run -w `pwd` -v `pwd`:`pwd` --rm -it quartus24.1 /24.1std/quartus/bin/quartus_sh --flow compile LEDs-racer.qpf -c DE0_NANO_LEDs_racer_main
