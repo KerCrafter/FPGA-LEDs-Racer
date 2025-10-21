@@ -1,7 +1,5 @@
 FROM archlinux
 
-WORKDIR .
-
 RUN pacman --noconfirm -Sy fontconfig core/libxcrypt-compat
 
 ADD ./qinst-lite-linux-24.1std-1077.run .
