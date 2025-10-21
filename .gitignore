@@ -17,3 +17,4 @@ vunit_out/
 schematic/race_4_players/fp-info-cache
 .qsys_edit/
 *.swn
+LEDs-racer_assignment_defaults.qdf
