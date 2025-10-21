@@ -1,5 +1,4 @@
 #!/bin/bash
 
-sudo docker run -w `pwd` -v `pwd`:`pwd` --rm -it quartus24.1 -t create-quartus-project.tcl
-
+sh create_quartus_project.sh
 sudo docker run -w `pwd` -v `pwd`:`pwd` --rm -it quartus24.1 --flow compile LEDs-racer.qpf
