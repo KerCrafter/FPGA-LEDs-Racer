@@ -4,7 +4,15 @@
 
 run `git clone --recurse-submodules https://github.com/KerCrafter/FPGA-LEDs-Racer.git`
 
-## Create Quartus Project
+## Create Quartus Project (Automatic Mode)
+
+**Require docker installed**
+
+just run script `./create_quartus_project.sh`
+
+or, to compile run `./flow_compile.sh`
+
+## Create Quartus Project (Manual Mode)
 
 From this project repository we ignore Quartus Project files. we includes only sources files.
 
@@ -54,7 +62,7 @@ Once your account has been created, your PC registered, a license requested and 
 - [Intel® FPGA Licensing Support Center](https://www.intel.com/content/www/us/en/support/programmable/licensing/support-center.html)
 - [Setup Quartus License Windows](https://www.terasic.com.tw/wiki/Setup_Quartus_License_Windows)
 
-### Configure a simulation
+### Configure a simulation (actually not included in Automatic Mode)
 
 In Quartus, go to `Assignments > Settings...`
 
