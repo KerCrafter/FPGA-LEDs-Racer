@@ -1,0 +1,81 @@
+# Tiny Tapeout project information
+project:
+  title:        "LEDs Racer"      # Project title
+  author:       "KerCrafter"      # Your name
+  discord:      "kercrafter"      # Your discord username, for communication and automatically assigning you a Tapeout role (optional)
+  description:  "Funny electronic game with WS2812B LEDs"      # One line description of what your project does
+  language:     "VHDL" # other examples include SystemVerilog, Amaranth, VHDL, etc
+  clock_hz:     50000000       # Clock frequency in Hz (or 0 if not applicable)
+
+  # How many tiles your design occupies? A single tile is about 167x108 uM.
+  tiles: "1x1"          # Valid values: 1x1, 1x2, 2x2, 3x2, 4x2, 6x2 or 8x2
+
+  # Your top module name must start with "tt_um_". Make it unique by including your github username:
+  top_module:  "tt_um_kercrafter_leds_racer"
+
+  # List your project's source files here.
+  # Source files must be in ./src and you must list each source file separately, one per line.
+  # Don't forget to also update `PROJECT_SOURCES` in test/Makefile.
+  source_files:
+    - "devices_entry/tt_um_kercrafter_leds_racer.vhd"
+    - "LEDs_racer_main.vhd"
+    - "LEDs_racer_core.vhd"
+    - "activity_detector.vhd"
+    - "display_unit.vhd"
+    - "display_unit.vhd"
+    - "domain_unit.vhd"
+    - "end_game_logics.vhd"
+    - "menu_manager.vhd"
+    - "player_button.vhd"
+    - "players_commands_pkg.vhd"
+    - "screen_manager.vhd"
+    - "button-debouncer/button_debouncer.vhd"
+    - "WS2812B-driver/WS2812B_driver.vhd"
+    - "WS2812B-driver/NRZ_sequence.vhd"
+    - "WS2812B-driver/pipe_tri_bus.vhd"
+    - "pipe-pulse-generator/pipe_pulse_generator.vhd"
+    - "timer/timer.vhd"
+    - "menu_manager/ready_trigger_countdown.vhd"
+    - "screen_manager/router.vhd"
+    - "screen_manager/screens/end_screen.vhd"
+    - "screen_manager/screens/gameplay_screen.vhd"
+    - "screen_manager/screens/menu_screen.vhd"
+    - "screen_manager/screens.vhd"
+    - "screen_manager/is_game_finished.vhd"
+    - "screen_manager/is_game_started.vhd"
+
+# The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
+# This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
+pinout:
+  # Inputs
+  ui[0]: "BLUE_BTN"
+  ui[1]: "RED_BTN"
+  ui[2]: "GREEN_BTN"
+  ui[3]: "YELLOW_BTN"
+  ui[4]: "CLK"
+  ui[5]: "FORCE_RESET"
+  ui[6]: ""
+  ui[7]: ""
+
+  # Outputs
+  uo[0]: "LEDS_LINE"
+  uo[1]: "TP_SCREEN_0"
+  uo[2]: "TP_SCREEN_1"
+  uo[3]: "TP_BLUE_RTP"
+  uo[4]: "TP_RED_RTP"
+  uo[5]: "TP_GREEN_RTP"
+  uo[6]: "TP_YELLOW_RTP"
+  uo[7]: "TP_UPDATE_FRAME"
+
+  # Bidirectional pins
+  uio[0]: ""
+  uio[1]: ""
+  uio[2]: ""
+  uio[3]: ""
+  uio[4]: ""
+  uio[5]: ""
+  uio[6]: ""
+  uio[7]: ""
+
+# Do not change!
+yaml_version: 6
