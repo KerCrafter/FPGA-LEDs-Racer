@@ -4,24 +4,14 @@ use ieee.numeric_std.all;
 
 entity tt_um_kercrafter_leds_racer is
   port(
-    clk : in std_logic;
-    ena : in std_logic;
-    rst_n : in std_logic;
-    
-    GREEN_BTN : in std_logic;
-    RED_BTN : in std_logic;
-    BLUE_BTN : in std_logic;
-    YELLOW_BTN : in std_logic;
-    FORCE_RESET: in std_logic;
-
-    LEDS_LINE : out std_logic;
-    TP_SCREEN_0 : out std_logic;
-    TP_SCREEN_1 : out std_logic;
-    TP_BLUE_RTP : out std_logic;
-    TP_RED_RTP : out std_logic;
-    TP_GREEN_RTP : out std_logic;
-    TP_YELLOW_RTP : out std_logic;
-    TP_UPDATE_FRAME : out std_logic
+    ui_in   : in  std_logic_vector(7 downto 0);
+    uo_out  : out std_logic_vector(7 downto 0);
+    uio_in  : in  std_logic_vector(7 downto 0);
+    uio_out : out std_logic_vector(7 downto 0);
+    uio_oe  : out std_logic_vector(7 downto 0);
+    ena     : in  std_logic;
+    clk     : in  std_logic;
+    rst_n   : in  std_logic
   );
 end entity;
 
@@ -32,13 +22,13 @@ begin
     generic map(max_pos => 109, DEBOUNCE_CLK_CNT => 65536)
     port map (
       clk => clk,
-      green_input => GREEN_BTN,
-      red_input => GREEN_BTN,
-      blue_input => BLUE_BTN,
-      yellow_input => YELLOW_BTN,
+      green_input => ui_in(2),
+      red_input => ui_in(1),
+      blue_input => ui_in(0),
+      yellow_input => ui_in(3),
       --force_reset => FORCE_RESET,
 
-      leds_line => LEDS_LINE
+      leds_line => uo_out(0)
       --tp_screen_0 => TP_SCREEN_0,
       --tp_screen_1 => TP_SCREEN_1,
       --tp_blue_rtp => TP_BLUE_RTP,
