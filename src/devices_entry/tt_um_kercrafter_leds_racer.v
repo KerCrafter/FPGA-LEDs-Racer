@@ -1,7 +1,7 @@
 `default_nettype none
 
 module tt_um_kercrafter_leds_racer (
-    input wire CLK,
+    input wire clk,
     input wire GREEN_BTN,
     input wire RED_BTN,
     input wire BLUE_BTN,

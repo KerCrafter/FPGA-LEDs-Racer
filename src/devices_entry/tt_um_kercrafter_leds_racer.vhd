@@ -4,7 +4,7 @@ use ieee.numeric_std.all;
 
 entity tt_um_kercrafter_leds_racer is
   port(
-    CLK : in std_logic;
+    clk : in std_logic;
     
     GREEN_BTN : in std_logic;
     RED_BTN : in std_logic;
@@ -29,7 +29,7 @@ begin
   LEDs_racer_main: entity work.LEDs_racer_main
     generic map(max_pos => 109, DEBOUNCE_CLK_CNT => 65536)
     port map (
-      clk => CLK,
+      clk => clk,
       green_input => GREEN_BTN,
       red_input => GREEN_BTN,
       blue_input => BLUE_BTN,
