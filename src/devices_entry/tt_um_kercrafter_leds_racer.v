@@ -3,6 +3,7 @@
 module tt_um_kercrafter_leds_racer (
     input wire clk,
     input wire ena,
+    input wire rst_n,
     input wire GREEN_BTN,
     input wire RED_BTN,
     input wire BLUE_BTN,

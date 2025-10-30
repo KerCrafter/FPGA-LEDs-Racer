@@ -6,6 +6,7 @@ entity tt_um_kercrafter_leds_racer is
   port(
     clk : in std_logic;
     ena : in std_logic;
+    rst_n : in std_logic;
     
     GREEN_BTN : in std_logic;
     RED_BTN : in std_logic;
