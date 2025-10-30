@@ -1,0 +1,67 @@
+{
+  "DESIGN_NAME": "tt_um_kercrafter_leds_racer",
+  "VHDL_FILES": [
+    "dir::src/devices_entry/tt_um_kercrafter_leds_racer.vhd",
+    "dir::src/LEDs_racer_main.vhd",
+    "dir::src/LEDs_racer_core.vhd",
+    "dir::src/activity_detector.vhd",
+    "dir::src/display_unit.vhd",
+    "dir::src/display_unit.vhd",
+    "dir::src/domain_unit.vhd",
+    "dir::src/end_game_logics.vhd",
+    "dir::src/menu_manager.vhd",
+    "dir::src/player_button.vhd",
+    "dir::src/players_commands_pkg.vhd",
+    "dir::src/screen_manager.vhd",
+    "dir::src/button-debouncer/button_debouncer.vhd",
+    "dir::src/WS2812B-driver/WS2812B_driver.vhd",
+    "dir::src/WS2812B-driver/NRZ_sequence.vhd",
+    "dir::src/WS2812B-driver/pipe_tri_bus.vhd",
+    "dir::src/pipe-pulse-generator/pipe_pulse_generator.vhd",
+    "dir::src/timer/timer.vhd",
+    "dir::src/menu_manager/ready_trigger_countdown.vhd",
+    "dir::src/screen_manager/router.vhd",
+    "dir::src/screen_manager/screens/end_screen.vhd",
+    "dir::src/screen_manager/screens/gameplay_screen.vhd",
+    "dir::src/screen_manager/screens/menu_screen.vhd",
+    "dir::src/screen_manager/screens.vhd",
+    "dir::src/screen_manager/is_game_finished.vhd",
+    "dir::src/screen_manager/is_game_started.vhd"
+  ],
+  "FP_SIZING": "absolute",
+  "DIE_AREA": "0 0 157.32 111.52",
+  "FP_DEF_TEMPLATE": "dir::tt-custom-gds/tt_block_1x1_pg.def",
+
+  "FP_IO_HLENGTH": 2,
+  "FP_IO_VLENGTH": 2,
+
+  "//": "use alternative efabless decap cells to solve LI density issue",
+  "DECAP_CELL": [
+    "sky130_fd_sc_hd__decap_3",
+    "sky130_fd_sc_hd__decap_4",
+    "sky130_fd_sc_hd__decap_6",
+    "sky130_fd_sc_hd__decap_8",
+    "sky130_ef_sc_hd__decap_12"
+  ],
+
+  "//": "period is in ns, so 20ns == 50mHz",
+  "CLOCK_PERIOD": 20,
+  "CLOCK_PORT": "clk",
+
+  "//": "don't use power rings or met5",
+  "DESIGN_IS_CORE": false,
+  "RT_MAX_LAYER": "met4",
+
+  "//": "make the PDN denser",
+  "FP_PDN_VOFFSET": 20.355,
+  "FP_PDN_VPITCH": 40.710,
+
+  "//": "save some time",
+  "RUN_KLAYOUT_XOR": false,
+
+  "//": "reduce wasted space",
+  "TOP_MARGIN_MULT": 1,
+  "BOTTOM_MARGIN_MULT": 1,
+  "LEFT_MARGIN_MULT": 6,
+  "RIGHT_MARGIN_MULT": 6
+}
