@@ -18,32 +18,6 @@ project:
   # Don't forget to also update `PROJECT_SOURCES` in test/Makefile.
   source_files:
     - "devices_entry/tt_um_kercrafter_leds_racer.v"
-    - "devices_entry/tt_um_kercrafter_leds_racer.vhd"
-    - "LEDs_racer_main.vhd"
-    - "LEDs_racer_core.vhd"
-    - "activity_detector.vhd"
-    - "display_unit.vhd"
-    - "display_unit.vhd"
-    - "domain_unit.vhd"
-    - "end_game_logics.vhd"
-    - "menu_manager.vhd"
-    - "player_button.vhd"
-    - "players_commands_pkg.vhd"
-    - "screen_manager.vhd"
-    - "button-debouncer/button_debouncer.vhd"
-    - "WS2812B-driver/WS2812B_driver.vhd"
-    - "WS2812B-driver/NRZ_sequence.vhd"
-    - "WS2812B-driver/pipe_tri_bus.vhd"
-    - "pipe-pulse-generator/pipe_pulse_generator.vhd"
-    - "timer/timer.vhd"
-    - "menu_manager/ready_trigger_countdown.vhd"
-    - "screen_manager/router.vhd"
-    - "screen_manager/screens/end_screen.vhd"
-    - "screen_manager/screens/gameplay_screen.vhd"
-    - "screen_manager/screens/menu_screen.vhd"
-    - "screen_manager/screens.vhd"
-    - "screen_manager/is_game_finished.vhd"
-    - "screen_manager/is_game_started.vhd"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 # This section is for the datasheet/website. Use descriptive names (e.g., RX, TX, MOSI, SCL, SEG_A, etc.).
