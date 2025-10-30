@@ -1,22 +1,16 @@
 `default_nettype none
 
+// just a stub to keep the Tiny Tapeout tools happy
+
 module tt_um_kercrafter_leds_racer (
-    input wire clk,
-    input wire ena,
-    input wire rst_n,
-    input wire GREEN_BTN,
-    input wire RED_BTN,
-    input wire BLUE_BTN,
-    input wire YELLOW_BTN,
-    input wire FORCE_RESET,
-    output wire LEDS_LINE,
-    output wire TP_SCREEN_0,
-    output wire TP_SCREEN_1,
-    output wire TP_BLUE_RTP,
-    output wire TP_RED_RTP,
-    output wire TP_GREEN_RTP,
-    output wire TP_YELLOW_RTP,
-    output wire TP_UPDATE_FRAME
+    input  wire [7:0] ui_in,
+    output wire [7:0] uo_out,
+    input  wire [7:0] uio_in,
+    output wire [7:0] uio_out,
+    output wire [7:0] uio_oe,
+    input  wire       ena,
+    input  wire       clk,
+    input  wire       rst_n
 );
 
 endmodule
