@@ -17,6 +17,7 @@ project:
   # Source files must be in ./src and you must list each source file separately, one per line.
   # Don't forget to also update `PROJECT_SOURCES` in test/Makefile.
   source_files:
+    - "devices_entry/tt_um_kercrafter_leds_racer.v"
     - "devices_entry/tt_um_kercrafter_leds_racer.vhd"
     - "LEDs_racer_main.vhd"
     - "LEDs_racer_core.vhd"
