@@ -53,8 +53,8 @@ pinout:
   ui[1]: "RED_BTN"
   ui[2]: "GREEN_BTN"
   ui[3]: "YELLOW_BTN"
-  ui[4]: "clk"
-  ui[5]: "FORCE_RESET"
+  ui[4]: "FORCE_RESET"
+  ui[5]: ""
   ui[6]: ""
   ui[7]: ""
 
