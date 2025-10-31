@@ -29,8 +29,9 @@ module tt_um_kercrafter_leds_racer (
         //.tp_update_frame(TP_UPDATE_FRAME)
     );
 
-    assign uio_out = 8'b0;
-    assign uio_oe  = 8'b0;
-    assign uo_out[7:1] = 7'b0;
+    assign uio_out = 0;
+    assign uio_oe  = 0;
+
+    wire _unused = &{ena, clk, rst_n, 1'b0};
 
 endmodule
