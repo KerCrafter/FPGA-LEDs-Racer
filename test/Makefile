@@ -6,7 +6,30 @@ SIM ?= icarus
 WAVES ?= 1
 TOPLEVEL_LANG ?= verilog
 SRC_DIR = $(PWD)/../src
-PROJECT_SOURCES = project.v
+PROJECT_SOURCES += devices_entry/tt_um_kercrafter_leds_racer.v
+PROJECT_SOURCES += LEDs_racer_main.v
+PROJECT_SOURCES += LEDs_racer_core.v
+PROJECT_SOURCES += activity_detector.v
+PROJECT_SOURCES += display_unit.v
+PROJECT_SOURCES += domain_unit.v
+PROJECT_SOURCES += end_game_logics.v
+PROJECT_SOURCES += menu_manager.v
+PROJECT_SOURCES += player_button.v
+PROJECT_SOURCES += screen_manager.v
+PROJECT_SOURCES += button-debouncer/button_debouncer.v
+PROJECT_SOURCES += WS2812B-driver/WS2812B_driver.v
+PROJECT_SOURCES += WS2812B-driver/NRZ_sequence.v
+PROJECT_SOURCES += WS2812B-driver/pipe_tri_bus.v
+PROJECT_SOURCES += pipe-pulse-generator/pipe_pulse_generator.v
+PROJECT_SOURCES += timer/timer.v
+PROJECT_SOURCES += menu_manager/ready_trigger_countdown.v
+PROJECT_SOURCES += screen_manager/router.v
+PROJECT_SOURCES += screen_manager/screens/end_screen.v
+PROJECT_SOURCES += screen_manager/screens/gameplay_screen.v
+PROJECT_SOURCES += screen_manager/screens/menu_screen.v
+PROJECT_SOURCES += screen_manager/screens.v
+PROJECT_SOURCES += screen_manager/is_game_finished.v
+PROJECT_SOURCES += screen_manager/is_game_started.v
 
 ifneq ($(GATES),yes)
 
