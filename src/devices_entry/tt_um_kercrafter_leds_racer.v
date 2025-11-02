@@ -21,7 +21,7 @@ module tt_um_kercrafter_leds_racer (
         .red_input(ui_in[1]),
         .blue_input(ui_in[0]),
         .yellow_input(ui_in[3]),
-        .leds_line(uo_out[0])
+        .leds_line(uo_out[0]),
         .tp_screen_0(uo_out[1]),
         .tp_screen_1(uo_out[2]),
         .tp_blue_ready_to_play(uo_out[3]),
