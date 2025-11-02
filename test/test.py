@@ -65,6 +65,10 @@ async def test_blue_ready_to_play(dut):
     # Wait for one clock cycle to see the output values
     await ClockCycles(dut.clk, 70000) # button debouncer value
 
+    dut.ui_in.value = "00000000"
+
+    await ClockCycles(dut.clk, 10) # button debouncer value
+
     # The following assersion is just an example of how to check the output values.
     # Change it to match the actual expected output of your module:
     assert dut.uo_out.value == "00001001"
