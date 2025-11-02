@@ -56,6 +56,8 @@ async def test_blue_ready_to_play(dut):
 
     dut._log.info("Test project behavior")
 
+    await ClockCycles(dut.clk, 10)
+
     # Set the input values you want to test
     dut.ui_in.value = "00000001"
     dut.uio_in.value = 0
