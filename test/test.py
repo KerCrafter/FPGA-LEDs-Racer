@@ -38,6 +38,7 @@ async def test_init(dut):
     # Keep testing the module by changing the input values, waiting for
     # one or more clock cycles, and asserting the expected output values.
 
+@cocotb.test()
 async def test_blue_ready_to_play(dut):
     dut._log.info("Start")
 
