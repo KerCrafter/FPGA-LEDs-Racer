@@ -28,6 +28,7 @@ module display_unit #(
 
     activity_detector activity_detector_inst (
         .clk(clk),
+        .reset(reset_all),
         .A(green_activity),
         .B(red_activity),
         .C(blue_activity),

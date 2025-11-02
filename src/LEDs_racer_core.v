@@ -4,6 +4,7 @@ module LEDs_racer_core #(
     parameter END_TIMER_CLK_COUNT = 750000000
 )(
     input  wire clk,
+    input  wire reset,
     input  wire players_commands_red,
     input  wire players_commands_blue,
     input  wire players_commands_green,
@@ -39,6 +40,7 @@ module LEDs_racer_core #(
         .END_TIMER_CLK_COUNT(END_TIMER_CLK_COUNT)
     ) domain_unit_inst (
         .clk(clk),
+        .reset(reset),
         .players_commands_red(players_commands_red),
         .players_commands_blue(players_commands_blue),
         .players_commands_green(players_commands_green),

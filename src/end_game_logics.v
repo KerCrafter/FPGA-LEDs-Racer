@@ -2,6 +2,7 @@ module end_game_logics #(
     parameter END_TIMER_CLK_COUNT = 1
 )(
     input  wire clk,
+    input  wire reset,
     input  wire [1:0] current_screen,
     output wire trigger_reset_all
 );
@@ -13,6 +14,7 @@ module end_game_logics #(
         .FIRST_TICK_AFTER_DELAY(1)
     ) TIMER_inst (
         .clk(clk),
+        .reset(reset),
         .enable(end_timer_enable),
         .tick(trigger_reset_all)
     );

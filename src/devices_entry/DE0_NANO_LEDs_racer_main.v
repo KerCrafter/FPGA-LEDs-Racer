@@ -12,6 +12,7 @@ module DE0_NANO_LEDs_racer_main(
         .DEBOUNCE_CLK_CNT(65536)
     ) u_LEDs_racer_main (
         .clk(clk),
+        .reset(0),
         .green_input(green_input),
         .red_input(red_input),
         .blue_input(blue_input),

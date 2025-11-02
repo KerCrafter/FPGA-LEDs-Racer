@@ -4,6 +4,7 @@ module domain_unit #(
     parameter END_TIMER_CLK_COUNT = 750000000
 )(
     input  wire clk,
+    input  wire reset,
     input  wire players_commands_red,
     input  wire players_commands_blue,
     input  wire players_commands_green,
@@ -93,6 +94,7 @@ module domain_unit #(
         .END_TIMER_CLK_COUNT(END_TIMER_CLK_COUNT)
     ) end_game_logics_inst (
         .clk(clk),
+        .reset(reset),
         .current_screen(current_screen),
         .trigger_reset_all(reset_all)
     );

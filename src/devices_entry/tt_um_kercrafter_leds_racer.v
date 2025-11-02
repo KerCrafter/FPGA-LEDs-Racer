@@ -16,6 +16,7 @@ module tt_um_kercrafter_leds_racer (
         .DEBOUNCE_CLK_CNT(65536)
     ) LEDs_racer_main_inst (
         .clk(clk),
+        .reset(~rst_n),
         .green_input(ui_in[2]),
         .red_input(ui_in[1]),
         .blue_input(ui_in[0]),
@@ -41,6 +42,6 @@ module tt_um_kercrafter_leds_racer (
     assign uio_out = 0;
     assign uio_oe  = 0;
 
-    wire _unused = &{ena, clk, rst_n, 1'b0};
+    wire _unused = &{ena, 1'b0};
 
 endmodule

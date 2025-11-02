@@ -17,6 +17,11 @@ module player_button #(
     reg [1:0] state;
 
     always @(posedge clk) begin
+      if (reset) begin
+        cur_pos <= 0;
+        ready_to_play <= 1'b0;
+
+      end else begin
         case (state)
             WAIT_INTERACT: begin
                 if (btn)
@@ -44,6 +49,7 @@ module player_button #(
                 ready_to_play <= 0;
             end
         endcase
+      end
     end
 
     assign activity = btn;

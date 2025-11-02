@@ -1,5 +1,6 @@
 module activity_detector (
     input  wire clk,
+    input  wire reset,
     input  wire A,
     input  wire B,
     input  wire C,
@@ -21,12 +22,14 @@ module activity_detector (
 
     pipe_pulse_generator A_PIPE_PULSE (
         .clk(clk),
+        .reset(reset),
         .pipe_out(pipe1),
         .s(A)
     );
 
     pipe_pulse_generator B_PIPE_PULSE (
         .clk(clk),
+        .reset(reset),
         .pipe_in(pipe1),
         .pipe_out(pipe2),
         .s(B)
@@ -34,6 +37,7 @@ module activity_detector (
 
     pipe_pulse_generator C_PIPE_PULSE (
         .clk(clk),
+        .reset(reset),
         .pipe_in(pipe2),
         .pipe_out(pipe3),
         .s(C)
@@ -41,6 +45,7 @@ module activity_detector (
 
     pipe_pulse_generator D_PIPE_PULSE (
         .clk(clk),
+        .reset(reset),
         .pipe_in(pipe3),
         .pipe_out(pipe4),
         .s(D)
@@ -48,6 +53,7 @@ module activity_detector (
 
     pipe_pulse_generator E_PIPE_PULSE (
         .clk(clk),
+        .reset(reset),
         .pipe_in(pipe4),
         .pipe_out(pipe5),
         .s(E)
@@ -55,18 +61,25 @@ module activity_detector (
 
     pipe_pulse_generator F_PIPE_PULSE (
         .clk(clk),
+        .reset(reset),
         .pipe_in(pipe5),
         .pipe_out(activity_signals),
         .s(F)
     );
 
     always @(posedge clk) begin
+      if (reset) begin
+        boot_activity <= 1'b0;
+        boot_end <= 1'b0;
+      
+      end else begin
         if (boot_end == 1'b0) begin
             boot_activity <= 1'b1;
             boot_end <= 1'b1;
         end else begin
             boot_activity <= 1'b0;
         end
+      end
     end
 
     assign R = activity_signals | boot_activity;

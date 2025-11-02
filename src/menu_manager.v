@@ -33,6 +33,7 @@ module menu_manager #(
         .CLK_COUNT(MENU_TIMER_CLK_COUNT)
     ) menu_timer (
         .clk(clk),
+        .reset(reset),
         .enable(trigger_countdown),
         .tick(menu_timer_tick)
     );
