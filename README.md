@@ -1,5 +1,9 @@
 # FPGA Leds Racer
 
+Tiny Tapeout Actions
+
+![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg) ![](../../workflows/fpga/badge.svg)
+
 ## Description
 
 A fun little game, 4 players (Red, Blue, Green, Yellow) around a table, each with an arcade button, must challenge each other by pressing their button as fast as possible.

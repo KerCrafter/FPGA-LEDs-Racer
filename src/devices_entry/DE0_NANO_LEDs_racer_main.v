@@ -1,5 +1,6 @@
 module DE0_NANO_LEDs_racer_main(
     input  wire clk,
+    input  wire reset,
     input  wire green_input,
     input  wire red_input,
     input  wire blue_input,
@@ -19,7 +20,7 @@ module DE0_NANO_LEDs_racer_main(
         .DEBOUNCE_CLK_CNT(65536)
     ) u_LEDs_racer_main (
         .clk(clk),
-        .reset(0),
+        .reset(~reset),
         .green_input(green_input),
         .red_input(red_input),
         .blue_input(blue_input),
