@@ -13,7 +13,13 @@ module LEDs_racer_core #(
     output wire [7:0] led_green_intensity,
     output wire [7:0] led_red_intensity,
     output wire [7:0] led_blue_intensity,
-    output wire update_frame
+    output wire update_frame,
+    output wire tp_blue_ready_to_play,
+    output wire tp_green_ready_to_play,
+    output wire tp_yellow_ready_to_play,
+    output wire tp_red_ready_to_play,
+    output wire tp_screen_0,
+    output wire tp_screen_1
 );
 
     wire red_ready_to_play;
@@ -33,6 +39,13 @@ module LEDs_racer_core #(
     wire is_in_menu;
     wire [$clog2(8)-1:0] countdown;
     wire reset_all;
+
+    assign tp_blue_ready_to_play = blue_ready_to_play;
+    assign tp_green_ready_to_play = green_ready_to_play;
+    assign tp_yellow_ready_to_play = yellow_ready_to_play;
+    assign tp_red_ready_to_play = red_ready_to_play;
+    assign tp_screen_0 = current_screen[0];
+    assign tp_screen_1 = current_screen[1];
 
     domain_unit #(
         .MAX_POS(MAX_POS),

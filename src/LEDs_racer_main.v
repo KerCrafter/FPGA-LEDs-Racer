@@ -8,7 +8,14 @@ module LEDs_racer_main #(
     input  wire red_input,
     input  wire blue_input,
     input  wire yellow_input,
-    output wire leds_line
+    output wire leds_line,
+    output wire tp_update_frame,
+    output wire tp_blue_ready_to_play,
+    output wire tp_green_ready_to_play,
+    output wire tp_yellow_ready_to_play,
+    output wire tp_red_ready_to_play,
+    output wire tp_screen_0,
+    output wire tp_screen_1
 );
 
     wire [$clog2(MAX_POS)-1:0] led_proceed;
@@ -21,6 +28,8 @@ module LEDs_racer_main #(
     wire players_commands_red;
     wire players_commands_blue;
     wire players_commands_yellow;
+
+    assign tp_update_frame = update_frame;
 
     button_debouncer #(
         .DEBOUNCE_CLK_CNT(DEBOUNCE_CLK_CNT)
@@ -84,7 +93,13 @@ module LEDs_racer_main #(
         .current_led(led_proceed),
         .led_green_intensity(green_intensity),
         .led_red_intensity(red_intensity),
-        .led_blue_intensity(blue_intensity)
+        .led_blue_intensity(blue_intensity),
+        .tp_blue_ready_to_play(tp_blue_ready_to_play),
+        .tp_green_ready_to_play(tp_green_ready_to_play),
+        .tp_yellow_ready_to_play(tp_yellow_ready_to_play),
+        .tp_red_ready_to_play(tp_red_ready_to_play),
+        .tp_screen_0(tp_screen_0),
+        .tp_screen_1(tp_screen_1)
     );
 
 endmodule
