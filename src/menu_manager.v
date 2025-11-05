@@ -16,9 +16,9 @@ module menu_manager #(
     wire menu_timer_tick;
     reg  countdown_finished;
 
-    parameter WAIT_INTERACT   = 2'd0;
-    parameter WHEN_RESET      = 2'd1;
-    parameter WHEN_TIMER_TICK = 2'd2;
+    localparam WAIT_INTERACT   = 2'd0;
+    localparam WHEN_RESET      = 2'd1;
+    localparam WHEN_TIMER_TICK = 2'd2;
     reg [1:0] state;
 
     ready_trigger_countdown ready_trigger_countdown_inst (
@@ -59,13 +59,17 @@ module menu_manager #(
                     else if (countdown == 1)
                         countdown_finished <= 1;
                     else
-                        countdown <= countdown - 1;
+                        countdown <= countdown - 1'd1;
                 end
 
                 WHEN_RESET: begin
                     state <= WAIT_INTERACT;
                     countdown <= 0;
                     countdown_finished <= 0;
+                end
+
+                default: begin
+                    state <= WAIT_INTERACT;
                 end
             endcase
         end

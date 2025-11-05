@@ -10,10 +10,10 @@ module player_button #(
     output reg  ready_to_play
 );
 
-    parameter WAIT_INTERACT   = 2'd0;
-    parameter WHEN_BTN        = 2'd1;
-    parameter WAIT_RELEASE_BTN= 2'd2;
-    parameter WHEN_RESET      = 2'd3;
+    localparam WAIT_INTERACT   = 2'd0;
+    localparam WHEN_BTN        = 2'd1;
+    localparam WAIT_RELEASE_BTN= 2'd2;
+    localparam WHEN_RESET      = 2'd3;
     reg [1:0] state;
 
     always @(posedge clk) begin
@@ -35,7 +35,7 @@ module player_button #(
                 if (current_screen == 2'b00)
                     ready_to_play <= 1;
                 else if (current_screen == 2'b01 && ready_to_play)
-                    cur_pos <= cur_pos + 1;
+                    cur_pos <= cur_pos + 1'd1;
             end
 
             WAIT_RELEASE_BTN: begin

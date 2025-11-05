@@ -21,8 +21,6 @@ module screens #(
     wire is_gameplay;
     wire is_finished;
 
-    wire [7:0] gp_led_green_intensity, gp_led_red_intensity, gp_led_blue_intensity;
-    wire [7:0] end_led_green_intensity, end_led_red_intensity, end_led_blue_intensity;
     wire [7:0] j1_led_green_intensity, j1_led_red_intensity, j1_led_blue_intensity;
     wire [7:0] j2_led_green_intensity, j2_led_red_intensity, j2_led_blue_intensity;
 
@@ -40,6 +38,9 @@ module screens #(
         .yellow_ready_to_play(yellow_ready_to_play),
         .countdown(countdown),
         .led_number(current_led),
+        .i_green_intensity(0),
+        .i_red_intensity(0),
+        .i_blue_intensity(0),
         .o_green_intensity(j1_led_green_intensity),
         .o_red_intensity(j1_led_red_intensity),
         .o_blue_intensity(j1_led_blue_intensity)
@@ -70,7 +71,6 @@ module screens #(
         .blue_pos(blue_cur_pos),
         .green_pos(green_cur_pos),
         .yellow_pos(yellow_cur_pos),
-        .led_number(current_led),
         .i_green_intensity(j2_led_green_intensity),
         .i_red_intensity(j2_led_red_intensity),
         .i_blue_intensity(j2_led_blue_intensity),

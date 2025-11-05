@@ -34,6 +34,6 @@ module tt_um_kercrafter_leds_racer (
     assign uio_out = 0;
     assign uio_oe  = 0;
 
-    wire _unused = &{ena, 1'b0};
+    wire _unused = &{1'b0, ui_in[7:4], uio_in, ena};
 
 endmodule

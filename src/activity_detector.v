@@ -23,6 +23,7 @@ module activity_detector (
     pipe_pulse_generator A_PIPE_PULSE (
         .clk(clk),
         .reset(reset),
+        .pipe_in(1'b0),
         .pipe_out(pipe1),
         .s(A)
     );

@@ -6,7 +6,6 @@ module end_screen #(
     input  wire [$clog2(MAX_POS)-1:0] blue_pos,
     input  wire [$clog2(MAX_POS)-1:0] green_pos,
     input  wire [$clog2(MAX_POS)-1:0] yellow_pos,
-    input  wire [$clog2(MAX_POS)-1:0] led_number,
     input  wire [7:0] i_red_intensity,
     input  wire [7:0] i_blue_intensity,
     input  wire [7:0] i_green_intensity,
