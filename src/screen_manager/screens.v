@@ -38,9 +38,9 @@ module screens #(
         .yellow_ready_to_play(yellow_ready_to_play),
         .countdown(countdown),
         .led_number(current_led),
-        .i_green_intensity(0),
-        .i_red_intensity(0),
-        .i_blue_intensity(0),
+        .i_green_intensity(8'd0),
+        .i_red_intensity(8'd0),
+        .i_blue_intensity(8'd0),
         .o_green_intensity(j1_led_green_intensity),
         .o_red_intensity(j1_led_red_intensity),
         .o_blue_intensity(j1_led_blue_intensity)
