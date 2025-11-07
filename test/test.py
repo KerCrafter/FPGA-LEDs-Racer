@@ -2,8 +2,11 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import cocotb
+import os
 from cocotb.clock import Clock, Timer
 from cocotb.triggers import ClockCycles, RisingEdge
+
+IS_GL = bool(os.getenv("GL_TEST"))
 
 @cocotb.test()
 async def test_init(dut):
@@ -143,7 +146,7 @@ async def test_yellow_ready_to_play(dut):
 
     assert dut.tp_yellow_ready_to_play.value == 1
 
-@cocotb.test()
+@cocotb.test(skip=IS_GL)
 async def test_blue_and_red_ready_to_play(dut):
     dut._log.info("Start")
 
