@@ -1,3 +1,5 @@
+`default_nettype none
+
 module screen_manager #(
     parameter MAX_POS = 109
 )(

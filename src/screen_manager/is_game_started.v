@@ -1,3 +1,5 @@
+`default_nettype none
+
 module is_game_started #(
     parameter MAX_POS = 109
 )(

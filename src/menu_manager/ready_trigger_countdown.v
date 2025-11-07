@@ -1,3 +1,5 @@
+`default_nettype none
+
 module ready_trigger_countdown (
     input  wire green_ready_to_play,
     input  wire red_ready_to_play,

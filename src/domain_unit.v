@@ -1,3 +1,5 @@
+`default_nettype none
+
 module domain_unit #(
     parameter MAX_POS = 16,
     parameter MENU_TIMER_CLK_COUNT = 50000000,

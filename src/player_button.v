@@ -1,3 +1,5 @@
+`default_nettype none
+
 module player_button #(
     parameter MAX_POS = 16
 )(
@@ -18,6 +20,7 @@ module player_button #(
 
     always @(posedge clk) begin
       if (reset) begin
+        state <= 2'd0;
         cur_pos <= 0;
         ready_to_play <= 1'b0;
 

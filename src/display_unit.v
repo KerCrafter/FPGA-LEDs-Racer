@@ -1,3 +1,5 @@
+`default_nettype none
+
 module display_unit #(
     parameter MAX_POS = 16
 )(

@@ -1,3 +1,5 @@
+`default_nettype none
+
 module end_game_logics #(
     parameter END_TIMER_CLK_COUNT = 1
 )(

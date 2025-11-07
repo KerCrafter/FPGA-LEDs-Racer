@@ -1,3 +1,5 @@
+`default_nettype none
+
 module end_screen #(
     parameter MAX_POS = 109
 )(

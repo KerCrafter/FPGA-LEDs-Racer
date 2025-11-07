@@ -1,6 +1,11 @@
 `default_nettype none
 
-module tt_um_kercrafter_leds_racer (
+module tt_um_kercrafter_leds_racer #(
+    parameter MAX_POS = 109,
+    parameter DEBOUNCE_CLK_CNT = 65536,
+    parameter MENU_TIMER_CLK_COUNT = 50000000,
+    parameter END_TIMER_CLK_COUNT = 750000000
+)(
     input  wire [7:0] ui_in,
     output wire [7:0] uo_out,
     input  wire [7:0] uio_in,
@@ -12,8 +17,10 @@ module tt_um_kercrafter_leds_racer (
 );
 
     LEDs_racer_main #(
-        .MAX_POS(109),
-        .DEBOUNCE_CLK_CNT(65536)
+        .MAX_POS(MAX_POS),
+        .DEBOUNCE_CLK_CNT(DEBOUNCE_CLK_CNT),
+        .MENU_TIMER_CLK_COUNT(MENU_TIMER_CLK_COUNT),
+        .END_TIMER_CLK_COUNT(END_TIMER_CLK_COUNT)
     ) LEDs_racer_main_inst (
         .clk(clk),
         .reset(~rst_n),

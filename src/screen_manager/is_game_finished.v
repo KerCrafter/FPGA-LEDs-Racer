@@ -1,3 +1,5 @@
+`default_nettype none
+
 module is_game_finished #(
     parameter MAX_POS = 109
 )(

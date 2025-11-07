@@ -1,3 +1,5 @@
+`default_nettype none
+
 module screens #(
     parameter MAX_POS = 109
 )(

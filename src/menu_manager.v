@@ -1,3 +1,5 @@
+`default_nettype none
+
 module menu_manager #(
     parameter MENU_TIMER_CLK_COUNT = 50000000
 )(

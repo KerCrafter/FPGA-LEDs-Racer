@@ -1,3 +1,5 @@
+`default_nettype none
+
 module activity_detector (
     input  wire clk,
     input  wire reset,

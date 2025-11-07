@@ -1,3 +1,5 @@
+`default_nettype none
+
 module menu_screen #(
     parameter MAX_POS = 109
 )(

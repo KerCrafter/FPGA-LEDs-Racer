@@ -1,3 +1,5 @@
+`default_nettype none
+
 module router #(
     parameter MAX_POS = 109
 )(

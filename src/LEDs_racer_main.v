@@ -1,6 +1,10 @@
+`default_nettype none
+
 module LEDs_racer_main #(
     parameter MAX_POS = 109,
-    parameter DEBOUNCE_CLK_CNT = 65536
+    parameter DEBOUNCE_CLK_CNT = 65536,
+    parameter MENU_TIMER_CLK_COUNT = 50000000,
+    parameter END_TIMER_CLK_COUNT = 750000000
 )(
     input  wire clk,
     input  wire reset,
@@ -81,7 +85,9 @@ module LEDs_racer_main #(
     );
 
     LEDs_racer_core #(
-        .MAX_POS(MAX_POS)
+        .MAX_POS(MAX_POS),
+        .MENU_TIMER_CLK_COUNT(MENU_TIMER_CLK_COUNT),
+        .END_TIMER_CLK_COUNT(END_TIMER_CLK_COUNT)
     ) LEDs_racer_core_inst (
         .clk(clk),
         .reset(reset),
