@@ -36,12 +36,16 @@ module tb (
 `endif
 
   // Replace tt_um_example with your module name:
+`ifdef GL_TEST
+  tt_um_kercrafter_leds_racer user_project (
+`else
   tt_um_kercrafter_leds_racer #(
     .MAX_POS(109),
     .DEBOUNCE_CLK_CNT(30),
     .MENU_TIMER_CLK_COUNT(10),
     .END_TIMER_CLK_COUNT(20)
   ) user_project (
+`endif
       // Include power ports for the Gate Level test:
 `ifdef GL_TEST
       .VPWR(VPWR),
