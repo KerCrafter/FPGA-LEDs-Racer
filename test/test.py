@@ -2,20 +2,11 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import cocotb
+import os
 from cocotb.clock import Clock, Timer
 from cocotb.triggers import ClockCycles, RisingEdge
 
-def is_gate_level(dut):
-    return dut._name.startswith("gl_")
-
-def skip_in_gl(test_func):
-    skip_flag = True
-    async def wrapper(dut):
-        if is_gate_level(dut) and skip_flag:
-            dut._log.info(f"Skipping {test_func.__name__} in gate-level simulation")
-            return
-        return await test_func(dut)
-    return wrapper
+IS_GL = "/sim_build/gl/" in os.getcwd()
 
 @cocotb.test()
 async def test_init(dut):
@@ -155,8 +146,7 @@ async def test_yellow_ready_to_play(dut):
 
     assert dut.tp_yellow_ready_to_play.value == 1
 
-@cocotb.test()
-@skip_in_gl
+@cocotb.test(skip=IS_GL)
 async def test_blue_and_red_ready_to_play(dut):
     dut._log.info("Start")
 
