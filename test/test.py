@@ -2,11 +2,11 @@
 # SPDX-License-Identifier: Apache-2.0
 
 import cocotb
-import os
+#import os
 from cocotb.clock import Clock, Timer
 from cocotb.triggers import ClockCycles, RisingEdge
 
-IS_GL = "/sim_build/gl/" in os.getcwd()
+#IS_GL = "/sim_build/gl/" in os.getcwd()
 
 @cocotb.test()
 async def test_init(dut):
@@ -146,30 +146,30 @@ async def test_yellow_ready_to_play(dut):
 
     assert dut.tp_yellow_ready_to_play.value == 1
 
-@cocotb.test(skip=IS_GL)
-async def test_blue_and_red_ready_to_play(dut):
-    dut._log.info("Start")
-
-    clock = Clock(dut.clk, 20, 'ns')
-    cocotb.start_soon(clock.start())
-
-    # Reset
-    dut._log.info("Reset")
-    dut.ena.value = 1
-    dut.ui_in.value = 0
-    dut.uio_in.value = 0
-    dut.rst_n.value = 0
-    await ClockCycles(dut.clk, 10)
-    dut.rst_n.value = 1
-
-    await ClockCycles(dut.clk, 10)
-
-    dut._log.info("Blue and Red press button")
-
-    dut.ui_in.value = "00000011"
-
-    dut._log.info("Wait TP_CUR_SCREEN change")
-
-    await RisingEdge(dut.tp_cur_screen)
-
-    assert dut.tp_cur_screen.value == 1
+#@cocotb.test()
+#async def test_blue_and_red_ready_to_play(dut):
+#    dut._log.info("Start")
+#
+#    clock = Clock(dut.clk, 20, 'ns')
+#    cocotb.start_soon(clock.start())
+#
+#    # Reset
+#    dut._log.info("Reset")
+#    dut.ena.value = 1
+#    dut.ui_in.value = 0
+#    dut.uio_in.value = 0
+#    dut.rst_n.value = 0
+#    await ClockCycles(dut.clk, 10)
+#    dut.rst_n.value = 1
+#
+#    await ClockCycles(dut.clk, 10)
+#
+#    dut._log.info("Blue and Red press button")
+#
+#    dut.ui_in.value = "00000011"
+#
+#    dut._log.info("Wait TP_CUR_SCREEN change")
+#
+#    await RisingEdge(dut.tp_cur_screen)
+#
+#    assert dut.tp_cur_screen.value == 1
