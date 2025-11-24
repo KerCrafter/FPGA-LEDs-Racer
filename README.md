@@ -1,8 +1,8 @@
 # FPGA Leds Racer
 
-Tiny Tapeout Actions
+## Tiny Tapeout (TTSKY25b)
 
-![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg) ![](../../workflows/fpga/badge.svg)
+![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b/workflows/gds/badge.svg) ![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b/workflows/docs/badge.svg) ![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b/workflows/test/badge.svg) ![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b/workflows/fpga/badge.svg)
 
 ## Description
 
