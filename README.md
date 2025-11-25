@@ -1,12 +1,4 @@
-# FPGA Leds Racer
-
-## Tiny Tapeout Chips 
-
-| Chip Name | Build | Status |
-|--|--|--|
-| [**TTSKY25b**](https://tinytapeout.com/chips/ttsky25b/tt_um_kercrafter_leds_racer) | [![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b/workflows/gds/badge.svg)](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b) [![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b/workflows/docs/badge.svg)](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b) [![https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b/workflows/test/badge.svg)](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b/workflows/test/badge.svg) | Submitted (production in progress) |
-| [**TTGFp02**](https://app.tinytapeout.com/projects/3455) | [![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-TTGF0p2/workflows/gds/badge.svg)](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-TTGF0p2) [![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-TTGF0p2/workflows/docs/badge.svg)](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-TTGF0p2) [![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-TTGF0p2/workflows/test/badge.svg)](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-TTGF0p2) | Submitted (production in progress) |
-| **TTIHP26a** | Upcoming project | Not Submitted |
+# LEDs Racer
 
 ## Description
 
@@ -15,6 +7,20 @@ A fun little game, 4 players (Red, Blue, Green, Yellow) around a table, each wit
 Pressing the button causes their led to progress to the center circle. The first to reach the center wins.
 
 [![Video Preview](./assets/video-preview.png)](https://youtu.be/GDuj1pzoBWQ)
+
+## Platforms
+
+### FPGAs
+
+- DE0 Nano
+
+### Tiny Tapeout Chips 
+
+| Chip Name | Build | Status |
+|--|--|--|
+| [**TTSKY25b**](https://tinytapeout.com/chips/ttsky25b/tt_um_kercrafter_leds_racer) | [![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b/workflows/gds/badge.svg)](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b) [![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b/workflows/docs/badge.svg)](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b) [![https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b/workflows/test/badge.svg)](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b/workflows/test/badge.svg) | Submitted (production in progress) |
+| [**TTGFp02**](https://app.tinytapeout.com/projects/3455) | [![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-TTGF0p2/workflows/gds/badge.svg)](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-TTGF0p2) [![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-TTGF0p2/workflows/docs/badge.svg)](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-TTGF0p2) [![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-TTGF0p2/workflows/test/badge.svg)](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-TTGF0p2) | Submitted (production in progress) |
+| **TTIHP26a** | Upcoming project | Not Submitted |
 
 ## Hardware
 
