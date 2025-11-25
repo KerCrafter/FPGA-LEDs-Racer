@@ -1,8 +1,11 @@
 # FPGA Leds Racer
 
-## Tiny Tapeout (TTSKY25b)
+## Tiny Tapeout Chips 
 
-![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b/workflows/gds/badge.svg) ![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b/workflows/docs/badge.svg) ![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b/workflows/test/badge.svg) ![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b/workflows/fpga/badge.svg)
+| Chip Name | Build |
+|--|--|
+| **TTSKY25b** | ![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b/workflows/gds/badge.svg) ![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b/workflows/docs/badge.svg) ![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b/workflows/test/badge.svg) ![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-SKY25b/workflows/fpga/badge.svg) |
+| **TTGFp02** | ![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-TTGF0p2/workflows/gds/badge.svg) ![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-TTGF0p2/workflows/docs/badge.svg) ![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-TTGF0p2/workflows/test/badge.svg) ![](https://github.com/KerCrafter/LEDs-Racer-TinyTapeout-TTGF0p2/workflows/fpga/badge.svg) |
 
 ## Description
 
