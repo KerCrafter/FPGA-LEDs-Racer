@@ -1,1 +1,1 @@
-sudo docker build -t quartus24.1 .
+sudo docker build -t quartus25.1 .

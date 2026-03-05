@@ -10,7 +10,7 @@ run `git clone --recurse-submodules https://github.com/KerCrafter/FPGA-LEDs-Race
 
 ### Prepare Quartus Docker Image
 
-Download Quartus Lite **.run** file from [Intel Download Center](https://www.intel.com/content/www/us/en/software-kit/849769/intel-quartus-prime-lite-edition-design-software-version-24-1-for-linux.html), place this file into `quartus-cli/` folder.
+Download Quartus Lite **.run** file from [Altera Website](https://www.altera.com/downloads/fpga-development-tools/quartus-prime-lite-edition-design-software-version-25-1-linux), place this file into `quartus-cli/` folder.
 
 and run `cd quartus-cli/ && ./build.sh && cd -`
 

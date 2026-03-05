@@ -2,13 +2,13 @@ FROM archlinux
 
 RUN pacman --noconfirm -Sy fontconfig core/libxcrypt-compat
 
-ADD ./qinst-lite-linux-24.1std-1077.run .
+ADD ./qinst-lite-linux-25.1std-1129.run .
 
-RUN ./qinst-lite-linux-24.1std-1077.run --target install_dir --noexec
+RUN ./qinst-lite-linux-25.1std-1129.run --target install_dir --noexec
 
 
-RUN ./install_dir/qinst.sh --cli --download-dir ./install_dir/quartus --components quartus,cyclone
+RUN ./install_dir/qinst.sh --cli --download-dir ./install_quartus --components quartus,cyclone
 
-RUN ./install_dir/quartus/QuartusLiteSetup-24.1std.0.1077-linux.run --mode unattended --installdir 24.1std --accept_eula 1
+RUN ./install_quartus/QuartusLiteSetup-25.1std.0.1129-linux.run --mode unattended --installdir 25.1std --accept_eula 1
 
-ENTRYPOINT ["/24.1std/quartus/bin/quartus_sh"]
+ENTRYPOINT ["/25.1std/quartus/bin/quartus_sh"]
