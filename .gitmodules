@@ -16,3 +16,6 @@
 [submodule "tests/vunit-runner"]
 	path = tests/vunit-runner
 	url = git@github.com:KerCrafter/vunit-runner.git
+[submodule "quartus-cli"]
+	path = quartus-cli
+	url = git@github.com:KerCrafter/quartus-cli-docker.git
