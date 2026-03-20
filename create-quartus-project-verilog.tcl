@@ -8,7 +8,6 @@ set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
 set_global_assignment -name VERILOG_FILE src/devices_entry/DE0_NANO_LEDs_racer_main.v 
 set_global_assignment -name VERILOG_FILE src/LEDs_racer_main.v 
 set_global_assignment -name VERILOG_FILE src/LEDs_racer_core.v
-set_global_assignment -name VERILOG_FILE src/LEDs_racer_core.v
 set_global_assignment -name VERILOG_FILE src/activity_detector.v
 set_global_assignment -name VERILOG_FILE src/display_unit.v
 set_global_assignment -name VERILOG_FILE src/domain_unit.v
